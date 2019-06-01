@@ -137,6 +137,12 @@
     <Compile Include="Components\Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\RetractPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\RetractPanel.Designer.cs">
+      <DependentUpon>RetractPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hooks.cs" />
     <Compile Include="Peripherals\CodeTextBox.cs">
       <SubType>Component</SubType>
@@ -207,6 +213,9 @@
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Components\RetractPanel.resx">
+      <DependentUpon>RetractPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\Connections.resx">
       <DependentUpon>Connections.cs</DependentUpon>
     </EmbeddedResource>

@@ -30,6 +30,8 @@ namespace WindowsFormsApp1
         System.Windows.Forms.Timer t;
         static System.Windows.Forms.Timer waitprocess = new System.Windows.Forms.Timer();
         Stopwatch stopwatch = new Stopwatch();
+        Stopwatch speedwatch = new Stopwatch();
+
         public MainWindow()
         {
             t = new System.Windows.Forms.Timer();
@@ -38,19 +40,34 @@ namespace WindowsFormsApp1
             t.Tick += delegate { MainWindow.AppIdle(); };
             t.Start();
             mm = this;
-            waveIn = new WaveIn() { WaveFormat = new WaveFormat(), };
+            WaveOut wo = new WaveOut() { };
+
+            //BufferedWaveProvider bwp = new BufferedWaveProvider(new WaveFormat(44100, 2));
+            //bwp
+            var gc = Process.GetProcessesByName("chrome").Where(n => n.MainWindowHandle.ToInt32() != 0).FirstOrDefault();
+
+            var wci = WaveCallbackInfo.ExistingWindow(gc.MainWindowHandle);
+
+            waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
+            //wo.
+            //d.WaveFormat = new WaveFormat(44100, 2);
             waveIn.DataAvailable += delegate (object sender, WaveInEventArgs e)
             {
-                r = new RawSourceWaveStream(e.Buffer, 0, e.BytesRecorded, WaveFormat.CreateALawFormat(44100, 1));
+                //ams.Position = 0;
+                //ams.SetLength(0);
+                //ams.Write(e.Buffer, 0, e.BytesRecorded);
+
+                r = new RawSourceWaveStream(e.Buffer, 0, e.Buffer.Length, wf);
                 //ams.Write(e.Buffer, 0, e.BytesRecorded);
                 //nsbs = e.Buffer;
             };
-            //WaveChannel32 waveChannel32 = new WaveChannel32(bwp, 1,1) ;
+
             waveIn.StartRecording();
+            //waveIn.StartRecording();
             DoubleBuffered = true;
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
-            //waveViewer1.WaveStream = r;
-            //waveViewer1
+            //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+
+            speedwatch.Start();
             stopwatch.Start();
             MainMenu();
         }
@@ -65,6 +82,7 @@ namespace WindowsFormsApp1
         static KeyboardHook kb_listener;
         static Color salc = Color.FromArgb(155, 25, 255);
         static Color sahc = Color.FromArgb(255, 153, 25);
+        static Color samc = Color.FromArgb(255, 253, 25);
         static void MainMenu()
         {
             mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
@@ -74,8 +92,10 @@ namespace WindowsFormsApp1
                 {
                     var v = nawf[i];
                     var exp = (v * v * v * v * v);
-                    wfp.Color = LerpCol(salc, sahc, (float)Math.Cos(exp));
-                    e.Graphics.DrawLine(wfp, i, exp * 77, i, exp * exp * 51);
+                    wfp.Color = LerpCol(salc, LerpCol(samc, sahc, (float)Math.Sin(exp)), (float)Math.Cos(exp));
+                    e.Graphics.DrawLine(wfp, i, exp * 77, i, exp * exp * 71);
+                    //e.Graphics.DrawLine(wfp, i, exp * 17, i, exp * -exp * 71);
+                    //e.Graphics.DrawLine(wfp, i, exp * 87, i, exp * exp * 221);
 
                 }
             };
@@ -153,6 +173,7 @@ namespace WindowsFormsApp1
         static int jumps_found = 0x00B79060;
 
         static float nmtd, omtd, totmtd;
+        static float nspd, ospd, spd, oespd;
         static int jmp = 0;
         public static float memReadFloat(int addr, IntPtr proc)
         {
@@ -190,10 +211,12 @@ namespace WindowsFormsApp1
         static PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes", string.Empty);
         static NetworkInterface netDevice = NetworkInterface.GetAllNetworkInterfaces().First();
         static IPv4InterfaceStatistics ndata;
-        static MMDeviceEnumerator ade = new MMDeviceEnumerator();
+        //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
         static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+        static WasapiLoopbackCapture d = new WasapiLoopbackCapture(adcs[0]);
         static MemoryStream ams = new MemoryStream();
-        static RawSourceWaveStream r = new RawSourceWaveStream(ams, WaveFormat.CreateALawFormat(44100, 2));
+        static WaveFormat wf = new WaveFormat(44100, 2);
+        static RawSourceWaveStream r = new RawSourceWaveStream(ams, wf);
         static WaveIn waveIn;
         static WaveOut wout;
         volatile static byte[] nsbs = new byte[17000];
@@ -203,19 +226,23 @@ namespace WindowsFormsApp1
             rmc = lmc = msc = tc = 1;
         }
 
-        static void refresh()
+        async static void refresh()
         {
-            //await Task.Run(() =>
+            await Task.Run(() =>
             {
                 ocv = ncv;
                 ncv = cpuCounter.NextValue();
                 orv = nrv;
                 nrv = ramCounter.NextValue();
-
-                omtd = nmtd;
+                omtd = nspd = nmtd;
+                //spd = nspd - ospd;
                 nmtd = memReadFloat(moto_travelled, gpp);
 
                 jmp = memReadInt(jumps_found, gpp);
+                //if(nmtd <= 0)
+                //{
+
+                //}
 
                 if (omtd > nmtd)
                 {
@@ -227,12 +254,26 @@ namespace WindowsFormsApp1
 
                 cc += ncv;
                 sc++;
-
                 //if (tc % 1000 == 0)
                 if (mm.stopwatch.ElapsedMilliseconds > 1000)
                 {
+                    //spd = nspd - ospd;
+                    //if (ospd != nspd)
+                    //{
+
+                    //}
+                    //ospd = nspd;
                     tc += 1;
                     mm.stopwatch.Restart();
+                }
+
+                if (mm.speedwatch.ElapsedMilliseconds > 100)
+                {
+                    //oespd = ospd;
+                    //var espd1 = spd;
+                    spd = ((nspd - ospd) / (0.06f) + spd) / 3f;
+                    ospd = nspd;
+                    mm.speedwatch.Restart();
                 }
 
                 ndata = netDevice.GetIPv4Statistics();
@@ -247,7 +288,7 @@ namespace WindowsFormsApp1
                 cbout = nbout - obout;
                 cbout = cbout < 0 ? 0 : cbout;
             }
-            //);
+            );
 
             //await Task.Run(() =>
             {
@@ -257,9 +298,13 @@ namespace WindowsFormsApp1
                 try
                 {
                     //NAudio visualiser
+                    //var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
+
+                    //SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
+
                     r.Position = 0L;
-                    var samplesPerPixel = 8;
-                    var bytesPerSample = r.WaveFormat.BitsPerSample / 8 * r.WaveFormat.Channels;
+                    var samplesPerPixel = 6;
+                    var bytesPerSample = 4 / 4 * 2;
                     var startPosition = 0;
                     byte[] array = new byte[samplesPerPixel * bytesPerSample];
                     r.Position = startPosition + mm.canvas1.ClientRectangle.Left * bytesPerSample * samplesPerPixel;
@@ -299,6 +344,9 @@ namespace WindowsFormsApp1
         static Color skyblue = Color.FromArgb(51, 153, 255);
         static Color green = Color.FromArgb(0, 255, 0);
         static Color red = Color.FromArgb(255, 0, 0);
+
+        //static bool pLoad, pNet, pTrack;
+
         static Color purple = Color.FromArgb(255, 0, 0);
 
         public static void AppIdle()
@@ -382,8 +430,9 @@ namespace WindowsFormsApp1
 
             if (gpp != null)
             {
-                mm.labelDist.Text = string.Format(ci, "{0:0.0}\n{1:0.0}", nmtd, totmtd);
+                mm.labelDist.Text = string.Format(ci, "{0:0.0}|{2:000.0}\n{1:0.0}", nmtd, totmtd, spd);
                 mm.labelJumps.Text = string.Format(ci, "JMP: {0}/70", jmp);
+                mm.labelSpeed.Width = (int)spd;
                 if (gp != null && gp.HasExited && !waitprocess.Enabled)
                 {
                     mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(80, 30, 30);
