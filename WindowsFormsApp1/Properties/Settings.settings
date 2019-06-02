@@ -19,5 +19,17 @@
     <Setting Name="MotoDistance" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="salc" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">155, 25, 255</Value>
+    </Setting>
+    <Setting Name="samc" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 153, 25</Value>
+    </Setting>
+    <Setting Name="sahc" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 253, 25</Value>
+    </Setting>
+    <Setting Name="canvback" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">44, 44, 44</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

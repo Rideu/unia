@@ -80,9 +80,9 @@ namespace WindowsFormsApp1
 
         static MouseHook ms_listener;
         static KeyboardHook kb_listener;
-        static Color salc = Color.FromArgb(155, 25, 255);
-        static Color sahc = Color.FromArgb(255, 153, 25);
-        static Color samc = Color.FromArgb(255, 253, 25);
+        static Color salc = Properties.Settings.Default.salc;
+        static Color sahc = Properties.Settings.Default.sahc;
+        static Color samc = Properties.Settings.Default.samc;
         static void MainMenu()
         {
             mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
@@ -213,6 +213,8 @@ namespace WindowsFormsApp1
         static IPv4InterfaceStatistics ndata;
         //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
         static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+        static MMDevice pad = adcs[0];
+        static float padpv;
         static WasapiLoopbackCapture d = new WasapiLoopbackCapture(adcs[0]);
         static MemoryStream ams = new MemoryStream();
         static WaveFormat wf = new WaveFormat(44100, 2);
@@ -292,6 +294,9 @@ namespace WindowsFormsApp1
 
             //await Task.Run(() =>
             {
+
+                padpv = pad.AudioMeterInformation.PeakValues[0];
+
                 oawf = nawf;
                 nawf = new float[awfl = mm.canvas1.Width];
                 oawf = nawf.Length != oawf.Length ? nawf : oawf;
@@ -439,7 +444,63 @@ namespace WindowsFormsApp1
                     waitprocess.Start();
                 }
             }
+
+            if (mm.checkBoxColoriseCanvas.Checked)
+            {
+                mm.canvas1.BackColor = LerpCol(hcbc, LerpCol(mcbc, lcbc, (padpv)), (padpv * 4));
+            }
+            else if (mm.canvas1.BackColor != canvback)
+            {
+                mm.canvas1.BackColor = canvback;
+            }
         }
+
+        static bool pspecRetr = true;
+
+        private void panelSpectrumSets_Click(object sender, EventArgs e)
+        {
+            panelSpectrumSets.Location = panelSpectrumSets.Location == new Point(3, -30) ? new Point(3, 0) : new Point(3, -30);
+
+        }
+
+        private void buttonSL_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            switch ((sender as Control).Name.Substring(6, 2))
+            {
+                case "BC":
+                {
+                    canvback = colorDialog1.Color;
+                }
+                break;
+                case "SL":
+                {
+                    salc = colorDialog1.Color;
+                }
+                break;
+                case "SM":
+                {
+                    samc = colorDialog1.Color;
+                }
+                break;
+                case "SH":
+                {
+                    sahc = colorDialog1.Color;
+                }
+                break;
+
+                default:
+                    break;
+            }
+            Properties.Settings.Default.sahc = sahc;
+            Properties.Settings.Default.samc = samc;
+            Properties.Settings.Default.salc = salc;
+            Properties.Settings.Default.canvback = canvback;
+            Properties.Settings.Default.Save();
+        }
+
+        static Color hcbc = Color.FromArgb(155, 25, 255), mcbc = Color.FromArgb(255, 153, 25), lcbc = Color.FromArgb(155, 53, 225);
+        static Color canvback = Properties.Settings.Default.canvback;
 
         static Color LerpCol(Color src, Color tgt, float by)
         {

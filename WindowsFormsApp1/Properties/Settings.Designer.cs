@@ -67,5 +67,53 @@ namespace WindowsFormsApp1.Properties {
                 this["MotoDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("155, 25, 255")]
+        public global::System.Drawing.Color salc {
+            get {
+                return ((global::System.Drawing.Color)(this["salc"]));
+            }
+            set {
+                this["salc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 153, 25")]
+        public global::System.Drawing.Color samc {
+            get {
+                return ((global::System.Drawing.Color)(this["samc"]));
+            }
+            set {
+                this["samc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 253, 25")]
+        public global::System.Drawing.Color sahc {
+            get {
+                return ((global::System.Drawing.Color)(this["sahc"]));
+            }
+            set {
+                this["sahc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("44, 44, 44")]
+        public global::System.Drawing.Color canvback {
+            get {
+                return ((global::System.Drawing.Color)(this["canvback"]));
+            }
+            set {
+                this["canvback"] = value;
+            }
+        }
     }
 }

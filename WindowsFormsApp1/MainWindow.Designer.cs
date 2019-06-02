@@ -30,9 +30,30 @@
         private void InitializeComponent()
         {
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.labelName = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.canvas1 = new WindowsFormsApp1.Components.Canvas();
+            this.panelSpectrumSets = new System.Windows.Forms.Panel();
+            this.checkBoxColoriseCanvas = new System.Windows.Forms.CheckBox();
+            this.buttonSH = new System.Windows.Forms.Button();
+            this.buttonSM = new System.Windows.Forms.Button();
+            this.buttonBC = new System.Windows.Forms.Button();
+            this.buttonSL = new System.Windows.Forms.Button();
+            this.retractPanel4 = new WindowsFormsApp1.Components.RetractPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.retractPanel3 = new WindowsFormsApp1.Components.RetractPanel();
+            this.labelLMC = new System.Windows.Forms.Label();
+            this.labelDist = new System.Windows.Forms.Label();
+            this.labelKeys = new System.Windows.Forms.Label();
+            this.labelSpeed = new System.Windows.Forms.Label();
+            this.labelRMC = new System.Windows.Forms.Label();
+            this.labelJumps = new System.Windows.Forms.Label();
             this.retractPanel2 = new WindowsFormsApp1.Components.RetractPanel();
             this.panelCPUI = new System.Windows.Forms.Panel();
             this.labelCPUVl = new System.Windows.Forms.Label();
@@ -56,23 +77,12 @@
             this.labelINVl = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.labelLMC = new System.Windows.Forms.Label();
-            this.labelDist = new System.Windows.Forms.Label();
-            this.labelSpeed = new System.Windows.Forms.Label();
-            this.labelKeys = new System.Windows.Forms.Label();
-            this.labelJumps = new System.Windows.Forms.Label();
-            this.labelRMC = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.retractPanel3 = new WindowsFormsApp1.Components.RetractPanel();
-            this.retractPanel4 = new WindowsFormsApp1.Components.RetractPanel();
-            this.labelName = new System.Windows.Forms.Label();
             this.panelHeader.SuspendLayout();
             this.canvas1.SuspendLayout();
+            this.panelSpectrumSets.SuspendLayout();
+            this.retractPanel4.SuspendLayout();
+            this.retractPanel3.SuspendLayout();
             this.retractPanel2.SuspendLayout();
             this.panelCPUI.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -80,8 +90,6 @@
             this.retractPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.retractPanel3.SuspendLayout();
-            this.retractPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -99,6 +107,17 @@
             this.panelHeader.TabIndex = 6;
             this.panelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             this.panelHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(5, 3);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(29, 13);
+            this.labelName.TabIndex = 2;
+            this.labelName.Text = "Unia";
+            this.labelName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
+            this.labelName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
             // 
             // button7
             // 
@@ -128,9 +147,10 @@
             // 
             // canvas1
             // 
-            this.canvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.canvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.canvas1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.canvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.canvas1.Controls.Add(this.panelSpectrumSets);
             this.canvas1.Controls.Add(this.retractPanel4);
             this.canvas1.Controls.Add(this.retractPanel3);
             this.canvas1.Controls.Add(this.retractPanel2);
@@ -140,6 +160,255 @@
             this.canvas1.Name = "canvas1";
             this.canvas1.Size = new System.Drawing.Size(769, 270);
             this.canvas1.TabIndex = 14;
+            // 
+            // panelSpectrumSets
+            // 
+            this.panelSpectrumSets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panelSpectrumSets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSpectrumSets.Controls.Add(this.checkBoxColoriseCanvas);
+            this.panelSpectrumSets.Controls.Add(this.buttonSH);
+            this.panelSpectrumSets.Controls.Add(this.buttonSM);
+            this.panelSpectrumSets.Controls.Add(this.buttonBC);
+            this.panelSpectrumSets.Controls.Add(this.buttonSL);
+            this.panelSpectrumSets.Location = new System.Drawing.Point(3, -30);
+            this.panelSpectrumSets.Name = "panelSpectrumSets";
+            this.panelSpectrumSets.Size = new System.Drawing.Size(173, 40);
+            this.panelSpectrumSets.TabIndex = 24;
+            this.panelSpectrumSets.Click += new System.EventHandler(this.panelSpectrumSets_Click);
+            // 
+            // checkBoxColoriseCanvas
+            // 
+            this.checkBoxColoriseCanvas.AutoSize = true;
+            this.checkBoxColoriseCanvas.Checked = true;
+            this.checkBoxColoriseCanvas.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxColoriseCanvas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxColoriseCanvas.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.checkBoxColoriseCanvas.Location = new System.Drawing.Point(156, 3);
+            this.checkBoxColoriseCanvas.Name = "checkBoxColoriseCanvas";
+            this.checkBoxColoriseCanvas.Size = new System.Drawing.Size(12, 11);
+            this.checkBoxColoriseCanvas.TabIndex = 4;
+            this.checkBoxColoriseCanvas.UseVisualStyleBackColor = true;
+            // 
+            // buttonSH
+            // 
+            this.buttonSH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSH.Location = new System.Drawing.Point(81, 3);
+            this.buttonSH.Name = "buttonSH";
+            this.buttonSH.Size = new System.Drawing.Size(33, 22);
+            this.buttonSH.TabIndex = 3;
+            this.buttonSH.Text = "SH";
+            this.buttonSH.UseVisualStyleBackColor = true;
+            this.buttonSH.Click += new System.EventHandler(this.buttonSL_Click);
+            // 
+            // buttonSM
+            // 
+            this.buttonSM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSM.Location = new System.Drawing.Point(42, 3);
+            this.buttonSM.Name = "buttonSM";
+            this.buttonSM.Size = new System.Drawing.Size(33, 22);
+            this.buttonSM.TabIndex = 2;
+            this.buttonSM.Text = "SM";
+            this.buttonSM.UseVisualStyleBackColor = true;
+            this.buttonSM.Click += new System.EventHandler(this.buttonSL_Click);
+            // 
+            // buttonBC
+            // 
+            this.buttonBC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBC.Location = new System.Drawing.Point(120, 3);
+            this.buttonBC.Name = "buttonBC";
+            this.buttonBC.Size = new System.Drawing.Size(30, 22);
+            this.buttonBC.TabIndex = 1;
+            this.buttonBC.Text = "B";
+            this.buttonBC.UseVisualStyleBackColor = true;
+            this.buttonBC.Click += new System.EventHandler(this.buttonSL_Click);
+            // 
+            // buttonSL
+            // 
+            this.buttonSL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSL.Location = new System.Drawing.Point(3, 3);
+            this.buttonSL.Name = "buttonSL";
+            this.buttonSL.Size = new System.Drawing.Size(33, 22);
+            this.buttonSL.TabIndex = 0;
+            this.buttonSL.Text = "SL";
+            this.buttonSL.UseVisualStyleBackColor = true;
+            this.buttonSL.Click += new System.EventHandler(this.buttonSL_Click);
+            // 
+            // retractPanel4
+            // 
+            this.retractPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.retractPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel4.ButtonText = "Utilities";
+            this.retractPanel4.Controls.Add(this.button1);
+            this.retractPanel4.Controls.Add(this.button5);
+            this.retractPanel4.Controls.Add(this.button4);
+            this.retractPanel4.Controls.Add(this.button3);
+            this.retractPanel4.Controls.Add(this.button2);
+            this.retractPanel4.Location = new System.Drawing.Point(666, 244);
+            this.retractPanel4.Name = "retractPanel4";
+            this.retractPanel4.Size = new System.Drawing.Size(99, 207);
+            this.retractPanel4.TabIndex = 23;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button1.Location = new System.Drawing.Point(3, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(90, 29);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "CommNET";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(134)))), ((int)(((byte)(84)))));
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button5.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.button5.ForeColor = System.Drawing.Color.Black;
+            this.button5.Location = new System.Drawing.Point(3, 138);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(90, 29);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "Ultracopy";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.BurlyWood;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button4.Location = new System.Drawing.Point(3, 173);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(90, 29);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "MySQLMGR";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button3.Location = new System.Drawing.Point(3, 103);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(90, 29);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "TwitchMGR";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button2.Location = new System.Drawing.Point(3, 68);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(90, 29);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "SysMeas";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // retractPanel3
+            // 
+            this.retractPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.retractPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel3.ButtonText = "SA Tracker";
+            this.retractPanel3.Controls.Add(this.labelLMC);
+            this.retractPanel3.Controls.Add(this.labelDist);
+            this.retractPanel3.Controls.Add(this.labelKeys);
+            this.retractPanel3.Controls.Add(this.labelSpeed);
+            this.retractPanel3.Controls.Add(this.labelRMC);
+            this.retractPanel3.Controls.Add(this.labelJumps);
+            this.retractPanel3.Location = new System.Drawing.Point(226, 244);
+            this.retractPanel3.Name = "retractPanel3";
+            this.retractPanel3.Size = new System.Drawing.Size(274, 207);
+            this.retractPanel3.TabIndex = 22;
+            // 
+            // labelLMC
+            // 
+            this.labelLMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labelLMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelLMC.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelLMC.Location = new System.Drawing.Point(3, 85);
+            this.labelLMC.Name = "labelLMC";
+            this.labelLMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelLMC.Size = new System.Drawing.Size(133, 51);
+            this.labelLMC.TabIndex = 12;
+            this.labelLMC.Text = "Mouse";
+            this.labelLMC.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // labelDist
+            // 
+            this.labelDist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labelDist.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelDist.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelDist.Location = new System.Drawing.Point(3, 139);
+            this.labelDist.Name = "labelDist";
+            this.labelDist.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelDist.Size = new System.Drawing.Size(133, 43);
+            this.labelDist.TabIndex = 14;
+            this.labelDist.Text = "Distance";
+            this.labelDist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelKeys
+            // 
+            this.labelKeys.BackColor = System.Drawing.SystemColors.WindowText;
+            this.labelKeys.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelKeys.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelKeys.Location = new System.Drawing.Point(3, 32);
+            this.labelKeys.Name = "labelKeys";
+            this.labelKeys.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelKeys.Size = new System.Drawing.Size(266, 53);
+            this.labelKeys.TabIndex = 3;
+            this.labelKeys.Text = "Keys";
+            // 
+            // labelSpeed
+            // 
+            this.labelSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(30)))));
+            this.labelSpeed.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSpeed.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelSpeed.Location = new System.Drawing.Point(3, 184);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelSpeed.Size = new System.Drawing.Size(266, 18);
+            this.labelSpeed.TabIndex = 16;
+            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelRMC
+            // 
+            this.labelRMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labelRMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRMC.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelRMC.Location = new System.Drawing.Point(142, 85);
+            this.labelRMC.Name = "labelRMC";
+            this.labelRMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelRMC.Size = new System.Drawing.Size(127, 51);
+            this.labelRMC.TabIndex = 13;
+            this.labelRMC.Text = "Mouse";
+            this.labelRMC.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // labelJumps
+            // 
+            this.labelJumps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labelJumps.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelJumps.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelJumps.Location = new System.Drawing.Point(142, 139);
+            this.labelJumps.Name = "labelJumps";
+            this.labelJumps.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.labelJumps.Size = new System.Drawing.Size(127, 43);
+            this.labelJumps.TabIndex = 15;
+            this.labelJumps.Text = "Jumps";
+            this.labelJumps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // retractPanel2
             // 
@@ -308,7 +577,7 @@
             this.retractPanel1.Controls.Add(this.panel3);
             this.retractPanel1.Controls.Add(this.label7);
             this.retractPanel1.Controls.Add(this.label6);
-            this.retractPanel1.Location = new System.Drawing.Point(136, 244);
+            this.retractPanel1.Location = new System.Drawing.Point(135, 244);
             this.retractPanel1.Name = "retractPanel1";
             this.retractPanel1.Size = new System.Drawing.Size(84, 207);
             this.retractPanel1.TabIndex = 20;
@@ -418,82 +687,6 @@
             this.label6.Text = "IN";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelLMC
-            // 
-            this.labelLMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelLMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLMC.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelLMC.Location = new System.Drawing.Point(3, 85);
-            this.labelLMC.Name = "labelLMC";
-            this.labelLMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelLMC.Size = new System.Drawing.Size(133, 51);
-            this.labelLMC.TabIndex = 12;
-            this.labelLMC.Text = "Mouse";
-            this.labelLMC.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // labelDist
-            // 
-            this.labelDist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelDist.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDist.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelDist.Location = new System.Drawing.Point(3, 139);
-            this.labelDist.Name = "labelDist";
-            this.labelDist.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelDist.Size = new System.Drawing.Size(133, 43);
-            this.labelDist.TabIndex = 14;
-            this.labelDist.Text = "Distance";
-            this.labelDist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelSpeed
-            // 
-            this.labelSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(30)))));
-            this.labelSpeed.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSpeed.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelSpeed.Location = new System.Drawing.Point(3, 184);
-            this.labelSpeed.Name = "labelSpeed";
-            this.labelSpeed.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelSpeed.Size = new System.Drawing.Size(266, 18);
-            this.labelSpeed.TabIndex = 16;
-            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelKeys
-            // 
-            this.labelKeys.BackColor = System.Drawing.SystemColors.WindowText;
-            this.labelKeys.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelKeys.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelKeys.Location = new System.Drawing.Point(3, 32);
-            this.labelKeys.Name = "labelKeys";
-            this.labelKeys.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelKeys.Size = new System.Drawing.Size(266, 53);
-            this.labelKeys.TabIndex = 3;
-            this.labelKeys.Text = "Keys";
-            // 
-            // labelJumps
-            // 
-            this.labelJumps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelJumps.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelJumps.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelJumps.Location = new System.Drawing.Point(142, 139);
-            this.labelJumps.Name = "labelJumps";
-            this.labelJumps.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelJumps.Size = new System.Drawing.Size(127, 43);
-            this.labelJumps.TabIndex = 15;
-            this.labelJumps.Text = "Jumps";
-            this.labelJumps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelRMC
-            // 
-            this.labelRMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelRMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRMC.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelRMC.Location = new System.Drawing.Point(142, 85);
-            this.labelRMC.Name = "labelRMC";
-            this.labelRMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelRMC.Size = new System.Drawing.Size(127, 51);
-            this.labelRMC.TabIndex = 13;
-            this.labelRMC.Text = "Mouse";
-            this.labelRMC.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -507,118 +700,6 @@
             this.checkBox1.TabIndex = 2;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Consolas", 9.75F);
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(3, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 29);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "CommNET";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(3, 68);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 29);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "SysMeas";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(3, 103);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 29);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "TwitchMGR";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.BurlyWood;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(3, 173);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 29);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "MySQLMGR";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(134)))), ((int)(((byte)(84)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Font = new System.Drawing.Font("Consolas", 9.75F);
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(3, 138);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 29);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Ultracopy";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // retractPanel3
-            // 
-            this.retractPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.retractPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.retractPanel3.ButtonText = "SA Tracker";
-            this.retractPanel3.Controls.Add(this.labelLMC);
-            this.retractPanel3.Controls.Add(this.labelDist);
-            this.retractPanel3.Controls.Add(this.labelKeys);
-            this.retractPanel3.Controls.Add(this.labelSpeed);
-            this.retractPanel3.Controls.Add(this.labelRMC);
-            this.retractPanel3.Controls.Add(this.labelJumps);
-            this.retractPanel3.Location = new System.Drawing.Point(226, 244);
-            this.retractPanel3.Name = "retractPanel3";
-            this.retractPanel3.Size = new System.Drawing.Size(274, 207);
-            this.retractPanel3.TabIndex = 22;
-            // 
-            // retractPanel4
-            // 
-            this.retractPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.retractPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.retractPanel4.ButtonText = "Utilities";
-            this.retractPanel4.Controls.Add(this.button1);
-            this.retractPanel4.Controls.Add(this.button5);
-            this.retractPanel4.Controls.Add(this.button4);
-            this.retractPanel4.Controls.Add(this.button3);
-            this.retractPanel4.Controls.Add(this.button2);
-            this.retractPanel4.Location = new System.Drawing.Point(666, 244);
-            this.retractPanel4.Name = "retractPanel4";
-            this.retractPanel4.Size = new System.Drawing.Size(99, 207);
-            this.retractPanel4.TabIndex = 23;
-            // 
-            // labelName
-            // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(5, 3);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(29, 13);
-            this.labelName.TabIndex = 2;
-            this.labelName.Text = "Unia";
-            this.labelName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
-            this.labelName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
             // 
             // MainWindow
             // 
@@ -641,6 +722,10 @@
             this.panelHeader.PerformLayout();
             this.canvas1.ResumeLayout(false);
             this.canvas1.PerformLayout();
+            this.panelSpectrumSets.ResumeLayout(false);
+            this.panelSpectrumSets.PerformLayout();
+            this.retractPanel4.ResumeLayout(false);
+            this.retractPanel3.ResumeLayout(false);
             this.retractPanel2.ResumeLayout(false);
             this.panelCPUI.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -649,8 +734,6 @@
             this.retractPanel1.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.retractPanel3.ResumeLayout(false);
-            this.retractPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -699,5 +782,12 @@
         private Components.RetractPanel retractPanel3;
         private Components.RetractPanel retractPanel4;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Panel panelSpectrumSets;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button buttonSH;
+        private System.Windows.Forms.Button buttonSM;
+        private System.Windows.Forms.Button buttonBC;
+        private System.Windows.Forms.Button buttonSL;
+        private System.Windows.Forms.CheckBox checkBoxColoriseCanvas;
     }
 }
