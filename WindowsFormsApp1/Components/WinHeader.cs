@@ -10,11 +10,10 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1.Components
 {
-    public partial class WinHeader : UserControl
+    public partial class WinHeader : Panel
     {
         public WinHeader()
         {
-
             InitializeComponent();
         }
 

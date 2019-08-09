@@ -115,5 +115,17 @@ namespace WindowsFormsApp1.Properties {
                 this["canvback"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string convout {
+            get {
+                return ((string)(this["convout"]));
+            }
+            set {
+                this["convout"] = value;
+            }
+        }
     }
 }

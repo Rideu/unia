@@ -31,5 +31,8 @@
     <Setting Name="canvback" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">44, 44, 44</Value>
     </Setting>
+    <Setting Name="convout" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

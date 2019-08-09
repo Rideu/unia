@@ -157,6 +157,12 @@
     <Compile Include="Components\Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\GrayButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\GrayButton.Designer.cs">
+      <DependentUpon>GrayButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\RetractPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -245,6 +251,9 @@
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Components\GrayButton.resx">
+      <DependentUpon>GrayButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\RetractPanel.resx">
       <DependentUpon>RetractPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -335,6 +344,12 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Evals\ffmpeg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Evals\youtube-dl.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libs\MySql.Data.dll" />
     <Content Include="Libs\MySql.Data.EntityFramework.dll" />
     <Content Include="Libs\MySQL.Data.EntityFrameworkCore.Design.dll" />
