@@ -24,13 +24,13 @@ namespace WindowsFormsApp1.Components
         {
             if (e.Button == MouseButtons.Left)
             {
-                Parent.Location = new Point((Location.X - lastLocation.X) + e.X, (Location.Y - lastLocation.Y) + e.Y);
+                Parent.Location = new Point((Location.X - lastLocation.X) + MousePosition.X, (Location.Y - lastLocation.Y) + MousePosition.Y);
             }
         }
 
         private void WinHeader_MouseDown(object sender, MouseEventArgs e)
         {
-            lastLocation = e.Location;
+            lastLocation = PointToClient(MousePosition);
         }
     }
 }
