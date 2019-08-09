@@ -31,9 +31,10 @@
             this.textBoxWID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxOut = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBoxOut = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.grayProgressBar1 = new WindowsFormsApp1.Components.GrayProgressBar();
             this.grayButton1 = new WindowsFormsApp1.Components.GrayButton();
             this.winHeader1 = new WindowsFormsApp1.Components.WinHeader();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,6 +65,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.grayProgressBar1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxOut);
             this.panel1.Controls.Add(this.label1);
@@ -73,6 +75,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 191);
             this.panel1.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(160)))));
+            this.label2.Location = new System.Drawing.Point(20, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Output:";
             // 
             // textBoxOut
             // 
@@ -86,15 +98,14 @@
             this.textBoxOut.TabIndex = 10;
             this.textBoxOut.Click += new System.EventHandler(this.textBox2_Click);
             // 
-            // label2
+            // grayProgressBar1
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(160)))));
-            this.label2.Location = new System.Drawing.Point(20, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Output:";
+            this.grayProgressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.grayProgressBar1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.grayProgressBar1.Location = new System.Drawing.Point(3, 161);
+            this.grayProgressBar1.Name = "grayProgressBar1";
+            this.grayProgressBar1.Size = new System.Drawing.Size(215, 25);
+            this.grayProgressBar1.TabIndex = 12;
             // 
             // grayButton1
             // 
@@ -103,9 +114,9 @@
             this.grayButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.grayButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grayButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.grayButton1.Location = new System.Drawing.Point(170, 161);
+            this.grayButton1.Location = new System.Drawing.Point(224, 161);
             this.grayButton1.Name = "grayButton1";
-            this.grayButton1.Size = new System.Drawing.Size(148, 25);
+            this.grayButton1.Size = new System.Drawing.Size(94, 25);
             this.grayButton1.TabIndex = 9;
             this.grayButton1.Text = "Convert";
             this.grayButton1.UseVisualStyleBackColor = false;
@@ -165,5 +176,6 @@
         private System.Windows.Forms.TextBox textBoxOut;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private Components.GrayProgressBar grayProgressBar1;
     }
 }

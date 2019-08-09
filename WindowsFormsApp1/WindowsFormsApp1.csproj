@@ -163,6 +163,12 @@
     <Compile Include="Components\GrayButton.Designer.cs">
       <DependentUpon>GrayButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\GrayProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\GrayProgressBar.Designer.cs">
+      <DependentUpon>GrayProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\RetractPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -253,6 +259,9 @@
     </Compile>
     <EmbeddedResource Include="Components\GrayButton.resx">
       <DependentUpon>GrayButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\GrayProgressBar.resx">
+      <DependentUpon>GrayProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\RetractPanel.resx">
       <DependentUpon>RetractPanel.cs</DependentUpon>
