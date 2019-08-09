@@ -42,7 +42,9 @@
             this.buttonBC = new System.Windows.Forms.Button();
             this.buttonSL = new System.Windows.Forms.Button();
             this.retractPanel4 = new WindowsFormsApp1.Components.RetractPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonVidConv = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.buttonCommNET = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -238,83 +240,113 @@
             this.retractPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.retractPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.retractPanel4.ButtonText = "Utilities";
-            this.retractPanel4.Controls.Add(this.button1);
+            this.retractPanel4.Controls.Add(this.buttonVidConv);
+            this.retractPanel4.Controls.Add(this.button8);
+            this.retractPanel4.Controls.Add(this.buttonCommNET);
             this.retractPanel4.Controls.Add(this.button5);
             this.retractPanel4.Controls.Add(this.button4);
             this.retractPanel4.Controls.Add(this.button3);
             this.retractPanel4.Controls.Add(this.button2);
-            this.retractPanel4.Location = new System.Drawing.Point(666, 244);
+            this.retractPanel4.Location = new System.Drawing.Point(669, 47);
             this.retractPanel4.Name = "retractPanel4";
-            this.retractPanel4.Size = new System.Drawing.Size(99, 207);
+            this.retractPanel4.Size = new System.Drawing.Size(99, 245);
             this.retractPanel4.TabIndex = 23;
             // 
-            // button1
+            // buttonVidConv
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Consolas", 9.75F);
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(3, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 29);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "CommNET";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonVidConv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(202)))), ((int)(((byte)(184)))));
+            this.buttonVidConv.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonVidConv.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonVidConv.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonVidConv.Location = new System.Drawing.Point(49, 105);
+            this.buttonVidConv.Name = "buttonVidConv";
+            this.buttonVidConv.Size = new System.Drawing.Size(40, 30);
+            this.buttonVidConv.TabIndex = 11;
+            this.buttonVidConv.Text = "VCT";
+            this.buttonVidConv.UseVisualStyleBackColor = false;
+            this.buttonVidConv.Click += new System.EventHandler(this.buttonVidConv_Click);
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.BurlyWood;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button8.Location = new System.Drawing.Point(3, 141);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(40, 30);
+            this.button8.TabIndex = 10;
+            this.button8.Text = "DBM";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // buttonCommNET
+            // 
+            this.buttonCommNET.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
+            this.buttonCommNET.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCommNET.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.buttonCommNET.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonCommNET.Location = new System.Drawing.Point(3, 33);
+            this.buttonCommNET.Name = "buttonCommNET";
+            this.buttonCommNET.Size = new System.Drawing.Size(40, 30);
+            this.buttonCommNET.TabIndex = 0;
+            this.buttonCommNET.Text = "NET";
+            this.buttonCommNET.UseVisualStyleBackColor = false;
+            this.buttonCommNET.Click += new System.EventHandler(this.button1_Click);
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(134)))), ((int)(((byte)(84)))));
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(182)))), ((int)(((byte)(204)))));
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Font = new System.Drawing.Font("Consolas", 9.75F);
             this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(3, 138);
+            this.button5.Location = new System.Drawing.Point(3, 69);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 29);
+            this.button5.Size = new System.Drawing.Size(40, 30);
             this.button5.TabIndex = 4;
-            this.button5.Text = "Ultracopy";
+            this.button5.Text = "RCP";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.Color.BurlyWood;
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(182)))), ((int)(((byte)(204)))));
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(3, 173);
+            this.button4.Location = new System.Drawing.Point(49, 69);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 29);
+            this.button4.Size = new System.Drawing.Size(40, 30);
             this.button4.TabIndex = 3;
-            this.button4.Text = "MySQLMGR";
+            this.button4.Text = "CNV";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(202)))), ((int)(((byte)(184)))));
+            this.button3.Enabled = false;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(3, 103);
+            this.button3.Location = new System.Drawing.Point(3, 105);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 29);
+            this.button3.Size = new System.Drawing.Size(40, 30);
             this.button3.TabIndex = 2;
-            this.button3.Text = "TwitchMGR";
+            this.button3.Text = "TCM";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(3, 68);
+            this.button2.Location = new System.Drawing.Point(49, 33);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 29);
+            this.button2.Size = new System.Drawing.Size(40, 30);
             this.button2.TabIndex = 1;
-            this.button2.Text = "SysMeas";
+            this.button2.Text = "MR";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -329,9 +361,9 @@
             this.retractPanel3.Controls.Add(this.labelSpeed);
             this.retractPanel3.Controls.Add(this.labelRMC);
             this.retractPanel3.Controls.Add(this.labelJumps);
-            this.retractPanel3.Location = new System.Drawing.Point(226, 244);
+            this.retractPanel3.Location = new System.Drawing.Point(225, 244);
             this.retractPanel3.Name = "retractPanel3";
-            this.retractPanel3.Size = new System.Drawing.Size(274, 207);
+            this.retractPanel3.Size = new System.Drawing.Size(274, 215);
             this.retractPanel3.TabIndex = 22;
             // 
             // labelLMC
@@ -363,7 +395,7 @@
             // labelKeys
             // 
             this.labelKeys.BackColor = System.Drawing.SystemColors.WindowText;
-            this.labelKeys.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelKeys.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelKeys.ForeColor = System.Drawing.SystemColors.Window;
             this.labelKeys.Location = new System.Drawing.Point(3, 32);
             this.labelKeys.Name = "labelKeys";
@@ -740,7 +772,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCommNET;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
@@ -789,5 +821,7 @@
         private System.Windows.Forms.Button buttonBC;
         private System.Windows.Forms.Button buttonSL;
         private System.Windows.Forms.CheckBox checkBoxColoriseCanvas;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button buttonVidConv;
     }
 }

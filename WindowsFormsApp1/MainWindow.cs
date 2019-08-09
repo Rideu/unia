@@ -43,10 +43,7 @@ namespace WindowsFormsApp1
             WaveOut wo = new WaveOut() { };
 
             //BufferedWaveProvider bwp = new BufferedWaveProvider(new WaveFormat(44100, 2));
-            //bwp
-            var gc = Process.GetProcessesByName("chrome").Where(n => n.MainWindowHandle.ToInt32() != 0).FirstOrDefault();
-
-            var wci = WaveCallbackInfo.ExistingWindow(gc.MainWindowHandle);
+            
 
             waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
             //wo.
@@ -102,7 +99,7 @@ namespace WindowsFormsApp1
             waitprocess.Interval = 100;
             waitprocess.Tick += delegate
             {
-                var fetch = Process.GetProcessesByName("gta_sa");
+                var fetch = Process.GetProcessesByName("gta_saao");
                 if (fetch.Count() > 0)
                 {
                     nullstats();
@@ -169,8 +166,8 @@ namespace WindowsFormsApp1
         [DllImport("kernel32.dll")]
         public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
-        static int moto_travelled = 0x00B79394;
-        static int jumps_found = 0x00B79060;
+        static int moto_travelled = 0x00B7BA14;
+        static int jumps_found = 0x00B7B6E0;
 
         static float nmtd, omtd, totmtd;
         static float nspd, ospd, spd, oespd;
@@ -354,6 +351,7 @@ namespace WindowsFormsApp1
 
         static Color purple = Color.FromArgb(255, 0, 0);
 
+
         public static void AppIdle()
         {
             mm.canvas1.Refresh();
@@ -536,22 +534,7 @@ namespace WindowsFormsApp1
         {
             //<button onclick="var a = document.getElementsByClassName('tw-textarea tw-textarea--no-resize ')[0]; a.focus(); a.onkeydown = function() { a.value = 3223 ;} a.dispatchEvent(new KeyboardEvent('keypress',{'key':'a'}));  document.getElementsByClassName('tw-button')[0].click();">LEL</button>
         }
-
-        private void richTextBox1_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            //richTextBox1.Text = "";
-            //richTextBox1.ForeColor = Color.Black;
-        }
-
-        private void axWebBrowser1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void twitchOpen_Click(object sender, EventArgs e)
-        {
-            //axWebBrowser1.Navigate("https://www.twitch.tv/popout/vadyanga_ff/chat?popout=");
-        }
+        
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -568,24 +551,24 @@ namespace WindowsFormsApp1
             WindowState = FormWindowState.Minimized;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            new TwitchMGR().Show();
+            new TwitchMGR().ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            new MySQLMGR().Show();
+            new MySQLMGR().ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             new Ultracopy().ShowDialog();
+        }
+
+        private void buttonVidConv_Click(object sender, EventArgs e)
+        {
+            new Viauc().ShowDialog();
         }
 
         Point lastLocation;
