@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class Ultracopy : Form
     {

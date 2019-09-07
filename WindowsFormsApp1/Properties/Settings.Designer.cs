@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsFormsApp1.Properties {
+namespace UniaCore.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -125,6 +125,18 @@ namespace WindowsFormsApp1.Properties {
             }
             set {
                 this["convout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool colback {
+            get {
+                return ((bool)(this["colback"]));
+            }
+            set {
+                this["colback"] = value;
             }
         }
     }

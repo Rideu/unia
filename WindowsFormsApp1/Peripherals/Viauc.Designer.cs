@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.Peripherals
+﻿namespace UniaCore.Peripherals
 {
     partial class Viauc
     {
@@ -31,13 +31,14 @@
             this.textBoxWID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.grayProgressBar1 = new UniaCore.Components.GrayProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxOut = new System.Windows.Forms.TextBox();
+            this.grayButton1 = new UniaCore.Components.GrayButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.grayProgressBar1 = new WindowsFormsApp1.Components.GrayProgressBar();
-            this.grayButton1 = new WindowsFormsApp1.Components.GrayButton();
-            this.winHeader1 = new WindowsFormsApp1.Components.WinHeader();
+            this.winHeader1 = new UniaCore.Components.WinHeader();
             this.button1 = new System.Windows.Forms.Button();
+            this.retractPanel1 = new UniaCore.Components.RetractPanel();
             this.panel1.SuspendLayout();
             this.winHeader1.SuspendLayout();
             this.SuspendLayout();
@@ -60,11 +61,12 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Watch ID:";
+            this.label1.Text = "Video link:";
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.retractPanel1);
             this.panel1.Controls.Add(this.grayProgressBar1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxOut);
@@ -75,6 +77,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 191);
             this.panel1.TabIndex = 10;
+            // 
+            // grayProgressBar1
+            // 
+            this.grayProgressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.grayProgressBar1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.grayProgressBar1.Location = new System.Drawing.Point(68, 62);
+            this.grayProgressBar1.Name = "grayProgressBar1";
+            this.grayProgressBar1.Size = new System.Drawing.Size(242, 13);
+            this.grayProgressBar1.TabIndex = 12;
             // 
             // label2
             // 
@@ -97,15 +108,6 @@
             this.textBoxOut.Size = new System.Drawing.Size(242, 20);
             this.textBoxOut.TabIndex = 10;
             this.textBoxOut.Click += new System.EventHandler(this.textBox2_Click);
-            // 
-            // grayProgressBar1
-            // 
-            this.grayProgressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.grayProgressBar1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grayProgressBar1.Location = new System.Drawing.Point(3, 161);
-            this.grayProgressBar1.Name = "grayProgressBar1";
-            this.grayProgressBar1.Size = new System.Drawing.Size(215, 25);
-            this.grayProgressBar1.TabIndex = 12;
             // 
             // grayButton1
             // 
@@ -145,6 +147,16 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // retractPanel1
+            // 
+            this.retractPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.retractPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel1.ButtonText = "Output";
+            this.retractPanel1.Location = new System.Drawing.Point(3, 161);
+            this.retractPanel1.Name = "retractPanel1";
+            this.retractPanel1.Size = new System.Drawing.Size(215, 148);
+            this.retractPanel1.TabIndex = 13;
+            // 
             // Viauc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,5 +189,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private Components.GrayProgressBar grayProgressBar1;
+        private Components.RetractPanel retractPanel1;
     }
 }

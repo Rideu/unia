@@ -13,7 +13,7 @@ using System.Threading;
 using System.Net;
 using System.Diagnostics;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     /*
     public class Sniffer

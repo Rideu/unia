@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1.Components
+namespace UniaCore.Components
 {
     public partial class Canvas : Panel
     {
@@ -17,8 +17,9 @@ namespace WindowsFormsApp1.Components
             InitializeComponent();
             DoubleBuffered = true;
             SetStyle(
-                System.Windows.Forms.ControlStyles.AllPaintingInWmPaint |
-                System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer,
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                 ControlStyles.UserPaint ,
                 true);
         }
     }

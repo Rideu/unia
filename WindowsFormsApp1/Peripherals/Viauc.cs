@@ -28,7 +28,7 @@ using static System.Text.RegularExpressions.Regex;
 //
 //Some pieces of code may be licensed under their respective licenses
 
-namespace WindowsFormsApp1.Peripherals
+namespace UniaCore.Peripherals
 {
     public partial class Viauc : Form
     {
@@ -73,8 +73,8 @@ namespace WindowsFormsApp1.Peripherals
         static Process dlProcess, ffmpegProcess;
         private void grayButton1_Click(object sender, EventArgs e)
         {
-            var wid = Match(textBoxWID.Text, "").Value;
-            dlStartInfo.Arguments = $"-o \"{textBoxOut.Text}\\{textBoxWID.Text}.mp4\" -f \"bestvideo[ext = mp4] + bestaudio[ext = m4a] / best[ext = mp4] / best\" -v {textBoxWID.Text}";
+            var wid = Match(textBoxWID.Text, "(?<=(v=)).{11}").Value;
+            dlStartInfo.Arguments = $"-o \"{textBoxOut.Text}\\{wid}.mp4\" -f \"bestvideo[ext = mp4] + bestaudio[ext = m4a] / best[ext = mp4] / best\" -v {wid}";
 
             dlProcess = Process.Start(dlStartInfo);
             dlProcess.OutputDataReceived += DlProcess_OutputDataReceived;
@@ -105,6 +105,10 @@ namespace WindowsFormsApp1.Peripherals
         void UpdateProgress(float v)
         {
             grayProgressBar1.SetProgress(v / 100);
+            if(v == 1)
+            {
+
+            }
         }
     }
 }

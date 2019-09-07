@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.Components
+﻿namespace UniaCore.Components
 {
     partial class GrayButton
     {

@@ -11,7 +11,7 @@ using System.Diagnostics.PerformanceData;
 using System.Management;
 using System.Management.Instrumentation;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class Measure : Form
     {

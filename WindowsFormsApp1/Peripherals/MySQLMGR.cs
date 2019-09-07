@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using MySql.Data.EntityFramework;
 
-namespace WindowsFormsApp1.Peripherals
+namespace UniaCore.Peripherals
 {
 
     public partial class MySQLMGR : Form

@@ -15,7 +15,7 @@ using System.Net;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class ACM : Form
     {

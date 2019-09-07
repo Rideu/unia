@@ -12,7 +12,7 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class Form1 : Form
     {

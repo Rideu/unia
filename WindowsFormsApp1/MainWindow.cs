@@ -17,13 +17,14 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
 using System.IO;
-using WindowsFormsApp1.Peripherals;
+using UniaCore.Peripherals;
 using NAudio;
 using NAudio.Wave;
+using NAudio.Dsp;
 using NAudio.Wave.SampleProviders;
 using NAudio.CoreAudioApi;
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class MainWindow : Form
     {
@@ -32,42 +33,31 @@ namespace WindowsFormsApp1
         Stopwatch stopwatch = new Stopwatch();
         Stopwatch speedwatch = new Stopwatch();
 
+
+
         public MainWindow()
         {
             t = new System.Windows.Forms.Timer();
-            t.Interval = 1;
-            InitializeComponent();
+            t.Interval = 17;
             t.Tick += delegate { MainWindow.AppIdle(); };
             t.Start();
+
+            InitializeComponent();
+
+            vertScrollWavefactor.Value = .5f;
+            checkBoxColoriseCanvas.Checked = Properties.Settings.Default.colback;
+
             mm = this;
-            WaveOut wo = new WaveOut() { };
 
-            //BufferedWaveProvider bwp = new BufferedWaveProvider(new WaveFormat(44100, 2));
-            
-
-            waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
-            //wo.
-            //d.WaveFormat = new WaveFormat(44100, 2);
-            waveIn.DataAvailable += delegate (object sender, WaveInEventArgs e)
-            {
-                //ams.Position = 0;
-                //ams.SetLength(0);
-                //ams.Write(e.Buffer, 0, e.BytesRecorded);
-
-                r = new RawSourceWaveStream(e.Buffer, 0, e.Buffer.Length, wf);
-                //ams.Write(e.Buffer, 0, e.BytesRecorded);
-                //nsbs = e.Buffer;
-            };
-
-            waveIn.StartRecording();
-            //waveIn.StartRecording();
             DoubleBuffered = true;
-            //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-            speedwatch.Start();
-            stopwatch.Start();
+            InitSpectrum();
+            InitSAT();
+
             MainMenu();
         }
+
+
 
         static MainWindow mm;
         static Graphics mmp5g;
@@ -80,116 +70,12 @@ namespace WindowsFormsApp1
         static Color salc = Properties.Settings.Default.salc;
         static Color sahc = Properties.Settings.Default.sahc;
         static Color samc = Properties.Settings.Default.samc;
+
+        static Stopwatch sw = new Stopwatch();
         static void MainMenu()
         {
-            mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
-            {
-                //e.Graphics.Clear(mm.canvas1.BackColor);
-                for (int i = 0; i < awfl; i++)
-                {
-                    var v = nawf[i];
-                    var exp = (v * v * v * v * v);
-                    wfp.Color = LerpCol(salc, LerpCol(samc, sahc, (float)Math.Sin(exp)), (float)Math.Cos(exp));
-                    e.Graphics.DrawLine(wfp, i, exp * 77, i, exp * exp * 71);
-                    //e.Graphics.DrawLine(wfp, i, exp * 17, i, exp * -exp * 71);
-                    //e.Graphics.DrawLine(wfp, i, exp * 87, i, exp * exp * 221);
-
-                }
-            };
-            waitprocess.Interval = 100;
-            waitprocess.Tick += delegate
-            {
-                var fetch = Process.GetProcessesByName("gta_saao");
-                if (fetch.Count() > 0)
-                {
-                    nullstats();
-                    gpp = OpenProcess(PROCESS_WM_READ, false, (gp = fetch.First()).Id);
-                    mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(30, 30, 30);
-                    totmtd = Properties.Settings.Default.MotoDistance;
-                    waitprocess.Stop();
-                }
-            };
-            mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(80, 30, 30);
-            waitprocess.Start();
-            ms_listener = new MouseHook();
-            ms_listener.Install();
-            ms_listener.LeftButtonDown += _listener_LeftButtonUp;
-            ms_listener.LeftButtonUp += Ms_listener_LeftButtonUp;
-            ms_listener.RightButtonDown += Ms_listener_RightButtonDown;
-            ms_listener.RightButtonUp += Ms_listener_RightButtonUp;
-
-            kb_listener = new KeyboardHook();
-            kb_listener.Install();
-            kb_listener.KeyDown += Kb_listener_KeyDown;
-
-        }
-
-        private static void Ms_listener_RightButtonUp(MouseHook.MSLLHOOKSTRUCT mouseStruct)
-        {
-            rmh = false;
-        }
-
-        private static void Ms_listener_LeftButtonUp(MouseHook.MSLLHOOKSTRUCT mouseStruct)
-        {
-            lmh = false;
-        }
-
-        private static void Ms_listener_RightButtonDown(MouseHook.MSLLHOOKSTRUCT mouseStruct)
-        {
-            rmc++;
-            rmh = true;
-        }
-
-        private static void _listener_LeftButtonUp(MouseHook.MSLLHOOKSTRUCT mouseStruct)
-        {
-            lmc++;
-            lmh = true;
-        }
-
-        private static void Kb_listener_KeyDown(KeyboardHook.VKeys key)
-        {
-            if (key == KeyboardHook.VKeys.LSHIFT)
-                lmc++;
-        }
-
-
-        [DllImport("user32.dll")]
-        public static extern int GetAsyncKeyState(int i);
-        [DllImport("user32.dll")]
-        public static extern short GetKeyState(int i);
-
-        const int PROCESS_WM_READ = 0x0010;
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
-
-        static int moto_travelled = 0x00B7BA14;
-        static int jumps_found = 0x00B7B6E0;
-
-        static float nmtd, omtd, totmtd;
-        static float nspd, ospd, spd, oespd;
-        static int jmp = 0;
-        public static float memReadFloat(int addr, IntPtr proc)
-        {
-            int bytesRead = 0;
-            byte[] buffer = new byte[4];
-
-            ReadProcessMemory((int)proc, addr, buffer, buffer.Length, ref bytesRead);
-
-            return BitConverter.ToSingle(buffer, 0);
-        }
-
-        public static int memReadInt(int addr, IntPtr proc)
-        {
-            int bytesRead = 0;
-            byte[] buffer = new byte[4];
-
-            ReadProcessMemory((int)proc, addr, buffer, buffer.Length, ref bytesRead);
-
-            return BitConverter.ToInt32(buffer, 0);
+            MainSpectrum();
+            MainSAT();
         }
 
         static bool lmh, rmh;
@@ -198,159 +84,36 @@ namespace WindowsFormsApp1
         static float cc, ncv, ocv, nrv, orv;
         static int tc = 1, sc = 1, msc = 1;
         static int nbin, cbin, obin, nbout, cbout, obout;
-        static int awfl = 100;
-        volatile static float[] nawf = new float[400], oawf = new float[400];
 
-        static string keybuf = "";
-
-        static CultureInfo ci = CultureInfo.GetCultureInfo("en-US");
-        static PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-        static PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes", string.Empty);
-        static NetworkInterface netDevice = NetworkInterface.GetAllNetworkInterfaces().First();
-        static IPv4InterfaceStatistics ndata;
-        //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
-        static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
-        static MMDevice pad = adcs[0];
-        static float padpv;
-        static WasapiLoopbackCapture d = new WasapiLoopbackCapture(adcs[0]);
-        static MemoryStream ams = new MemoryStream();
-        static WaveFormat wf = new WaveFormat(44100, 2);
-        static RawSourceWaveStream r = new RawSourceWaveStream(ams, wf);
-        static WaveIn waveIn;
-        static WaveOut wout;
-        volatile static byte[] nsbs = new byte[17000];
 
         static void nullstats()
         {
             rmc = lmc = msc = tc = 1;
         }
 
-        async static void refresh()
+        static string keybuf = "";
+
+        static CultureInfo ci = CultureInfo.GetCultureInfo("en-US");
+        //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
+        //static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+        //static MMDevice pad = adcs[0];
+        
+        static void refresh()
         {
-            await Task.Run(() =>
-            {
-                ocv = ncv;
-                ncv = cpuCounter.NextValue();
-                orv = nrv;
-                nrv = ramCounter.NextValue();
-                omtd = nspd = nmtd;
-                //spd = nspd - ospd;
-                nmtd = memReadFloat(moto_travelled, gpp);
 
-                jmp = memReadInt(jumps_found, gpp);
-                //if(nmtd <= 0)
-                //{
+            UpdatePerf();
+            UpdateSAT();
+            UpdateSpectrum();
 
-                //}
-
-                if (omtd > nmtd)
-                {
-                    Properties.Settings.Default.MotoDistance = totmtd;
-                    Properties.Settings.Default.Save();
-                    totmtd += omtd;
-                    nullstats();
-                }
-
-                cc += ncv;
-                sc++;
-                //if (tc % 1000 == 0)
-                if (mm.stopwatch.ElapsedMilliseconds > 1000)
-                {
-                    //spd = nspd - ospd;
-                    //if (ospd != nspd)
-                    //{
-
-                    //}
-                    //ospd = nspd;
-                    tc += 1;
-                    mm.stopwatch.Restart();
-                }
-
-                if (mm.speedwatch.ElapsedMilliseconds > 100)
-                {
-                    //oespd = ospd;
-                    //var espd1 = spd;
-                    spd = ((nspd - ospd) / (0.06f) + spd) / 3f;
-                    ospd = nspd;
-                    mm.speedwatch.Restart();
-                }
-
-                ndata = netDevice.GetIPv4Statistics();
-
-                obin = nbin;
-                nbin = (int)ndata.BytesReceived;
-                obout = nbout;
-                nbout = (int)ndata.BytesSent;
-
-                cbin = nbin - obin;
-                cbin = cbin < 0 ? 0 : cbin;
-                cbout = nbout - obout;
-                cbout = cbout < 0 ? 0 : cbout;
-            }
-            );
-
-            //await Task.Run(() =>
-            {
-
-                padpv = pad.AudioMeterInformation.PeakValues[0];
-
-                oawf = nawf;
-                nawf = new float[awfl = mm.canvas1.Width];
-                oawf = nawf.Length != oawf.Length ? nawf : oawf;
-                try
-                {
-                    //NAudio visualiser
-                    //var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
-
-                    //SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
-
-                    r.Position = 0L;
-                    var samplesPerPixel = 6;
-                    var bytesPerSample = 4 / 4 * 2;
-                    var startPosition = 0;
-                    byte[] array = new byte[samplesPerPixel * bytesPerSample];
-                    r.Position = startPosition + mm.canvas1.ClientRectangle.Left * bytesPerSample * samplesPerPixel;
-                    for (float num = (float)mm.canvas1.ClientRectangle.X; num < (float)mm.canvas1.ClientRectangle.Right; num += 1f)
-                    {
-                        short num2 = 0;
-                        short num3 = 0;
-                        int num4 = r.Read(array, 0, samplesPerPixel * bytesPerSample);
-                        for (int i = 0; i < num4; i += 2)
-                        {
-                            short num5 = BitConverter.ToInt16(array, i);
-                            if (num5 < num2)
-                            {
-                                num2 = num5;
-                            }
-                            if (num5 > num3)
-                            {
-                                num3 = num5;
-                            }
-                        }
-                        float num6 = ((float)num2 - -32768f) / 65535f;
-                        float num7 = ((float)num3 - -32768f) / 65535f;
-                        nawf[(int)num] = (float)(num6 + num7 + oawf[(int)num]) / 2f;
-                    }
-                }
-                catch
-                {
-                    nawf = oawf;
-                }
-            }
-            //);
         }
-
-
 
         static Pen wfp = new Pen(Color.Green);
         static Color skyblue = Color.FromArgb(51, 153, 255);
         static Color green = Color.FromArgb(0, 255, 0);
         static Color red = Color.FromArgb(255, 0, 0);
-
-        //static bool pLoad, pNet, pTrack;
-
         static Color purple = Color.FromArgb(255, 0, 0);
 
+        static float padpv;
 
         public static void AppIdle()
         {
@@ -453,11 +216,25 @@ namespace WindowsFormsApp1
             }
         }
 
+        #region Events
+
+
+        private void buttonSIE_Click(object sender, EventArgs e)
+        {
+            new SubImageExtraction().ShowDialog(this);
+        }
+
+        private void checkBoxColoriseCanvas_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.colback = checkBoxColoriseCanvas.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         static bool pspecRetr = true;
 
         private void panelSpectrumSets_Click(object sender, EventArgs e)
         {
-            panelSpectrumSets.Location = panelSpectrumSets.Location == new Point(3, -30) ? new Point(3, 0) : new Point(3, -30);
+            panelSpectrumSets.Location = panelSpectrumSets.Location == new Point(3, -45) ? new Point(3, 0) : new Point(3, -45);
 
         }
 
@@ -497,29 +274,6 @@ namespace WindowsFormsApp1
             Properties.Settings.Default.Save();
         }
 
-        static Color hcbc = Color.FromArgb(155, 25, 255), mcbc = Color.FromArgb(255, 153, 25), lcbc = Color.FromArgb(155, 53, 225);
-        static Color canvback = Properties.Settings.Default.canvback;
-
-        static Color LerpCol(Color src, Color tgt, float by)
-        {
-            if (by < 0) return src;
-            else if (by > 1) return tgt;
-            else
-                try
-                {
-                    return Color.FromArgb(Lerp(src.A, tgt.A, by), Lerp(src.R, tgt.R, by), Lerp(src.G, tgt.G, by), Lerp(src.B, tgt.B, by));
-                }
-                catch
-                {
-                    return src;
-                }
-        }
-
-        static int Lerp(int firstFloat, int secondFloat, float by)
-        {
-            return (int)(firstFloat * (1 - by)) + (int)(secondFloat * by);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             new Form1().ShowDialog();
@@ -534,7 +288,7 @@ namespace WindowsFormsApp1
         {
             //<button onclick="var a = document.getElementsByClassName('tw-textarea tw-textarea--no-resize ')[0]; a.focus(); a.onkeydown = function() { a.value = 3223 ;} a.dispatchEvent(new KeyboardEvent('keypress',{'key':'a'}));  document.getElementsByClassName('tw-button')[0].click();">LEL</button>
         }
-        
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -585,5 +339,40 @@ namespace WindowsFormsApp1
                 Location = new Point((Location.X - lastLocation.X) + e.X, (Location.Y - lastLocation.Y) + e.Y);
             }
         }
+        #endregion
+
+
+        static Color hcbc = Color.FromArgb(155, 25, 255), mcbc = Color.FromArgb(255, 153, 25), lcbc = Color.FromArgb(155, 53, 225);
+        static Color canvback = Properties.Settings.Default.canvback;
+
+        #region Utils
+
+        static Color AlphaAmount(Color src, float by)
+        {
+            return Color.FromArgb((int)(by * 255), src);
+        }
+
+        static Color LerpCol(Color src, Color tgt, float by)
+        {
+            if (by < 0) return src;
+            else if (by > 1) return tgt;
+            else
+                try
+                {
+                    return Color.FromArgb(Lerp(src.A, tgt.A, by), Lerp(src.R, tgt.R, by), Lerp(src.G, tgt.G, by), Lerp(src.B, tgt.B, by));
+                }
+                catch
+                {
+                    return src;
+                }
+        }
+
+        static int Lerp(int firstFloat, int secondFloat, float by)
+        {
+            return (int)(firstFloat * (1 - by)) + (int)(secondFloat * by);
+        }
+
+        #endregion
+
     }
 }

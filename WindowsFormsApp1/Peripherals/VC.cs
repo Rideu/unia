@@ -12,7 +12,7 @@ using System.Net.Sockets;
 using System.Net;
 
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
     public partial class VC : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.Peripherals
+﻿namespace UniaCore.Peripherals
 {
     partial class CodeTextBox
     {

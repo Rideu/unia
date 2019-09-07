@@ -17,7 +17,7 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
 using System.IO;
-using WindowsFormsApp1.Peripherals;
+using UniaCore.Peripherals;
 using NAudio;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
@@ -25,7 +25,7 @@ using NAudio.CoreAudioApi;
 
 // Thanks to rvknth043
 
-namespace WindowsFormsApp1
+namespace UniaCore
 {
 
     class MouseHook

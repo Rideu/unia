@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1.Components
+namespace UniaCore.Components
 {
     public partial class GrayButton : Button
     {

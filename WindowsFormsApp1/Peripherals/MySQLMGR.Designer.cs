@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.Peripherals
+﻿namespace UniaCore.Peripherals
 {
     partial class MySQLMGR
     {
@@ -421,7 +421,7 @@
             // 
             // form1BindingSource
             // 
-            this.form1BindingSource.DataSource = typeof(WindowsFormsApp1.Form1);
+            this.form1BindingSource.DataSource = typeof(UniaCore.Form1);
             // 
             // toolStripMenuItem3
             // 
