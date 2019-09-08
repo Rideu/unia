@@ -191,6 +191,7 @@
     <Compile Include="Modules\Perf.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\SampleAggregator.cs" />
     <Compile Include="Modules\SAT.cs">
       <SubType>Form</SubType>
     </Compile>

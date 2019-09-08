@@ -107,11 +107,6 @@ namespace UniaCore
 
         }
 
-        static Pen wfp = new Pen(Color.Green);
-        static Color skyblue = Color.FromArgb(51, 153, 255);
-        static Color green = Color.FromArgb(0, 255, 0);
-        static Color red = Color.FromArgb(255, 0, 0);
-        static Color purple = Color.FromArgb(255, 0, 0);
 
         static float padpv;
 
