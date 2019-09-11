@@ -23,6 +23,7 @@ using NAudio.Wave;
 using NAudio.Dsp;
 using NAudio.Wave.SampleProviders;
 using NAudio.CoreAudioApi;
+using static UniaCore.Helper;
 
 namespace UniaCore
 {
@@ -67,9 +68,6 @@ namespace UniaCore
 
         static MouseHook ms_listener;
         static KeyboardHook kb_listener;
-        static Color salc = Properties.Settings.Default.salc;
-        static Color sahc = Properties.Settings.Default.sahc;
-        static Color samc = Properties.Settings.Default.samc;
 
         static Stopwatch sw = new Stopwatch();
         static void MainMenu()
@@ -97,7 +95,7 @@ namespace UniaCore
         //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
         //static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
         //static MMDevice pad = adcs[0];
-        
+
         static void refresh()
         {
 
@@ -107,6 +105,10 @@ namespace UniaCore
 
         }
 
+        static void exit()
+        {
+            ExitSpectrum();
+        }
 
         static float padpv;
 
@@ -245,33 +247,33 @@ namespace UniaCore
                 break;
                 case "SL":
                 {
-                    salc = colorDialog1.Color;
+                    Spectrum.SpectrumLowColor = colorDialog1.Color;
                 }
                 break;
                 case "SM":
                 {
-                    samc = colorDialog1.Color;
+                    Spectrum.SpectrumMidColor = colorDialog1.Color;
                 }
                 break;
                 case "SH":
                 {
-                    sahc = colorDialog1.Color;
+                    Spectrum.SpectrumHighColor = colorDialog1.Color;
                 }
                 break;
 
                 default:
                     break;
             }
-            Properties.Settings.Default.sahc = sahc;
-            Properties.Settings.Default.samc = samc;
-            Properties.Settings.Default.salc = salc;
+            Properties.Settings.Default.sahc = Spectrum.SpectrumHighColor;
+            Properties.Settings.Default.samc = Spectrum.SpectrumMidColor;
+            Properties.Settings.Default.salc = Spectrum.SpectrumLowColor;
             Properties.Settings.Default.canvback = canvback;
             Properties.Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Form1().ShowDialog();
+            new NetChecker().ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -288,6 +290,13 @@ namespace UniaCore
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             TopMost = checkBox1.Checked;
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) => exit();
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            new MySQLMGR().ShowDialog();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -307,7 +316,6 @@ namespace UniaCore
 
         private void button4_Click(object sender, EventArgs e)
         {
-            new MySQLMGR().ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -342,30 +350,6 @@ namespace UniaCore
 
         #region Utils
 
-        static Color AlphaAmount(Color src, float by)
-        {
-            return Color.FromArgb((int)(by * 255), src);
-        }
-
-        static Color LerpCol(Color src, Color tgt, float by)
-        {
-            if (by < 0) return src;
-            else if (by > 1) return tgt;
-            else
-                try
-                {
-                    return Color.FromArgb(Lerp(src.A, tgt.A, by), Lerp(src.R, tgt.R, by), Lerp(src.G, tgt.G, by), Lerp(src.B, tgt.B, by));
-                }
-                catch
-                {
-                    return src;
-                }
-        }
-
-        static int Lerp(int firstFloat, int secondFloat, float by)
-        {
-            return (int)(firstFloat * (1 - by)) + (int)(secondFloat * by);
-        }
 
         #endregion
 

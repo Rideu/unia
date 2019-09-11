@@ -421,7 +421,7 @@
             // 
             // form1BindingSource
             // 
-            this.form1BindingSource.DataSource = typeof(UniaCore.Form1);
+            this.form1BindingSource.DataSource = typeof(UniaCore.NetChecker);
             // 
             // toolStripMenuItem3
             // 

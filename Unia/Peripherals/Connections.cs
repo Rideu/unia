@@ -14,9 +14,9 @@ using System.Net;
 
 namespace UniaCore
 {
-    public partial class Form1 : Form
+    public partial class NetChecker : Form
     {
-        public Form1()
+        public NetChecker()
         {
             InitializeComponent();
         }

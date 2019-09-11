@@ -19,8 +19,10 @@ namespace UniaCore.Components
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.OptimizedDoubleBuffer |
-                 ControlStyles.UserPaint ,
+                 ControlStyles.UserPaint,
                 true);
         }
+
+
     }
 }

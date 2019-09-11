@@ -198,17 +198,12 @@
     <Compile Include="Modules\Spectrum.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\SpectrumStyle.cs" />
     <Compile Include="Peripherals\CodeTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Peripherals\CodeTextBox.Designer.cs">
       <DependentUpon>CodeTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Peripherals\Connections.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Peripherals\Connections.Designer.cs">
-      <DependentUpon>Connections.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -216,12 +211,19 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Peripherals\Connections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Peripherals\Connections.designer.cs">
+      <DependentUpon>Connections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Peripherals\GetHelp.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Peripherals\GetHelp.Designer.cs">
       <DependentUpon>GetHelp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Peripherals\Helper.cs" />
     <Compile Include="Peripherals\MySQLMGR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,11 +290,11 @@
     <EmbeddedResource Include="Components\WinHeader.resx">
       <DependentUpon>WinHeader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Peripherals\Connections.resx">
-      <DependentUpon>Connections.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Peripherals\Connections.resx">
+      <DependentUpon>Connections.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\GetHelp.resx">
       <DependentUpon>GetHelp.cs</DependentUpon>

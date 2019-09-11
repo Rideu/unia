@@ -310,6 +310,7 @@
             this.button8.TabIndex = 10;
             this.button8.Text = "DBM";
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // buttonCommNET
             // 
@@ -781,6 +782,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Unia 0.12";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();

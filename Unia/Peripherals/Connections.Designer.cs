@@ -1,6 +1,6 @@
 ﻿namespace UniaCore
 {
-    partial class Form1
+    partial class NetChecker
     {
         /// <summary>
         /// Обязательная переменная конструктора.

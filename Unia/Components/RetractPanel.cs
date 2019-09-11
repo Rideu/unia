@@ -56,10 +56,10 @@ namespace UniaCore.Components
                 isMoving = (isRetracted = false);
                 t.Stop();
                 t.Tick -= Extend;
-                Location = new Point(InitialPosition.X, (Location.Y - (InitialPosition.Y - Height)));
+                Location = new Point(InitialPosition.X, (Location.Y - (InitialPosition.Y - (Height + buttonLoad.Height))));
             }
             else
-                fLocation = new PointF(Location.X, Location.Y - ((Location.Y - (InitialPosition.Y - Height + buttonLoad.Height)) * 0.05f));
+                fLocation = new PointF(Location.X, Location.Y - ((Location.Y - (InitialPosition.Y - (Height + buttonLoad.Height))) * 0.05f));
             Location = new Point((int)fLocation.X, (int)fLocation.Y);
         }
 

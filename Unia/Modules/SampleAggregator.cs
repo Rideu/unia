@@ -24,13 +24,14 @@ using NAudio.Dsp;
 using NAudio.Wave.SampleProviders;
 using NAudio.CoreAudioApi;
 
+// Refs:
+// — https://stackoverflow.com/questions/18813112
+
 class SampleAggregator
 {
-    // FFT
     public event EventHandler<FftEventArgs> FftCalculated;
     public bool PerformFFT { get; set; }
-
-    // This Complex is NAudio's own! 
+    
     private Complex[] fftBuffer;
     private FftEventArgs fftArgs;
     private int fftPos;
@@ -58,9 +59,9 @@ class SampleAggregator
     {
         if (PerformFFT && FftCalculated != null)
         {
-            // Remember the window function! There are many others as well.
-            fftBuffer[fftPos].X = (float)(value * FastFourierTransform.HammingWindow(fftPos, fftLength));
-            fftBuffer[fftPos].Y = 0; // This is always zero with audio.
+
+            fftBuffer[fftPos].X = (float)(value/** FastFourierTransform.HannWindow(fftPos, fftLength)*/);
+            fftBuffer[fftPos].Y = 0;
             fftPos++;
             if (fftPos >= fftLength)
             {
