@@ -128,15 +128,15 @@ namespace UniaCore
 
                     var res = frequencies[i];
                     var value = ((float)Sqrt(res.X * res.X * 2 + res.Y * res.Y) * (2000 + i * (i * 0.01f)));
-                    value = (float)Sqrt(value /*/ (value + 5)*/) * 10;
+                    value = (float)Sqrt(value / (value + 5)) * 20;
                     var ac = 0.0f;
                     for (int sm = 1; sm < aliasing.Count; sm++)
                     {
                         ac += aliasing[sm][i];
                     }
-                    aliasing[0][i] = ((ac + value) / (aliasteps - 0.1f));
+                    aliasing[0][i] = ((ac + value) / (aliasteps - 0.0f));
 
-                    var exp = ((float)Pow(aliasing[0][i], 1.5f + exponent * 1)) / 16;
+                    var exp = ((float)Pow(aliasing[0][i], 1.5f + exponent * 1)) / 4;
                     //var exp = nawf[i];
                     var s = i % 2 == 0 ? 1 : -1;
                     var tx = (i) * Step;
