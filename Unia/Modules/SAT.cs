@@ -33,7 +33,7 @@ namespace UniaCore
         public static void MainSAT()
         {
 
-            waitprocess.Interval = 100;
+            waitprocess.Interval = 1000;
             waitprocess.Tick += delegate
             {
                 var fetch = Process.GetProcessesByName("gta_saao");
@@ -49,6 +49,7 @@ namespace UniaCore
             mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(80, 30, 30);
             waitprocess.Start();
 
+#if !DEBUG
             ms_listener = new MouseHook();
             ms_listener.Install();
             ms_listener.LeftButtonDown += _listener_LeftButtonUp;
@@ -59,6 +60,7 @@ namespace UniaCore
             kb_listener = new KeyboardHook();
             kb_listener.Install();
             kb_listener.KeyDown += Kb_listener_KeyDown;
+#endif
         }
 
         public static void UpdateSAT()

@@ -1,6 +1,6 @@
 ﻿namespace UniaCore.Peripherals
 {
-    partial class Viauc
+    partial class YDLBridge
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             this.textBoxOut = new System.Windows.Forms.TextBox();
             this.grayButton1 = new UniaCore.Components.GrayButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.winHeader1 = new UniaCore.Components.WinHeader();
+            this.winHeader1 = new UniaCore.WinHeader();
             this.button1 = new System.Windows.Forms.Button();
             this.retractPanel1 = new UniaCore.Components.RetractPanel();
             this.panel1.SuspendLayout();
@@ -179,7 +179,7 @@
 
         #endregion
 
-        private Components.WinHeader winHeader1;
+        private WinHeader winHeader1;
         private System.Windows.Forms.TextBox textBoxWID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;

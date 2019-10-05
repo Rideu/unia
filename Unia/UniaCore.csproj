@@ -8,8 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B1342148-0F47-468D-97E7-910DA55BD8EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowsFormsApp1</RootNamespace>
-    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <RootNamespace>UniaCore</RootNamespace>
+    <AssemblyName>Unia</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -47,6 +47,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,6 +70,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -90,6 +92,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -115,6 +118,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>unia_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -163,11 +169,23 @@
     <Compile Include="Components\GrayButton.Designer.cs">
       <DependentUpon>GrayButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\GrayPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\GrayPanel.Designer.cs">
+      <DependentUpon>GrayPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\GrayProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Components\GrayProgressBar.Designer.cs">
       <DependentUpon>GrayProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\GrayRichTexBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\GrayRichTexBox.Designer.cs">
+      <DependentUpon>GrayRichTexBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\RetractPanel.cs">
       <SubType>Component</SubType>
@@ -175,18 +193,19 @@
     <Compile Include="Components\RetractPanel.Designer.cs">
       <DependentUpon>RetractPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\VScroll.cs">
+    <Compile Include="Components\GrayScroll.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Components\VScroll.designer.cs">
-      <DependentUpon>VScroll.cs</DependentUpon>
+    <Compile Include="Components\GrayScroll.designer.cs">
+      <DependentUpon>GrayScroll.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\WinHeader.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Components\WinHeader.Designer.cs">
       <DependentUpon>WinHeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Eval.cs" />
     <Compile Include="Modules\Hooks.cs" />
     <Compile Include="Modules\Perf.cs">
       <SubType>Form</SubType>
@@ -217,13 +236,7 @@
     <Compile Include="Peripherals\Connections.designer.cs">
       <DependentUpon>Connections.cs</DependentUpon>
     </Compile>
-    <Compile Include="Peripherals\GetHelp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Peripherals\GetHelp.Designer.cs">
-      <DependentUpon>GetHelp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Peripherals\Helper.cs" />
+    <Compile Include="Modules\Helper.cs" />
     <Compile Include="Peripherals\MySQLMGR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +248,24 @@
     </Compile>
     <Compile Include="Peripherals\SubImageExtraction.Designer.cs">
       <DependentUpon>SubImageExtraction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\RegCell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\RegCell.Designer.cs">
+      <DependentUpon>RegCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\RegView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\RegView.Designer.cs">
+      <DependentUpon>RegView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\Treegex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Peripherals\Treegex\Treegex.Designer.cs">
+      <DependentUpon>Treegex.cs</DependentUpon>
     </Compile>
     <Compile Include="Peripherals\TwitchMGR.cs">
       <SubType>Form</SubType>
@@ -278,14 +309,20 @@
     <EmbeddedResource Include="Components\GrayButton.resx">
       <DependentUpon>GrayButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Components\GrayPanel.resx">
+      <DependentUpon>GrayPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\GrayProgressBar.resx">
       <DependentUpon>GrayProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\GrayRichTexBox.resx">
+      <DependentUpon>GrayRichTexBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\RetractPanel.resx">
       <DependentUpon>RetractPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\VScroll.resx">
-      <DependentUpon>VScroll.cs</DependentUpon>
+    <EmbeddedResource Include="Components\GrayScroll.resx">
+      <DependentUpon>GrayScroll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\WinHeader.resx">
       <DependentUpon>WinHeader.cs</DependentUpon>
@@ -296,9 +333,6 @@
     <EmbeddedResource Include="Peripherals\Connections.resx">
       <DependentUpon>Connections.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Peripherals\GetHelp.resx">
-      <DependentUpon>GetHelp.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\Measure.resx">
       <DependentUpon>Measure.cs</DependentUpon>
     </EmbeddedResource>
@@ -307,6 +341,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\SubImageExtraction.resx">
       <DependentUpon>SubImageExtraction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Peripherals\Treegex\RegCell.resx">
+      <DependentUpon>RegCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Peripherals\Treegex\RegView.resx">
+      <DependentUpon>RegView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Peripherals\Treegex\Treegex.resx">
+      <DependentUpon>Treegex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\TwitchMGR.resx">
       <DependentUpon>TwitchMGR.cs</DependentUpon>
@@ -386,6 +429,7 @@
     <Content Include="Libs\MySQL.Data.EntityFrameworkCore.dll" />
     <Content Include="Libs\MySql.Web.dll" />
     <Content Include="Libs\WebKitBrowser.dll" />
+    <Content Include="unia_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

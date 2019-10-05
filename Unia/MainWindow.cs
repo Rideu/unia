@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Net.NetworkInformation;
-using System.Threading;
+using Threads = System.Threading;
 using System.Net;
 using System.IO;
 using UniaCore.Peripherals;
@@ -29,20 +29,22 @@ namespace UniaCore
 {
     public partial class MainWindow : Form
     {
-        System.Windows.Forms.Timer t;
-        static System.Windows.Forms.Timer waitprocess = new System.Windows.Forms.Timer();
+        Timer t, vol = new Timer();
+        static Timer waitprocess = new Timer();
         Stopwatch stopwatch = new Stopwatch();
         Stopwatch speedwatch = new Stopwatch();
-
-
-
+        
         public MainWindow()
         {
-            t = new System.Windows.Forms.Timer();
-            t.Interval = 17;
-            t.Tick += delegate { MainWindow.AppIdle(); };
+            t = new Timer();
+            t.Interval = 8;
+            t.Tick += delegate
+            {
+                MainWindow.AppIdle();
+            };
             t.Start();
 
+            
             InitializeComponent();
 
             vertScrollWavefactor.Value = .5f;
@@ -116,7 +118,6 @@ namespace UniaCore
         {
             mm.canvas1.Refresh();
             refresh();
-
             var vc = (ncv / 100) > 0.5f ? mm.labelCPUVh : mm.labelCPUVl;
             {
                 mm.labelCPUVh.Text = mm.labelCPUVl.Text = "";
@@ -273,12 +274,13 @@ namespace UniaCore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new NetChecker().ShowDialog();
+            ShowDialog<NetChecker>();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new Measure().ShowDialog();
+
+            ShowDialog<Measure>();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -286,6 +288,11 @@ namespace UniaCore
             //<button onclick="var a = document.getElementsByClassName('tw-textarea tw-textarea--no-resize ')[0]; a.focus(); a.onkeydown = function() { a.value = 3223 ;} a.dispatchEvent(new KeyboardEvent('keypress',{'key':'a'}));  document.getElementsByClassName('tw-button')[0].click();">LEL</button>
         }
 
+        private void buttonTreegex_Click(object sender, EventArgs e)
+        {
+            //new Treegex().ShowDialog(this);
+            ShowDialog<Treegex>();
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -296,7 +303,7 @@ namespace UniaCore
 
         private void button8_Click(object sender, EventArgs e)
         {
-            new MySQLMGR().ShowDialog();
+            ShowDialog<MySQLMGR>();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -311,7 +318,7 @@ namespace UniaCore
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new TwitchMGR().ShowDialog();
+            //new TwitchMGR().ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -320,12 +327,12 @@ namespace UniaCore
 
         private void button5_Click(object sender, EventArgs e)
         {
-            new Ultracopy().ShowDialog();
+            ShowDialog<Ultracopy>();
         }
 
         private void buttonVidConv_Click(object sender, EventArgs e)
         {
-            new Viauc().ShowDialog();
+            ShowDialog<YDLBridge>();
         }
 
         Point lastLocation;

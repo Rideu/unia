@@ -85,31 +85,27 @@ namespace UniaCore
             //};
 
             //r = new RawSourceWaveStream(ams, _capture.WaveFormat);
-
+            img = new Bitmap(1, 3);
+            //img.SetPixel(0, 0, Color.FromArgb(57, 18, 3));
+            //img.SetPixel(0, 1, Color.OrangeRed);
+            //img.SetPixel(0, 2, Color.Yellow);
+            img.SetPixel(0, 0, Color.FromArgb(96, 128, 255));
+            img.SetPixel(0, 1, Color.FromArgb(32, 64, 96));
+            img.SetPixel(0, 2, Color.FromArgb(40, 80, 160));
             _capture.StartRecording();
             //waveIn.StartRecording();
         }
-        static int step = 3;
-        static int awfl = 769 / step;
+        static int step = 50;
+        static int awfl = 800 / step;
 
         volatile static float[] nawf = new float[awfl], oawf0 = new float[awfl], oawf1 = new float[awfl];
 
         float median = 0;
         void FftCalculated(object sender, FftEventArgs e)
         {
-            var mbuffer = .0f;
-            oawf1 = oawf0;
-            oawf0 = nawf;
-            for (int i = 0; i < awfl; i++)
-            {
-                var res = e.Result[i];
-                var value = ((float)Math.Sqrt(res.X * res.X * 2 + res.Y * res.Y) * (2000 + i * (i * 0.1f)));
-                nawf[i] = (/*oawf1[i] +*/ oawf0[i] + value * median /*0.4f/(float)Math.Sqrt(value)*value*20*/) / 2.5f;
-                mbuffer += value;
-            }
-            median = mbuffer / (awfl / 2);
 
-            spectrum.Evaluate(nawf, mm.vertScrollWavefactor.Value);
+            spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.canvas1.PointToClient(MousePosition));
+            //spectrum.DrawSpectrum(cg);
         }
 
         volatile static byte[] byteBuffer;
@@ -153,61 +149,28 @@ namespace UniaCore
 
 
         public static Spectrum spectrum = new Spectrum();
-        public static float hofs = 150;
+        //static Image img = Image.FromFile(@"C:\Users\Rideu\Desktop\render\skys1low.png");
+        static Bitmap img;
+        //static Graphics cg;
         public static void MainSpectrum()
         {
-
+            //cg = Graphics.FromHwnd(mm.canvas1.Handle);
+            spectrum.Host = mm.canvas1;
             mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
             {
-                e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                e.Graphics.DrawImage(img, 0, 0, mm.canvas1.Width, mm.canvas1.Height);
+                e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 sw.Restart();
                 var mp = mm.canvas1.PointToClient(MousePosition);
                 var mpofs = mp;
                 mpofs.Offset(-mm.canvas1.Width / 2, -mm.canvas1.Height / 2);
                 spectrum.DrawSpectrum(e.Graphics);
-                //e.Graphics.Clear(mm.canvas1.BackColor);
-                //PointF foline = new PointF(0, hofs);
-                //for (int i = 0; i < awfl; i++)
-                //{
-                //    var v = nawf[i];
-                //    var exp = (float)Math.Pow(v, 1 + mm.vertScrollWavefactor.Value * 1);
-                //    //var c = LerpCol(salc, LerpCol(samc, sahc, (exp / 40)), (exp / 40));
-                //    var c = LerpCol(salc, samc, (exp / 40));
-                //    lock (e.Graphics)
-                //    {
-                //        wfb.Color = c;
-                //        wfp.Color = c;
-                //        var tx = i * step;
-                //        var s = i % 2 == 0 ? 1 : -1;
-                //        //var ty = hofs - ((exp / hofs).Amplify(4, 10f) + 0.0f).Clamp(0, 1) * 190;
-                //        var ty = hofs - ((exp / hofs).Amplify(4, 10f) + 0.0f).Clamp(0, 1) * 190 * s;
 
-                //        //e.Graphics.FillRectangle(wfb, tx, ty, step - 1, hofs - ty);
-                //        //e.Graphics.FillRectangle(wfb, tx, ty, step - 1, hofs - ty*s);
-                //        //e.Graphics.DrawLine(wfp, tx, hofs, tx, ty);
-                //        //e.Graphics.DrawLine(wfp, tx, hofs, tx, hofs - ty);
-                //        //e.Graphics.DrawLine(wfp, i, 200, i, 200 - exp * 20);
-                //        //e.Graphics.DrawLine(wfp, i, 100 - exp * 20, i, 100 + exp * 20);
-                //        //e.Graphics.DrawLine(wfp, i, hofs + 200, i, hofs + 200 - exp * 20);
-                //        ////wfp.Color = LerpCol(salc, LerpCol(samc, sahc, (float)Math.Sin(exp)), (float)Math.Cos(exp));
-                //        //var tx = i + exp * (i - mm.Width / 2 + mp.X / 10) * 0.5f;
-                //        //var ty = hofs - exp * 80 + mp.Y / 20;
-                //        //wfp.Color = AlphaAmount(wfp.Color, 0.2f);
-                //        //e.Graphics.DrawLine(wfp, i, hofs, tx, hofs + exp * 20 + mp.Y / 20);
-                //        //e.Graphics.DrawLine(wfp, i, hofs - exp * 20, tx, ty);
-
-                //        wfp.MiterLimit = 2;
-                //        e.Graphics.DrawLine(wfp, foline.X, foline.Y, tx, ty);
-                //        //e.Graphics.DrawLine(wfp, tx, hofs, tx + step, hofs + s * ty);
-                //        //e.Graphics.DrawLine(wfp, tx, hofs, tx + step, hofs + s * ty);
-                //        foline = new PointF(tx, ty);
-                //    }
-                //}
-                wfb.Color = Color.FromArgb(((int)((1 - Math.Abs(hofs - mp.Y) * 4 / hofs) * 255)).Clamp(0, 255), 205, 205, 205);
+                wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
                 //wfb.Color = Color.FromArgb(100, 255, 255, 255);
-                e.Graphics.DrawString($"{((float)mp.X / mm.canvas1.Width) * 4100:0} Hz", freqFont, wfb, mp.X - 55 * (float)mp.X / mm.canvas1.Width, hofs);
+                e.Graphics.DrawString($"{((float)mp.X / mm.canvas1.Width) * 5600:0} Hz", freqFont, wfb, mp.X - 55 * (float)mp.X / mm.canvas1.Width, Spectrum.HorizontalOffset);
 
                 //);
                 sw.Stop();
@@ -265,7 +228,7 @@ namespace UniaCore
                 }
                 catch
                 {
-                    nawf = oawf0;
+                    //nawf = oawf0;
                 }
             }
             //);

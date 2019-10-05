@@ -8,13 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UniaCore.Components
+namespace UniaCore
 {
-    public partial class WinHeader : Panel
+    public partial class WinHeader : UserControl
     {
+        Form owner;
         public WinHeader()
         {
             InitializeComponent();
+            Dock = DockStyle.Top;
+        }
+
+        private void WinHeader_Load(object sender, EventArgs e)
+        {
+            owner = FindForm();
+            labelFormName.Text = owner.Text;
         }
 
         Point lastLocation;
@@ -23,7 +31,7 @@ namespace UniaCore.Components
         {
             if (e.Button == MouseButtons.Left)
             {
-                Parent.Location = new Point((Location.X - lastLocation.X) + MousePosition.X, (Location.Y - lastLocation.Y) + MousePosition.Y);
+                owner.Location = new Point((Location.X - lastLocation.X) + MousePosition.X, (Location.Y - lastLocation.Y) + MousePosition.Y);
             }
         }
 
@@ -31,5 +39,16 @@ namespace UniaCore.Components
         {
             lastLocation = PointToClient(MousePosition);
         }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            owner.Close();
+        }
+
+        private void buttonMinimize_Click(object sender, EventArgs e)
+        {
+            owner.Close();
+        }
+
     }
 }

@@ -585,7 +585,7 @@ namespace UniaCore.Peripherals
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new GetHelp().Show();
+
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)

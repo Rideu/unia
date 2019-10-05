@@ -30,9 +30,9 @@ using static System.Text.RegularExpressions.Regex;
 
 namespace UniaCore.Peripherals
 {
-    public partial class Viauc : Form
+    public partial class YDLBridge : Form
     {
-        public Viauc()
+        public YDLBridge()
         {
             TopMost = true;
             InitializeComponent();

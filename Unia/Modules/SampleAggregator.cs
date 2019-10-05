@@ -31,7 +31,7 @@ class SampleAggregator
 {
     public event EventHandler<FftEventArgs> FftCalculated;
     public bool PerformFFT { get; set; }
-    
+
     private Complex[] fftBuffer;
     private FftEventArgs fftArgs;
     private int fftPos;

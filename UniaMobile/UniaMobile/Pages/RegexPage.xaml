@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:UniaMobile.Controls"
+             mc:Ignorable="d"
+             x:Class="UniaMobile.Pages.RegexPage" BackgroundColor="{StaticResource GrayBackground}">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Editor x:Name="RegexText" 
+                    TextChanged="SampleText_TextChanged" 
+                    HeightRequest="90" 
+                    BackgroundColor="#353535" 
+                    PlaceholderColor="{StaticResource PlaceholderColor}" 
+                    Placeholder="Enter regex..." 
+                    TextColor="{StaticResource TextColor}" />
+
+            <Editor x:Name="SampleText" 
+                    TextChanged="SampleText_TextChanged"  
+                    HeightRequest="90" 
+                    BackgroundColor="#353535" 
+                    Placeholder="Enter sample text..." 
+                    PlaceholderColor="{StaticResource PlaceholderColor}"
+                    TextColor="{StaticResource TextColor}">
+
+            </Editor>
+            <Controls:TreegexResult x:Name="ResultProvider"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

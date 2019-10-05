@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:content="clr-namespace:UniaMobile.Pages"
+             mc:Ignorable="d"
+             x:Class="UniaMobile.LoginPage" >
+
+    <StackLayout BackgroundColor="{StaticResource GrayBackground}">
+
+
+        <StackLayout x:Name="signInForm" IsEnabled="True" Margin="20">
+
+            <Label Margin="0,50,0,150" 
+                   Focused="Label_Focused" 
+                   Text="Sign in to proceed" 
+                   TextColor="#C8C8C8" 
+                   FontSize="Title" 
+                   VerticalOptions="Fill" 
+                   HorizontalTextAlignment="Center" 
+                   HorizontalOptions="Fill" />
+            <Editor x:Name="signInEditor" 
+                    Text="1234"
+                    PlaceholderColor="#707070" 
+                    Placeholder="" 
+                    BackgroundColor="#161616" 
+                    AutomationProperties.IsInAccessibleTree="True"/>
+            <Button x:Name="signInButton" 
+                    Clicked="signInClick" 
+                    BackgroundColor="#161616" 
+                    TextColor="#C8C8C8" 
+                    Text="Sign in" 
+                    WidthRequest="100" 
+                    BorderColor="#007AC3" 
+                    BorderWidth="1"/>
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>

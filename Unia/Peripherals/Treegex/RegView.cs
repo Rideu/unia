@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UniaCore.Peripherals
+namespace UniaCore.Peripherals.Treegex
 {
-    public partial class GetHelp : Form
+    public partial class RegView : Form
     {
-        public GetHelp()
+
+        public RegCell SelectedExp;
+
+        public RegView()
         {
+
             InitializeComponent();
         }
+
+
     }
 }

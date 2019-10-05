@@ -34,8 +34,7 @@ namespace UniaCore
         }
 
         public async static void UpdatePerf()
-        {
-
+        { 
             await Task.Run(() =>
             {
                 ocv = ncv;
