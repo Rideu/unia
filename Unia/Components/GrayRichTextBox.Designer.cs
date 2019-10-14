@@ -1,6 +1,6 @@
 ﻿namespace UniaCore.Components
 {
-    partial class GrayRichTexBox
+    partial class GrayRichTextBox
     {
         /// <summary> 
         /// Required designer variable.

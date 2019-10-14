@@ -269,7 +269,7 @@
             this.retractPanel4.Controls.Add(this.button4);
             this.retractPanel4.Controls.Add(this.button3);
             this.retractPanel4.Controls.Add(this.button2);
-            this.retractPanel4.Location = new System.Drawing.Point(339, -447);
+            this.retractPanel4.Location = new System.Drawing.Point(754, 402);
             this.retractPanel4.Name = "retractPanel4";
             this.retractPanel4.Size = new System.Drawing.Size(141, 207);
             this.retractPanel4.TabIndex = 23;
@@ -413,7 +413,7 @@
             this.retractPanel3.Controls.Add(this.labelSpeed);
             this.retractPanel3.Controls.Add(this.labelRMC);
             this.retractPanel3.Controls.Add(this.labelJumps);
-            this.retractPanel3.Location = new System.Drawing.Point(225, 402);
+            this.retractPanel3.Location = new System.Drawing.Point(213, 402);
             this.retractPanel3.Name = "retractPanel3";
             this.retractPanel3.Size = new System.Drawing.Size(274, 207);
             this.retractPanel3.TabIndex = 22;
@@ -663,7 +663,7 @@
             this.retractPanel1.Controls.Add(this.panel3);
             this.retractPanel1.Controls.Add(this.label7);
             this.retractPanel1.Controls.Add(this.label6);
-            this.retractPanel1.Location = new System.Drawing.Point(135, 402);
+            this.retractPanel1.Location = new System.Drawing.Point(128, 402);
             this.retractPanel1.Name = "retractPanel1";
             this.retractPanel1.Size = new System.Drawing.Size(84, 207);
             this.retractPanel1.TabIndex = 20;

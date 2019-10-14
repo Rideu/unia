@@ -174,7 +174,7 @@ namespace UniaCore
 
                 //);
                 sw.Stop();
-                Console.WriteLine(sw.ElapsedMilliseconds);
+                //Console.WriteLine(sw.ElapsedMilliseconds);
             };
         }
 

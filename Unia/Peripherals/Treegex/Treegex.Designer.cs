@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Treegex));
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.Context = new UniaCore.Components.GrayRichTexBox();
-            this.ErrorList = new UniaCore.Components.GrayRichTexBox();
-            this.Input = new UniaCore.Components.GrayRichTexBox();
-            this.RegexIn = new UniaCore.Components.GrayRichTexBox();
+            this.Context = new UniaCore.Components.GrayRichTextBox();
+            this.ErrorList = new UniaCore.Components.GrayRichTextBox();
+            this.Input = new UniaCore.Components.GrayRichTextBox();
+            this.RegexIn = new UniaCore.Components.GrayRichTextBox();
             this.winHeader1 = new UniaCore.WinHeader();
             this.SaveRegex = new UniaCore.Components.GrayButton();
             this.OpenRegex = new UniaCore.Components.GrayButton();
@@ -185,10 +185,10 @@
         #endregion
 
         private WinHeader winHeader1;
-        private Components.GrayRichTexBox Input;
-        private Components.GrayRichTexBox Context;
-        private Components.GrayRichTexBox ErrorList;
-        private Components.GrayRichTexBox RegexIn;
+        private Components.GrayRichTextBox Input;
+        private Components.GrayRichTextBox Context;
+        private Components.GrayRichTextBox ErrorList;
+        private Components.GrayRichTextBox RegexIn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private Components.GrayButton SaveRegex;

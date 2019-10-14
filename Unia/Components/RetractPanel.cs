@@ -17,10 +17,7 @@ using System.Net.NetworkInformation;
 using System.Net;
 using System.IO;
 using UniaCore.Peripherals;
-using NAudio;
-using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
+using static UniaCore.Helper;
 
 namespace UniaCore.Components
 {
@@ -47,34 +44,41 @@ namespace UniaCore.Components
         bool isRetracted = true;
         bool isMoving;
         PointF fLocation;
+        float lerp;
 
         void Extend(object sender, EventArgs e)
         {
 
-            if (Location.Y <= InitialPosition.Y - (Height + buttonLoad.Height))
+            if ((lerp += 0.03f) > 1)
             {
                 isMoving = (isRetracted = false);
                 t.Stop();
                 t.Tick -= Extend;
-                Location = new Point(InitialPosition.X, (Location.Y - (InitialPosition.Y - (Height + buttonLoad.Height))));
+                Location = new Point(InitialPosition.X, InitialPosition.Y - Height + buttonLoad.Height);
+                lerp = 0;
             }
             else
-                fLocation = new PointF(Location.X, Location.Y - ((Location.Y - (InitialPosition.Y - (Height + buttonLoad.Height))) * 0.05f));
-            Location = new Point((int)fLocation.X, (int)fLocation.Y);
+            {
+                fLocation = new PointF(Location.X, PowXIn(InitialPosition.Y, InitialPosition.Y - Height + buttonLoad.Height, lerp, 4));
+                Location = new Point((int)fLocation.X, (int)fLocation.Y);
+            }
         }
 
         void Retract(object sender, EventArgs e)
         {
-            if (Location.Y >= InitialPosition.Y)
+            if ((lerp += 0.03f) > 1)
             {
                 isMoving = !(isRetracted = true);
                 t.Stop();
                 t.Tick -= Retract;
                 Location = InitialPosition;
+                lerp = 0;
             }
             else
-                fLocation = new PointF(Location.X, Location.Y + ((Location.Y + (InitialPosition.Y - Height)) * 0.05f));
-            Location = new Point((int)fLocation.X, (int)fLocation.Y);
+            {
+                fLocation = new PointF(Location.X, PowXIn(InitialPosition.Y - Height + buttonLoad.Height, InitialPosition.Y, lerp, 4));
+                Location = new Point((int)fLocation.X, (int)fLocation.Y);
+            }
         }
         Timer t = new Timer();
 

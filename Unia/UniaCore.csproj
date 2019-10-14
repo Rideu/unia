@@ -181,11 +181,11 @@
     <Compile Include="Components\GrayProgressBar.Designer.cs">
       <DependentUpon>GrayProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\GrayRichTexBox.cs">
+    <Compile Include="Components\GrayRichTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Components\GrayRichTexBox.Designer.cs">
-      <DependentUpon>GrayRichTexBox.cs</DependentUpon>
+    <Compile Include="Components\GrayRichTextBox.Designer.cs">
+      <DependentUpon>GrayRichTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\RetractPanel.cs">
       <SubType>Component</SubType>
@@ -297,11 +297,11 @@
     <Compile Include="Peripherals\Measure.Designer.cs">
       <DependentUpon>Measure.cs</DependentUpon>
     </Compile>
-    <Compile Include="Peripherals\Viauc.cs">
+    <Compile Include="Peripherals\AudioExtractor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Peripherals\Viauc.Designer.cs">
-      <DependentUpon>Viauc.cs</DependentUpon>
+    <Compile Include="Peripherals\AudioExtractor.Designer.cs">
+      <DependentUpon>AudioExtractor.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,8 +315,8 @@
     <EmbeddedResource Include="Components\GrayProgressBar.resx">
       <DependentUpon>GrayProgressBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\GrayRichTexBox.resx">
-      <DependentUpon>GrayRichTexBox.cs</DependentUpon>
+    <EmbeddedResource Include="Components\GrayRichTextBox.resx">
+      <DependentUpon>GrayRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\RetractPanel.resx">
       <DependentUpon>RetractPanel.cs</DependentUpon>
@@ -363,8 +363,8 @@
     <EmbeddedResource Include="Peripherals\ACM.resx">
       <DependentUpon>ACM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Peripherals\Viauc.resx">
-      <DependentUpon>Viauc.cs</DependentUpon>
+    <EmbeddedResource Include="Peripherals\AudioExtractor.resx">
+      <DependentUpon>AudioExtractor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

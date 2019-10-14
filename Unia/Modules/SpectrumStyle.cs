@@ -108,6 +108,9 @@ namespace UniaCore
         static int aliasteps = 4;
         volatile List<float[]> aliasing = new List<float[]>();
 
+
+        Func<float, float> SnapFunc = (v) => (float)Sqrt(v / (v + 10)) * 20;
+
         public async void Evaluate(Complex[] frequencies, float exponent, Point mp = default)
         {
             freqPoints = new FreqShape[SampleWidth = frequencies.Length];
@@ -117,30 +120,30 @@ namespace UniaCore
             {
                 aliasing[i] = aliasing[i - 1];
             }
-            var threads = 4;
+            var threads = 2;
             var chunkLength = hostControl.Width / threads / Step;
+
+            // TODO: move spectrum analyzer here
 
             Parallel.For(0, threads, (t) =>
             {
                 for (int i = chunkLength * t; i < chunkLength * (t + 1); i++)
-                //for (int i = fl * t / 2; i < fl - fl * t / 2; i++)
                 {
 
                     var res = frequencies[i];
-                    var value = ((float)Sqrt(res.X * res.X * 2 + res.Y * res.Y) * (2000 + i * (i * 0.01f)));
-                    value = (float)Sqrt(value / (value + 5)) * 20;
+                    var value = ((float)Sqrt(res.X * res.X /*/ 0.05f*/ + res.Y * res.Y /*/ 0.05f*/) * (2000 + i * (i * 0.01f)));
+                    value = (float)Sqrt(value / (value + 10)) * 20;
                     var ac = 0.0f;
                     for (int sm = 1; sm < aliasing.Count; sm++)
                     {
                         ac += aliasing[sm][i];
                     }
-                    aliasing[0][i] = ((ac + value) / (aliasteps - 0.0f));
+                    value = aliasing[0][i] = ((ac + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (aliasteps + 0.0f));
 
-                    var exp = ((float)Pow(aliasing[0][i], 1.5f + exponent * 1)) / 4;
-                    //var exp = nawf[i];
+                    var exp = ((float)Pow(value / 8, 1.2f + exponent * 2)) / .06f;
                     var s = i % 2 == 0 ? 1 : -1;
                     var tx = (i) * Step;
-                    var ty = (exp + 0.0f);
+                    var ty = (exp);
 
                     var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
                     var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
@@ -177,13 +180,15 @@ namespace UniaCore
             {
                 //g.DrawClosedCurve(wfp, freqPoints.Select(n => n.point).ToArray(), 1, FillMode.Alternate);
                 //g.DrawCurve(wfp, freqPoints.Select(n => n.point).ToArray());
-                for (int i = 0; i < hostControl.Width; i++)
+                for (int i = 1; i < hostControl.Width; i++)
                 {
-                    //wfp.Color = freqPoints[i].col;
+
+                    wfp.Color = freqPoints[i].col;
                     wfb.Color = freqPoints[i].col;
                     //g.DrawLine(wfp, freqPoints[i].point.X, freqPoints[i].point.Y, freqPoints[i - 1].point.X, freqPoints[i - 1].point.Y);
                     //g.DrawLine(wfp, freqPoints[i].point.X, freqPoints[i].point.Y, freqPoints[i].point.X, HorizontalOffset + freqPoints[i].size.Y);
                     g.FillRectangle(wfb, freqPoints[i].point.X, freqPoints[i].point.Y, Step - 1, freqPoints[i].size.Y);
+                    //g.DrawLine(wfp, freqPoints[i].point.X + 1, HorizontalOffset, (freqPoints[i].point.X + 1) + ((i - 150f) * 0.6f), HorizontalOffset + freqPoints[i].size.Y * 0.3f);
                     //g.DrawImage(img, freqPoints[i].point.X, freqPoints[i].point.Y, Step - 1, (int)freqPoints[i].size.Y);
                     //g.DrawImage(img, freqPoints[i].point.X, freqPoints[i].point.Y, Step - 1, (int)freqPoints[i].size.Y);
                     //wfb.Color = freqPoints[100].col;

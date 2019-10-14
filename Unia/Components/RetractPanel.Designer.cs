@@ -36,11 +36,11 @@
             this.buttonLoad.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonLoad.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.buttonLoad.FlatAppearance.BorderSize = 0;
-            this.buttonLoad.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLoad.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.buttonLoad.Location = new System.Drawing.Point(0, 0);
             this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(148, 23);
+            this.buttonLoad.Size = new System.Drawing.Size(146, 23);
             this.buttonLoad.TabIndex = 9;
             this.buttonLoad.Text = "Load";
             this.buttonLoad.UseVisualStyleBackColor = true;
@@ -51,7 +51,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.buttonLoad);
-            this.Name = "RetractPanel";
             this.Size = new System.Drawing.Size(148, 148);
             this.ResumeLayout(false);
 

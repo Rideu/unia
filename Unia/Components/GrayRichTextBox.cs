@@ -12,7 +12,7 @@ namespace UniaCore.Components
 {
 
     [DefaultEvent("TextChanged")]
-    public partial class GrayRichTexBox : UserControl
+    public partial class GrayRichTextBox : UserControl
     {
         #region Events
 
@@ -69,7 +69,7 @@ namespace UniaCore.Components
             }
         }
 
-        [Category("Behaviour")]
+        [Category("Behavior")]
         [Browsable(true)]
         public bool ReadOnly { get => editorBox.ReadOnly; set => editorBox.ReadOnly = value; }
 
@@ -85,7 +85,7 @@ namespace UniaCore.Components
 
         public RichTextBox Editor => editorBox;
 
-        public GrayRichTexBox()
+        public GrayRichTextBox()
         {
             InitializeComponent();
             editorBox.GotFocus += EditorBox_GotFocus;

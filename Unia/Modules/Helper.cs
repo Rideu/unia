@@ -64,11 +64,21 @@ namespace UniaCore
 
         //public static float Amplify(this float v, float amount, float lowpass = 1) => (v / (Abs(v) + lowpass) * amount);
 
-        public static float Amplify(this float v, float amount, float lowpass = 1) => (-v / (1.0f + Abs(v)) + (v / (0.2f + Abs(v)))) * amount;
+        public static float Amplify(this float v) => (v / (0.04f + Abs(v))) * 2 - (float)Sqrt(v) / 3;
 
         public static int Lerp(int firstFloat, int secondFloat, float by)
         {
-            return (int)(firstFloat * (1 - by)) + (int)(secondFloat * by);
+            return (int)(firstFloat + (secondFloat - firstFloat) * by);
+        }
+
+        public static int PowXIn(int firstFloat, int secondFloat, float by, float x)
+        {
+            return (int)(firstFloat + (secondFloat - firstFloat) * -(Pow(by - 1, x) - 1));
+        }
+
+        public static float Lerp(float firstFloat, float secondFloat, float by)
+        {
+            return (firstFloat * (1 - by)) + (secondFloat * by);
         }
         #endregion
 
