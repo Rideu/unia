@@ -1,48 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Globalization;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows.Input;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.Net;
-using System.IO;
-using UniaCore.Peripherals;
-using NAudio;
+﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using NAudio.Dsp;
-using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using static UniaCore.Helper;
 
-// Refs:
-// — https://stackoverflow.com/questions/18813112
 
 namespace UniaCore
 {
 
     public partial class MainWindow
     {
-        static WasapiLoopbackCapture _capture;
+        static IWaveIn _capture;
         static WaveInProvider wip;
         static WaveFloatTo16Provider to16p;
         static SampleAggregator sampleAggregator;
+        static MMDevice pad;
 
 
         static WaveFormat wf = new WaveFormat(44100, 2);
         static MemoryStream ams = new MemoryStream();
         static RawSourceWaveStream r;
-        //static WaveIn waveIn;
         static WaveOut wout;
         static WaveBuffer wb = new WaveBuffer(0);
 
@@ -50,11 +29,11 @@ namespace UniaCore
 
         public void InitSpectrum()
         {
-
+            pad = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Communications);
             _capture = new WasapiLoopbackCapture();
 
-            //wip = new WaveInProvider(_capture);
-            //to16p = new WaveFloatTo16Provider(wip);
+            wip = new WaveInProvider(_capture);
+            to16p = new WaveFloatTo16Provider(wip);
 
             sampleAggregator = new SampleAggregator(8192 / 4);
             sampleAggregator.FftCalculated += new EventHandler<FftEventArgs>(FftCalculated);
@@ -65,24 +44,23 @@ namespace UniaCore
 
             _capture.DataAvailable += OnDataAvailable;
 
-            //_capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
-            //{
+            _capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
+            {
 
-            //    //byte[] buffer = e.Buffer;
-            //    //int bytesRecorded = e.BytesRecorded;
-            //    //int bufferIncrement = waveIn.WaveFormat.BlockAlign;
+                byte[] buffer = e.Buffer;
+                int bytesRecorded = e.BytesRecorded;
+                int bufferIncrement = _capture.WaveFormat.BlockAlign;
 
-            //    //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
-            //    //{
-            //    //    float sample32 = BitConverter.ToSingle(buffer, index);
-            //    //    sampleAggregator.Add(sample32);
-            //    //}
-            //    //byte[] b = new byte[e.BytesRecorded];
-            //    //var l = to16p.Read(b, 0, e.BytesRecorded);
-            //    //ams.Position = 0;
-            //    //ams.Write(e.Buffer, 0, e.BytesRecorded);
-            //    byteBuffer = e.Buffer;
-            //};
+                for (int index = 0; index < bytesRecorded; index += bufferIncrement)
+                {
+                    float sample32 = BitConverter.ToSingle(buffer, index);
+                }
+                byte[] b = new byte[e.BytesRecorded];
+                var l = to16p.Read(b, 0, e.BytesRecorded);
+                ams.Position = 0;
+                ams.Write(e.Buffer, 0, e.BytesRecorded);
+                byteBuffer = e.Buffer;
+            };
 
             //r = new RawSourceWaveStream(ams, _capture.WaveFormat);
             img = new Bitmap(1, 3);
@@ -95,17 +73,10 @@ namespace UniaCore
             _capture.StartRecording();
             //waveIn.StartRecording();
         }
-        static int step = 50;
-        static int awfl = 800 / step;
 
-        volatile static float[] nawf = new float[awfl], oawf0 = new float[awfl], oawf1 = new float[awfl];
-
-        float median = 0;
         void FftCalculated(object sender, FftEventArgs e)
         {
-
-            spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.canvas1.PointToClient(MousePosition));
-            //spectrum.DrawSpectrum(cg);
+            spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
         }
 
         volatile static byte[] byteBuffer;
@@ -149,33 +120,35 @@ namespace UniaCore
 
 
         public static Spectrum spectrum = new Spectrum();
-        //static Image img = Image.FromFile(@"C:\Users\Rideu\Desktop\render\skys1low.png");
+
         static Bitmap img;
-        //static Graphics cg;
+
         public static void MainSpectrum()
         {
             //cg = Graphics.FromHwnd(mm.canvas1.Handle);
-            spectrum.Host = mm.canvas1;
-            mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
-            {
-                e.Graphics.DrawImage(img, 0, 0, mm.canvas1.Width, mm.canvas1.Height);
-                e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-                e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                sw.Restart();
-                var mp = mm.canvas1.PointToClient(MousePosition);
-                var mpofs = mp;
-                mpofs.Offset(-mm.canvas1.Width / 2, -mm.canvas1.Height / 2);
-                spectrum.DrawSpectrum(e.Graphics);
+            //spectrum.Host = mm.canvas1;
+            spectrum.MonoHost = mm.spectrumViewer1;
 
-                wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
-                //wfb.Color = Color.FromArgb(100, 255, 255, 255);
-                e.Graphics.DrawString($"{((float)mp.X / mm.canvas1.Width) * 5600:0} Hz", freqFont, wfb, mp.X - 55 * (float)mp.X / mm.canvas1.Width, Spectrum.HorizontalOffset);
+            //mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
+            //{
+            //    e.Graphics.DrawImage(img, 0, 0, mm.canvas1.Width, mm.canvas1.Height);
+            //    e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            //    e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+            //    e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            //    sw.Restart();
+            //    var mp = mm.canvas1.PointToClient(MousePosition);
+            //    var mpofs = mp;
+            //    mpofs.Offset(-mm.canvas1.Width / 2, -mm.canvas1.Height / 2);
+            //    spectrum.DrawSpectrum(e.Graphics);
 
-                //);
-                sw.Stop();
-                //Console.WriteLine(sw.ElapsedMilliseconds);
-            };
+            //    wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
+            //    //wfb.Color = Color.FromArgb(100, 255, 255, 255);
+            //    e.Graphics.DrawString($"{((float)mp.X / mm.canvas1.Width) * 5600:0} Hz", freqFont, wfb, mp.X - 55 * (float)mp.X / mm.canvas1.Width, Spectrum.HorizontalOffset);
+
+            //    //);
+            //    sw.Stop();
+            //    //Console.WriteLine(sw.ElapsedMilliseconds);
+            //};
         }
 
         public static void UpdateSpectrum()
@@ -183,7 +156,6 @@ namespace UniaCore
             //await Task.Run(() =>
             {
 
-                //padpv = pad.AudioMeterInformation.PeakValues[0];
 
                 //oawf = nawf;
                 //nawf = new float[awfl = (mm.canvas1.Width)];
@@ -232,6 +204,21 @@ namespace UniaCore
                 }
             }
             //);
+            backPeakLerp2 = backPeakLerp1;
+            backPeakLerp1 = newPeakLerp;
+            newPeakLerp = pad.AudioMeterInformation.PeakValues[0];
+            var mixed = (newPeakLerp + backPeakLerp1 + backPeakLerp2) / 3;
+            mixed *= mixed * 2 * spectrum.Exponent;
+            if (mm.checkBoxColoriseCanvas.Checked)
+            {
+                mm.spectrumViewer1.Peak = mixed;
+                mm.spectrumViewer1.EmitColor = (mm.canvas1.BackColor = LerpCol(LerpCol(Spectrum.SpectrumMidColor, Spectrum.SpectrumLowColor, (mixed)), Spectrum.SpectrumHighColor, ((mixed) * 6))).ToXNA();
+            }
+            else if (mm.canvas1.BackColor != canvback)
+            {
+                mm.spectrumViewer1.BackColor = (mm.canvas1.BackColor = canvback).ToXNA();
+            }
+            
         }
 
         public static void ExitSpectrum()

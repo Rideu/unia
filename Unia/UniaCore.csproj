@@ -124,6 +124,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Content.Pipeline">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MSBuild\MonoGame\v3.0\Tools\MonoGame.Framework.Content.Pipeline.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data.EntityFramework, Version=8.0.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySQL.Data.EntityFrameworkCore, Version=8.0.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
@@ -134,6 +141,14 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SharpDX, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MSBuild\MonoGame\v3.0\Tools\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MSBuild\MonoGame\v3.0\Tools\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -187,6 +202,7 @@
     <Compile Include="Components\GrayRichTextBox.Designer.cs">
       <DependentUpon>GrayRichTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\LerpAnimation.cs" />
     <Compile Include="Components\RetractPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -199,6 +215,10 @@
     <Compile Include="Components\GrayScroll.designer.cs">
       <DependentUpon>GrayScroll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\Simplex.cs" />
+    <Compile Include="Components\SpectrumViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Components\WinHeader.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -207,7 +227,8 @@
     </Compile>
     <Compile Include="Modules\Eval.cs" />
     <Compile Include="Modules\Hooks.cs" />
-    <Compile Include="Modules\Perf.cs">
+    <Compile Include="Modules\Interlop.cs" />
+    <Compile Include="Modules\PerfCounter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\SampleAggregator.cs" />
@@ -303,6 +324,12 @@
     <Compile Include="Peripherals\AudioExtractor.Designer.cs">
       <DependentUpon>AudioExtractor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Peripherals\WinKeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Peripherals\WinKeys.Designer.cs">
+      <DependentUpon>WinKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sniffer.cs" />
@@ -366,6 +393,9 @@
     <EmbeddedResource Include="Peripherals\AudioExtractor.resx">
       <DependentUpon>AudioExtractor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Peripherals\WinKeys.resx">
+      <DependentUpon>WinKeys.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -413,9 +443,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Evals\ffmpeg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -429,6 +457,13 @@
     <Content Include="Libs\MySQL.Data.EntityFrameworkCore.dll" />
     <Content Include="Libs\MySql.Web.dll" />
     <Content Include="Libs\WebKitBrowser.dll" />
+    <None Include="Resources\sets.png" />
+    <Content Include="Resources\bxaa.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\rays.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="unia_icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -450,6 +485,12 @@
       <ProductName>SQL Server 2012 Express LocalDB</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GrayLib\GrayLib.csproj">
+      <Project>{b228117e-8bc1-4737-bb83-de1e068798b2}</Project>
+      <Name>GrayLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />

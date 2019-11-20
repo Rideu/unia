@@ -34,14 +34,15 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.canvas1 = new UniaCore.Components.Canvas();
             this.panelSpectrumSets = new System.Windows.Forms.Panel();
-            this.vertScrollWavefactor = new UniaCore.GrayScroll();
+            this.grayButton1 = new GrayLib.GrayButton();
             this.checkBoxColoriseCanvas = new System.Windows.Forms.CheckBox();
             this.buttonSH = new System.Windows.Forms.Button();
             this.buttonSM = new System.Windows.Forms.Button();
             this.buttonBC = new System.Windows.Forms.Button();
             this.buttonSL = new System.Windows.Forms.Button();
+            this.checkBoxTopMostSwitch = new System.Windows.Forms.CheckBox();
+            this.checkBoxFadeSwitch = new System.Windows.Forms.CheckBox();
             this.retractPanel4 = new UniaCore.Components.RetractPanel();
             this.buttonTreegex = new System.Windows.Forms.Button();
             this.buttonSIE = new System.Windows.Forms.Button();
@@ -72,6 +73,8 @@
             this.labelMIDVh = new System.Windows.Forms.Label();
             this.labelMIDVl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.vertScrollWavefactor = new UniaCore.GrayScroll();
+            this.canvas1 = new UniaCore.Components.Canvas();
             this.retractPanel1 = new UniaCore.Components.RetractPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.labelOUTVh = new System.Windows.Forms.Label();
@@ -82,9 +85,8 @@
             this.labelINVl = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.spectrumViewer1 = new UniaCore.Components.SpectrumViewer();
             this.panelHeader.SuspendLayout();
-            this.canvas1.SuspendLayout();
             this.panelSpectrumSets.SuspendLayout();
             this.retractPanel4.SuspendLayout();
             this.retractPanel3.SuspendLayout();
@@ -150,51 +152,35 @@
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // canvas1
-            // 
-            this.canvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.canvas1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.canvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.canvas1.Controls.Add(this.panelSpectrumSets);
-            this.canvas1.Controls.Add(this.retractPanel4);
-            this.canvas1.Controls.Add(this.retractPanel3);
-            this.canvas1.Controls.Add(this.retractPanel2);
-            this.canvas1.Controls.Add(this.retractPanel1);
-            this.canvas1.Controls.Add(this.checkBox1);
-            this.canvas1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.canvas1.Location = new System.Drawing.Point(0, 23);
-            this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(900, 427);
-            this.canvas1.TabIndex = 14;
-            // 
             // panelSpectrumSets
             // 
             this.panelSpectrumSets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.panelSpectrumSets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSpectrumSets.Controls.Add(this.grayButton1);
             this.panelSpectrumSets.Controls.Add(this.vertScrollWavefactor);
             this.panelSpectrumSets.Controls.Add(this.checkBoxColoriseCanvas);
             this.panelSpectrumSets.Controls.Add(this.buttonSH);
             this.panelSpectrumSets.Controls.Add(this.buttonSM);
             this.panelSpectrumSets.Controls.Add(this.buttonBC);
             this.panelSpectrumSets.Controls.Add(this.buttonSL);
-            this.panelSpectrumSets.Location = new System.Drawing.Point(3, -45);
+            this.panelSpectrumSets.Location = new System.Drawing.Point(3, 23);
             this.panelSpectrumSets.Name = "panelSpectrumSets";
-            this.panelSpectrumSets.Size = new System.Drawing.Size(152, 54);
+            this.panelSpectrumSets.Size = new System.Drawing.Size(177, 54);
             this.panelSpectrumSets.TabIndex = 24;
             this.panelSpectrumSets.Click += new System.EventHandler(this.panelSpectrumSets_Click);
             // 
-            // vertScrollWavefactor
+            // grayButton1
             // 
-            this.vertScrollWavefactor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.vertScrollWavefactor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.vertScrollWavefactor.Location = new System.Drawing.Point(3, 27);
-            this.vertScrollWavefactor.MaximumSize = new System.Drawing.Size(9999, 14);
-            this.vertScrollWavefactor.MinimumSize = new System.Drawing.Size(100, 14);
-            this.vertScrollWavefactor.Name = "vertScrollWavefactor";
-            this.vertScrollWavefactor.Orient = UniaCore.GrayScroll.Orientype.Horizontal;
-            this.vertScrollWavefactor.Size = new System.Drawing.Size(144, 14);
-            this.vertScrollWavefactor.TabIndex = 5;
-            this.vertScrollWavefactor.Value = -0.01818182F;
+            this.grayButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.grayButton1.BackgroundImage = global::UniaCore.Properties.Resources.sets;
+            this.grayButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.grayButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.grayButton1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.grayButton1.Location = new System.Drawing.Point(136, 3);
+            this.grayButton1.Name = "grayButton1";
+            this.grayButton1.Size = new System.Drawing.Size(22, 22);
+            this.grayButton1.TabIndex = 9;
+            this.grayButton1.UseVisualStyleBackColor = true;
             // 
             // checkBoxColoriseCanvas
             // 
@@ -203,7 +189,7 @@
             this.checkBoxColoriseCanvas.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxColoriseCanvas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxColoriseCanvas.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.checkBoxColoriseCanvas.Location = new System.Drawing.Point(136, 3);
+            this.checkBoxColoriseCanvas.Location = new System.Drawing.Point(160, 3);
             this.checkBoxColoriseCanvas.Name = "checkBoxColoriseCanvas";
             this.checkBoxColoriseCanvas.Size = new System.Drawing.Size(12, 11);
             this.checkBoxColoriseCanvas.TabIndex = 4;
@@ -254,6 +240,34 @@
             this.buttonSL.UseVisualStyleBackColor = true;
             this.buttonSL.Click += new System.EventHandler(this.buttonSL_Click);
             // 
+            // checkBoxTopMostSwitch
+            // 
+            this.checkBoxTopMostSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxTopMostSwitch.AutoSize = true;
+            this.checkBoxTopMostSwitch.Checked = true;
+            this.checkBoxTopMostSwitch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTopMostSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxTopMostSwitch.Location = new System.Drawing.Point(882, 30);
+            this.checkBoxTopMostSwitch.Name = "checkBoxTopMostSwitch";
+            this.checkBoxTopMostSwitch.Size = new System.Drawing.Size(12, 11);
+            this.checkBoxTopMostSwitch.TabIndex = 2;
+            this.checkBoxTopMostSwitch.UseVisualStyleBackColor = true;
+            this.checkBoxTopMostSwitch.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkBoxFadeSwitch
+            // 
+            this.checkBoxFadeSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxFadeSwitch.AutoSize = true;
+            this.checkBoxFadeSwitch.Checked = true;
+            this.checkBoxFadeSwitch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFadeSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxFadeSwitch.Location = new System.Drawing.Point(882, 47);
+            this.checkBoxFadeSwitch.Name = "checkBoxFadeSwitch";
+            this.checkBoxFadeSwitch.Size = new System.Drawing.Size(12, 11);
+            this.checkBoxFadeSwitch.TabIndex = 26;
+            this.checkBoxFadeSwitch.UseVisualStyleBackColor = true;
+            this.checkBoxFadeSwitch.CheckedChanged += new System.EventHandler(this.checkBoxFadeSwitch_CheckedChanged);
+            // 
             // retractPanel4
             // 
             this.retractPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -269,7 +283,7 @@
             this.retractPanel4.Controls.Add(this.button4);
             this.retractPanel4.Controls.Add(this.button3);
             this.retractPanel4.Controls.Add(this.button2);
-            this.retractPanel4.Location = new System.Drawing.Point(754, 402);
+            this.retractPanel4.Location = new System.Drawing.Point(755, 231);
             this.retractPanel4.Name = "retractPanel4";
             this.retractPanel4.Size = new System.Drawing.Size(141, 207);
             this.retractPanel4.TabIndex = 23;
@@ -375,7 +389,6 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(202)))), ((int)(((byte)(184)))));
-            this.button3.Enabled = false;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -383,7 +396,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(40, 30);
             this.button3.TabIndex = 2;
-            this.button3.Text = "TCM";
+            this.button3.Text = "WK";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -413,7 +426,7 @@
             this.retractPanel3.Controls.Add(this.labelSpeed);
             this.retractPanel3.Controls.Add(this.labelRMC);
             this.retractPanel3.Controls.Add(this.labelJumps);
-            this.retractPanel3.Location = new System.Drawing.Point(213, 402);
+            this.retractPanel3.Location = new System.Drawing.Point(215, 423);
             this.retractPanel3.Name = "retractPanel3";
             this.retractPanel3.Size = new System.Drawing.Size(274, 207);
             this.retractPanel3.TabIndex = 22;
@@ -506,7 +519,7 @@
             this.retractPanel2.Controls.Add(this.labelCPU);
             this.retractPanel2.Controls.Add(this.panelMIDI);
             this.retractPanel2.Controls.Add(this.label2);
-            this.retractPanel2.Location = new System.Drawing.Point(3, 402);
+            this.retractPanel2.Location = new System.Drawing.Point(3, 423);
             this.retractPanel2.Name = "retractPanel2";
             this.retractPanel2.Size = new System.Drawing.Size(124, 207);
             this.retractPanel2.TabIndex = 21;
@@ -652,6 +665,30 @@
             this.label2.Text = "MID%";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // vertScrollWavefactor
+            // 
+            this.vertScrollWavefactor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.vertScrollWavefactor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.vertScrollWavefactor.Location = new System.Drawing.Point(3, 27);
+            this.vertScrollWavefactor.MaximumSize = new System.Drawing.Size(9999, 14);
+            this.vertScrollWavefactor.MinimumSize = new System.Drawing.Size(100, 14);
+            this.vertScrollWavefactor.Name = "vertScrollWavefactor";
+            this.vertScrollWavefactor.Orient = UniaCore.GrayScroll.Orientype.Horizontal;
+            this.vertScrollWavefactor.Size = new System.Drawing.Size(169, 14);
+            this.vertScrollWavefactor.TabIndex = 5;
+            this.vertScrollWavefactor.Value = -0.01481481F;
+            // 
+            // canvas1
+            // 
+            this.canvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.canvas1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.canvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.canvas1.Location = new System.Drawing.Point(0, 407);
+            this.canvas1.Name = "canvas1";
+            this.canvas1.Size = new System.Drawing.Size(896, 11);
+            this.canvas1.TabIndex = 14;
+            this.canvas1.Visible = false;
+            // 
             // retractPanel1
             // 
             this.retractPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -663,7 +700,7 @@
             this.retractPanel1.Controls.Add(this.panel3);
             this.retractPanel1.Controls.Add(this.label7);
             this.retractPanel1.Controls.Add(this.label6);
-            this.retractPanel1.Location = new System.Drawing.Point(128, 402);
+            this.retractPanel1.Location = new System.Drawing.Point(129, 423);
             this.retractPanel1.Name = "retractPanel1";
             this.retractPanel1.Size = new System.Drawing.Size(84, 207);
             this.retractPanel1.TabIndex = 20;
@@ -773,19 +810,12 @@
             this.label6.Text = "IN";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox1
+            // spectrumViewer1
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Location = new System.Drawing.Point(883, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(12, 11);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.spectrumViewer1.Location = new System.Drawing.Point(0, 20);
+            this.spectrumViewer1.Name = "spectrumViewer1";
+            this.spectrumViewer1.Size = new System.Drawing.Size(900, 433);
+            this.spectrumViewer1.TabIndex = 25;
             // 
             // MainWindow
             // 
@@ -794,8 +824,16 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(900, 450);
-            this.Controls.Add(this.canvas1);
             this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.checkBoxFadeSwitch);
+            this.Controls.Add(this.retractPanel4);
+            this.Controls.Add(this.retractPanel3);
+            this.Controls.Add(this.retractPanel2);
+            this.Controls.Add(this.panelSpectrumSets);
+            this.Controls.Add(this.canvas1);
+            this.Controls.Add(this.retractPanel1);
+            this.Controls.Add(this.checkBoxTopMostSwitch);
+            this.Controls.Add(this.spectrumViewer1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -807,8 +845,6 @@
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            this.canvas1.ResumeLayout(false);
-            this.canvas1.PerformLayout();
             this.panelSpectrumSets.ResumeLayout(false);
             this.panelSpectrumSets.PerformLayout();
             this.retractPanel4.ResumeLayout(false);
@@ -822,6 +858,7 @@
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -857,7 +894,7 @@
         private System.Windows.Forms.Label labelOUTVh;
         private System.Windows.Forms.Label labelOUTVl;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxTopMostSwitch;
         private Components.Canvas canvas1;
         private System.Windows.Forms.Label labelLMC;
         private System.Windows.Forms.Label labelRMC;
@@ -881,5 +918,8 @@
         private System.Windows.Forms.Button buttonSIE;
         public GrayScroll vertScrollWavefactor;
         private System.Windows.Forms.Button buttonTreegex;
+        private GrayLib.GrayButton grayButton1;
+        public Components.SpectrumViewer spectrumViewer1;
+        private System.Windows.Forms.CheckBox checkBoxFadeSwitch;
     }
 }

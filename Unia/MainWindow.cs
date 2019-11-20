@@ -24,31 +24,36 @@ using NAudio.Dsp;
 using NAudio.Wave.SampleProviders;
 using NAudio.CoreAudioApi;
 using static UniaCore.Helper;
+using UniaCore.Components;
 
 namespace UniaCore
 {
     public partial class MainWindow : Form
     {
         Timer t, vol = new Timer();
-        static Timer waitprocess = new Timer();
         Stopwatch stopwatch = new Stopwatch();
         Stopwatch speedwatch = new Stopwatch();
-        
+
         public MainWindow()
         {
             t = new Timer();
-            t.Interval = 8;
+            t.Interval = 16;
             t.Tick += delegate
             {
                 MainWindow.AppIdle();
             };
             t.Start();
 
-            
             InitializeComponent();
+
+            foreach (Control c in Controls)
+            {
+                c.MouseMove += C_MouseMove;
+            }
 
             vertScrollWavefactor.Value = .5f;
             checkBoxColoriseCanvas.Checked = Properties.Settings.Default.colback;
+            fade = Properties.Settings.Default.fade;
 
             mm = this;
 
@@ -57,19 +62,52 @@ namespace UniaCore
             InitSpectrum();
             InitSAT();
 
+            formFade.OnFinish += (s, e) =>
+            {
+                Opacity = e.Value;
+            };
+            formFade.OnUpdate += (s, e) => { Opacity = e.Value; };
+
             MainMenu();
         }
 
+        LerpAnimation
+            formFade = new LerpAnimation(200);
+        bool fade;
 
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            //if (formFade.IsRunning)
+            //    Opacity = formFade.Value;
+
+            if (fade)
+            {
+                if (!min && Bounds.Contains(MousePosition))
+                {
+                    min = true;
+                    formFade.Inverted = false;
+                    formFade.Start();
+                    //Opacity = 0;
+                }
+                else
+                if (min && !Bounds.Inflate(100f, 100f).Contains(MousePosition))
+                {
+                    min = false;
+                    formFade.Inverted = true;
+                    formFade.Start();
+                    //Opacity = 1;
+                }
+            }
+        }
+
+        bool min = false;
+
+        private void C_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+        }
 
         static MainWindow mm;
         static Graphics mmp5g;
-
-        static Process gp;
-        static IntPtr gpp;
-
-        static MouseHook ms_listener;
-        static KeyboardHook kb_listener;
 
         static Stopwatch sw = new Stopwatch();
         static void MainMenu()
@@ -78,25 +116,9 @@ namespace UniaCore
             MainSAT();
         }
 
-        static bool lmh, rmh;
-        static int lmc, rmc;
-        static float lmcps, rmcps;
-        static float cc, ncv, ocv, nrv, orv;
-        static int tc = 1, sc = 1, msc = 1;
-        static int nbin, cbin, obin, nbout, cbout, obout;
-
-
-        static void nullstats()
-        {
-            rmc = lmc = msc = tc = 1;
-        }
-
         static string keybuf = "";
 
         static CultureInfo ci = CultureInfo.GetCultureInfo("en-US");
-        //static MMDeviceEnumerator ade = new MMDeviceEnumerator();
-        //static MMDeviceCollection adcs = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
-        //static MMDevice pad = adcs[0];
 
         static void refresh()
         {
@@ -112,106 +134,16 @@ namespace UniaCore
             ExitSpectrum();
         }
 
-        static float padpv;
 
         public static void AppIdle()
         {
-            mm.canvas1.Refresh();
+            mm.Application_Idle(mm, EventArgs.Empty);
+            //mm.canvas1.Refresh();
             refresh();
-            var vc = (ncv / 100) > 0.5f ? mm.labelCPUVh : mm.labelCPUVl;
-            {
-                mm.labelCPUVh.Text = mm.labelCPUVl.Text = "";
-                vc.Text = string.Format(ci, "{0:0.0}", ncv);
 
-                mm.labelCPUVh.Height = (int)(138 * ((ocv + ncv) / 2 / 100));
-                mm.labelCPUVl.Height = 138 - (int)(138 * ((ocv + ncv) / 2 / 100));
-                mm.labelCPUVh.BackColor = LerpCol(red, green, 1 - ncv / 100);
-            }
+            DrawPerf();
+            DrawSAT();
 
-            {
-                mm.labelMIDVh.Text = mm.labelMIDVl.Text = "";
-                vc = ((cc / sc) / 100) > 0.5f ? mm.labelMIDVh : mm.labelMIDVl;
-                vc.Text = string.Format(ci, "{0:0.0}", (cc / sc));
-
-                mm.labelMIDVh.Height = (int)(138 * ((cc / sc) / 100));
-                mm.labelMIDVl.Height = 138 - (int)(138 * ((cc / sc) / 100));
-                mm.labelMIDVh.BackColor = LerpCol(red, green, 1 - (cc / sc) / 100);
-            }
-
-            {
-                mm.labelRAMVh.Text = mm.labelRAMVl.Text = "";
-                vc = (nrv / 8192) < 0.5f ? mm.labelRAMVh : mm.labelRAMVl;
-                vc.Text = string.Format(ci, "{0:0.0}G", ((8192 - nrv) / 1000));
-
-                mm.labelRAMVh.Height = 138 - (int)(138 * (nrv / 8192));
-                mm.labelRAMVl.Height = (int)(138 * (nrv / 8192));
-                mm.labelRAMVh.BackColor = LerpCol(red, skyblue, 1 - (nrv / 8192));
-            }
-            //return;
-            if (sc > 2)
-            {
-
-                mm.labelINVh.Text = mm.labelINVl.Text = "";
-                vc = (cbin / 1048576f) > 0.5f ? mm.labelINVh : mm.labelINVl;
-                vc.Text = string.Format(ci, "{0:0.0}", (cbin / 1024));
-
-                mm.labelINVh.Height = (int)(138 * (cbin / 1048576f));
-                mm.labelINVl.Height = 138 - (int)(138 * (cbin / 1048576f));
-                mm.labelINVh.BackColor = LerpCol(purple, skyblue, 1 - (cbin / 1048576f));
-
-                mm.labelOUTVh.Text = mm.labelOUTVl.Text = "";
-                vc = (cbout / 1048576f) > 0.5f ? mm.labelOUTVh : mm.labelOUTVl;
-                vc.Text = string.Format(ci, "{0:0.0}", (cbout / 1024));
-
-                mm.labelOUTVh.Height = (int)(138 * (cbout / 1048576f));
-                mm.labelOUTVl.Height = 138 - (int)(138 * (cbout / 1048576f));
-                mm.labelOUTVh.BackColor = LerpCol(purple, skyblue, 1 - (cbout / 1048576f));
-            }
-
-            {
-                //mm.canvas1.Height++;
-                //mm.canvas1.Height--;
-                //mm.waveViewer1.WaveStream = ws;
-            }
-
-            keybuf = mm.labelRMC.Text = mm.labelLMC.Text = mm.labelKeys.Text = "";
-
-            for (int i = 0; i < 256; i++)
-            {
-                var s = GetAsyncKeyState(i);
-                if (s != 0 && i > 2)
-                {
-                    keybuf += ((Keys)i).ToString() + " ";
-                }
-            }
-            if (lmh)
-                keybuf += "LButton";
-            if (rmh)
-                keybuf += "RButton";
-            mm.labelKeys.Text = keybuf;
-            mm.labelLMC.Text = string.Format(ci, "L/SMC: {0}\nL/SMCPS: {1:0.00}", lmc, lmc / (float)tc);
-            mm.labelRMC.Text = string.Format(ci, "RMC: {0}\nRMCPS: {1:0.00}", rmc, rmc / (float)tc);
-
-            if (gpp != null)
-            {
-                mm.labelDist.Text = string.Format(ci, "{0:0.0}|{2:000.0}\n{1:0.0}", nmtd, totmtd, spd);
-                mm.labelJumps.Text = string.Format(ci, "JMP: {0}/70", jmp);
-                mm.labelSpeed.Width = (int)spd;
-                if (gp != null && gp.HasExited && !waitprocess.Enabled)
-                {
-                    mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(80, 30, 30);
-                    waitprocess.Start();
-                }
-            }
-
-            if (mm.checkBoxColoriseCanvas.Checked)
-            {
-                mm.canvas1.BackColor = LerpCol(hcbc, LerpCol(mcbc, lcbc, (padpv)), (padpv * 4));
-            }
-            else if (mm.canvas1.BackColor != canvback)
-            {
-                mm.canvas1.BackColor = canvback;
-            }
         }
 
         #region Events
@@ -232,7 +164,7 @@ namespace UniaCore
 
         private void panelSpectrumSets_Click(object sender, EventArgs e)
         {
-            panelSpectrumSets.Location = panelSpectrumSets.Location == new Point(3, -45) ? new Point(3, 0) : new Point(3, -45);
+            panelSpectrumSets.Location = panelSpectrumSets.Location == new Point(3, -25) ? new Point(3, 23) : new Point(3, -25);
 
         }
 
@@ -296,7 +228,7 @@ namespace UniaCore
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            TopMost = checkBox1.Checked;
+            TopMost = checkBoxTopMostSwitch.Checked;
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) => exit();
@@ -316,9 +248,11 @@ namespace UniaCore
             WindowState = FormWindowState.Minimized;
         }
 
+        public static WinKeys wink;
+
         private void button3_Click(object sender, EventArgs e)
         {
-            //new TwitchMGR().ShowDialog();
+            wink = ShowWindow<WinKeys>();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -349,10 +283,21 @@ namespace UniaCore
                 Location = new Point((Location.X - lastLocation.X) + e.X, (Location.Y - lastLocation.Y) + e.Y);
             }
         }
+
+        private void checkBoxFadeSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (!(fade = checkBoxFadeSwitch.Checked))
+            {
+                Opacity = 1;
+            }
+
+            Properties.Settings.Default.fade = fade;
+            Properties.Settings.Default.Save();
+        }
         #endregion
 
 
-        static Color hcbc = Color.FromArgb(155, 25, 255), mcbc = Color.FromArgb(255, 153, 25), lcbc = Color.FromArgb(155, 53, 225);
         static Color canvback = Properties.Settings.Default.canvback;
 
         #region Utils

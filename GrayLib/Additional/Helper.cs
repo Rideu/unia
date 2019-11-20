@@ -19,15 +19,9 @@ using System.Windows.Input;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
-using UniaCore.Peripherals;
-using NAudio;
-using NAudio.Wave;
-using NAudio.Dsp;
-using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
 using static System.Math;
 
-namespace UniaCore
+namespace GrayLib
 {
     public static class Helper
     {
@@ -118,13 +112,6 @@ namespace UniaCore
 
         #region Extensions
 
-        public static T ShowWindow<T>() where T : Form, new()
-        {
-            var x = new T { TopMost = true };
-            x.Show();
-            return x;
-        }
-
         public static void ShowDialog<T>() where T : Form, new()
         {
             var x = new T { TopMost = true };
@@ -150,12 +137,6 @@ namespace UniaCore
         #endregion
 
         #region External
-
-        [DllImport("user32.dll")]
-        public static extern int GetAsyncKeyState(int i);
-
-        [DllImport("user32.dll")]
-        public static extern short GetKeyState(int i);
 
         [DllImport("User32.dll")]
         public static extern bool ShowWindow(IntPtr handle, int nCmdShow);
