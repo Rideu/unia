@@ -1,7 +1,15 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using NAudio;
+using NAudio.Dsp;
+
 using System;
+using System.Diagnostics;
 using System.Drawing;
+
+using System.Threading;
+using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using static UniaCore.Helper;
@@ -14,7 +22,7 @@ namespace UniaCore
     {
         static IWaveIn _capture;
         static WaveInProvider wip;
-        static WaveFloatTo16Provider to16p;
+        static IWaveProvider to16p;
         static SampleAggregator sampleAggregator;
         static MMDevice pad;
 
@@ -46,7 +54,10 @@ namespace UniaCore
 
             _capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
             {
+                byte[] b = new byte[e.BytesRecorded];
+                var l = to16p.Read(b, 0, e.BytesRecorded);
 
+                r = new RawSourceWaveStream(b, 0, e.BytesRecorded, wf);
                 byte[] buffer = e.Buffer;
                 int bytesRecorded = e.BytesRecorded;
                 int bufferIncrement = _capture.WaveFormat.BlockAlign;
@@ -54,11 +65,10 @@ namespace UniaCore
                 for (int index = 0; index < bytesRecorded; index += bufferIncrement)
                 {
                     float sample32 = BitConverter.ToSingle(buffer, index);
-                }
-                byte[] b = new byte[e.BytesRecorded];
-                var l = to16p.Read(b, 0, e.BytesRecorded);
+                } 
+                //to16p.Read(b, 0, e.BytesRecorded);
                 ams.Position = 0;
-                ams.Write(e.Buffer, 0, e.BytesRecorded);
+                ams.Write(b, 0, e.BytesRecorded);
                 byteBuffer = e.Buffer;
             };
 
@@ -76,7 +86,10 @@ namespace UniaCore
 
         void FftCalculated(object sender, FftEventArgs e)
         {
-            spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
+            if (Spectrum.Mode == Spectrum.DrawingMode.Spectrum)
+                spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
+            //else if(nawf != null)
+
         }
 
         volatile static byte[] byteBuffer;
@@ -128,82 +141,95 @@ namespace UniaCore
             //cg = Graphics.FromHwnd(mm.canvas1.Handle);
             //spectrum.Host = mm.canvas1;
             spectrum.MonoHost = mm.spectrumViewer1;
-
-            //mm.canvas1.Paint += delegate (object sender, PaintEventArgs e)
-            //{
-            //    e.Graphics.DrawImage(img, 0, 0, mm.canvas1.Width, mm.canvas1.Height);
-            //    e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            //    e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
-            //    e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            //    sw.Restart();
-            //    var mp = mm.canvas1.PointToClient(MousePosition);
-            //    var mpofs = mp;
-            //    mpofs.Offset(-mm.canvas1.Width / 2, -mm.canvas1.Height / 2);
-            //    spectrum.DrawSpectrum(e.Graphics);
-
-            //    wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
-            //    //wfb.Color = Color.FromArgb(100, 255, 255, 255);
-            //    e.Graphics.DrawString($"{((float)mp.X / mm.canvas1.Width) * 5600:0} Hz", freqFont, wfb, mp.X - 55 * (float)mp.X / mm.canvas1.Width, Spectrum.HorizontalOffset);
-
-            //    //);
-            //    sw.Stop();
-            //    //Console.WriteLine(sw.ElapsedMilliseconds);
-            //};
+            awaiter.Restart();
         }
+
+        static float
+            backPeakLerp1,
+            backPeakLerp2,
+            newPeakLerp;
+
+        static Complex[] oawf, nawf;
+        static int awfl;
+
+        static Stopwatch awaiter = new Stopwatch();
 
         public static void UpdateSpectrum()
         {
-            //await Task.Run(() =>
+            //Task.Run(() =>
+            //if (false)
             {
-
-
-                //oawf = nawf;
-                //nawf = new float[awfl = (mm.canvas1.Width)];
-                //oawf = nawf.Length != oawf.Length ? nawf : oawf;
-                try
+                oawf = nawf;
+                nawf = new Complex[awfl = (mm.spectrumViewer1.Width * 2)];
+                oawf = oawf == null || nawf.Length != oawf.Length ? nawf : oawf;
+                if (awaiter.ElapsedMilliseconds >= 9)
                 {
-                    //if (byteBuffer == null) return;
-                    //byte[] buffer = byteBuffer;
-                    //int bytesRecorded = buffer.Length;
-                    //int bufferIncrement = _capture.WaveFormat.BlockAlign;
+                    try
+                    {
+                        //if (byteBuffer == null) return;
+                        //byte[] buffer = byteBuffer;
+                        //int bytesRecorded = buffer.Length;
+                        //int bufferIncrement = _capture.WaveFormat.BlockAlign;
 
-                    //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
-                    //{
-                    //    float sample32 = BitConverter.ToSingle(buffer, index);
-                    //    sampleAggregator.Add(sample32);
-                    //}
-                    //byteBuffer = null;
-                    //NAudio visualiser
-                    //var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
+                        //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
+                        //{
+                        //    float sample32 = BitConverter.ToSingle(buffer, index);
+                        //    sampleAggregator.Add(sample32);
+                        //}
 
-                    //SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
+                        //byteBuffer = null;
+                        var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
 
-                    //r.Position = 0L;
-                    //var samplesPerPixel = 2;
-                    //var bytesPerSample = 4 / 4 * 2;
-                    //var startPosition = 0;
-                    //byte[] array = new byte[samplesPerPixel * bytesPerSample];
-                    //r.Position = startPosition + mm.canvas1.ClientRectangle.Left * bytesPerSample * samplesPerPixel;
-                    //wb.BindTo(array);
+                        SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
 
-                    //for (float num = 0; num < awfl; num += 1)
-                    //{
-                    //    short num2 = 0;
-                    //    int num4 = r.Read(array, 0, samplesPerPixel * bytesPerSample);
-                    //    //for (int i = 0; i < num4; i += 2)
-                    //    var hw = 1;// (float)FastFourierTransform.HannWindow((int)num, num4);
-                    //    float num5 = (BitConverter.ToInt16(array, 0) + 32768f) / 65535f;
+                        r.Position = 0L;
+                        var samplesPerPixel = 2;
+                        var bytesPerSample = 4 / 4 * 2;
+                        var startPosition = 0;
+                        byte[] array = new byte[samplesPerPixel * bytesPerSample];
+                        r.Position = startPosition + mm.canvas1.ClientRectangle.Left * bytesPerSample * samplesPerPixel;
+                        wb.BindTo(array);
 
-                    //    nawf[(int)num] = (num5 * 2.0f * (hw) + oawf[(int)num]) / 2f;
-                    //}
+                        for (float num = 0; num < awfl; num += 1)
+                        {
+                            //short num2 = 0;
+                            //int num4 = r.Read(array, 0, samplesPerPixel * bytesPerSample);
+                            ////for (int i = 0; i < num4; i += 2)
+                            //var hw = 1;// (float)FastFourierTransform.HannWindow((int)num, num4);
+                            //float num5 = (BitConverter.ToInt16(array, 0) + 32768f) / 65535f;
+                            short num2 = 0;
+                            short num3 = 0;
+                            int num4 = r.Read(array, 0, samplesPerPixel * bytesPerSample);
+                            for (int i = 0; i < num4; i += 2)
+                            {
+                                short num5 = BitConverter.ToInt16(array, i);
+                                if (num5 < num2)
+                                {
+                                    num2 = num5;
+                                }
+                                if (num5 > num3)
+                                {
+                                    num3 = num5;
+                                }
+                            }
+                            float num6 = ((float)num2 - -32768f) / 65535f;
+                            float num7 = ((float)num3 - -32768f) / 65535f;
+                            nawf[(int)num].Y = (num6 + num7 + oawf[(int)num].Y) / 2f;
+                        }
 
-                }
-                catch
-                {
-                    //nawf = oawf0;
+                        if (Spectrum.Mode == Spectrum.DrawingMode.Freq)
+                            spectrum.Evaluate(nawf, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
+
+                    }
+                    catch
+                    {
+                        //nawf = oawf0;
+                    }
+                    awaiter.Restart();
                 }
             }
             //);
+
             backPeakLerp2 = backPeakLerp1;
             backPeakLerp1 = newPeakLerp;
             newPeakLerp = pad.AudioMeterInformation.PeakValues[0];
@@ -218,7 +244,7 @@ namespace UniaCore
             {
                 mm.spectrumViewer1.BackColor = (mm.canvas1.BackColor = canvback).ToXNA();
             }
-            
+
         }
 
         public static void ExitSpectrum()

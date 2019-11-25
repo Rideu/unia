@@ -308,7 +308,10 @@ namespace GrayLib
         /// </summary>
         protected override void OnPaint(PaintEventArgs e)
         {
-            string beginDrawError = BeginDraw();
+
+            if (DesignMode) return;
+            
+                string beginDrawError = BeginDraw();
             Update();
             if (string.IsNullOrEmpty(beginDrawError))
             {

@@ -62,7 +62,13 @@ namespace UniaCore
         public static Color SpectrumMidColor = Default.samc;
         public static Color SpectrumHighColor = Default.sahc;
 
-        public static int HorizontalOffset { get; set; } = 225; int Step = 4;
+        public static int HorizontalOffset { get; set; } = 225; int Step = 1;
+
+        public enum DrawingMode
+        {
+            Freq,
+            Spectrum
+        }
 
         public enum SpectrumStyle
         {
@@ -135,6 +141,7 @@ namespace UniaCore
 
         static Stopwatch sw = new Stopwatch();
         protected Point mousepos;
+        public static DrawingMode Mode { get; private set; } = DrawingMode.Spectrum;
 
         public void Evaluate(Complex[] frequencies, float exponent, Point mp = default)
         {
@@ -158,27 +165,48 @@ namespace UniaCore
 
             // TODO: move spectrum analyzer here
 
-            Parallel.For(0, threads, (t) =>
-            {
-                for (int i = chunkLength * t; i < chunkLength * (t + 1); i++)
+            if (Mode == DrawingMode.Spectrum)
+                Parallel.For(0, threads, (t) =>
                 {
-
-                    var res = frequencies[i];
-                    var value = ((float)Sqrt(res.X * res.X /*/ 0.05f*/ + res.Y * res.Y /*/ 0.05f*/) * (2000 + i * (i * 0.01f)));
-                    value = (float)Sqrt(value / (value + 10)) * 20;
-                    var ac = 0.0f;
-                    for (int sm = 1; sm < aliasing.Count; sm++)
+                    for (int i = chunkLength * t; i < chunkLength * (t + 1); i++)
                     {
-                        ac += aliasing[sm][i];
-                    }
-                    var v = ((ac + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (aliasteps + 0.0f)) * 1.2f;
-                    value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.8f : v;
-                    value = value < 1 ? 1 : value;
 
-                    var exp = ((float)Pow(value / 3, 1.2f + exponent / .61f));
+                        var res = frequencies[i];
+                        var value = ((float)Sqrt(res.X * res.X /*/ 0.05f*/ + res.Y * res.Y /*/ 0.05f*/) * (2000 + i * (i * 0.01f)));
+                        value = (float)Sqrt(value / (value + 10)) * 20;
+                        var ac = 0.0f;
+                        for (int sm = 1; sm < aliasing.Count; sm++)
+                        {
+                            ac += aliasing[sm][i];
+                        }
+                        var v = ((ac + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (aliasteps + 0.0f)) * 1.2f;
+                        value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.8f : v;
+                        value = value < 1 ? 1 : value;
+
+                        var exp = ((float)Pow(value / 3, 1.2f + exponent / .61f));
+                        var s = i % 2 == 0 ? 1 : -1;
+                        var tx = (i) * Step;
+                        var ty = (exp)/* * s*/;
+                        //ty = (i > 1 ? (ty + freqPoints[i - 1].size.Y + freqPoints[i - 2].size.Y) / 3 : ty)*1.3f;
+
+                        var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
+                        var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
+                        var c = LerpCol(LerpCol(SpectrumLowColor, LerpCol(SpectrumMidColor, SpectrumHighColor, (value / (10 / exponent))), (value / (15 / exponent))), Color.Red, mx * my);
+
+                        freqPoints[i].point = new PointF(Step / 2 + tx, HorizontalOffset - ty);
+                        freqPoints[i].size = new PointF(tx, ty);
+                        freqPoints[i].col = c;
+                    }
+                });
+            else
+            {
+                for (int i = 0; i < frequencies.Length; i++)
+                {
+                    var value = frequencies[i].Y;
+                    var exp = (value * value * value * value * value);
                     var s = i % 2 == 0 ? 1 : -1;
                     var tx = (i) * Step;
-                    var ty = (exp)/* * s*/;
+                    var ty = (exp * exp * exp) * 10 * exponent/* * s*/;
                     //ty = (i > 1 ? (ty + freqPoints[i - 1].size.Y + freqPoints[i - 2].size.Y) / 3 : ty)*1.3f;
 
                     var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
@@ -188,8 +216,9 @@ namespace UniaCore
                     freqPoints[i].point = new PointF(Step / 2 + tx, HorizontalOffset - ty);
                     freqPoints[i].size = new PointF(tx, ty);
                     freqPoints[i].col = c;
+
                 }
-            });
+            }
 
             //wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
             ////wfb.Color = Color.FromArgb(100, 255, 255, 255);

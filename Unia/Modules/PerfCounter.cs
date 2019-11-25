@@ -50,23 +50,6 @@ namespace UniaCore
                 newCpuValue = cpuCounter.NextValue();
                 oldRamValue = newRamValue;
                 newRamValue = ramCounter.NextValue();
-                omtd = nspd = nmtd;
-                //spd = nspd - ospd;
-                nmtd = memReadFloat(moto_travelled, gpp);
-
-                jmp = memReadInt(jumps_found, gpp);
-                //if(nmtd <= 0)
-                //{
-
-                //}
-
-                if (omtd > nmtd)
-                {
-                    Properties.Settings.Default.MotoDistance = totmtd;
-                    Properties.Settings.Default.Save();
-                    totmtd += omtd;
-                    nullstats();
-                }
 
                 cc += newCpuValue;
                 sc++;
@@ -83,14 +66,6 @@ namespace UniaCore
                     mm.stopwatch.Restart();
                 }
 
-                if (mm.speedwatch.ElapsedMilliseconds > 100)
-                {
-                    //oespd = ospd;
-                    //var espd1 = spd;
-                    spd = ((nspd - ospd) / (0.06f) + spd) / 3f;
-                    ospd = nspd;
-                    mm.speedwatch.Restart();
-                }
 
                 ndata = netDevice.GetIPv4Statistics();
 

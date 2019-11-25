@@ -46,5 +46,8 @@
     <Setting Name="winkeys_bounds" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">0, 0, 0, 0</Value>
     </Setting>
+    <Setting Name="MotoSpeedBest" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

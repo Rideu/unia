@@ -23,7 +23,8 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using NAudio.CoreAudioApi;
 
-// Thanks to rvknth043
+// Thanks to rvknth043's
+// https://github.com/rvknth043/Global-Low-Level-Key-Board-And-Mouse-Hook
 
 namespace UniaCore
 {

@@ -175,5 +175,17 @@ namespace UniaCore.Properties {
                 this["winkeys_bounds"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float MotoSpeedBest {
+            get {
+                return ((float)(this["MotoSpeedBest"]));
+            }
+            set {
+                this["MotoSpeedBest"] = value;
+            }
+        }
     }
 }

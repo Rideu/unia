@@ -41,7 +41,7 @@ namespace UniaCore
         }
 
         static Process gp;
-        static IntPtr gpp;
+        static IntPtr module_pointer;
         static Timer waitprocess = new Timer();
         static MouseHook ms_listener;
         static KeyboardHook kb_listener;
@@ -80,11 +80,15 @@ namespace UniaCore
             var x = GetActiveWindowTitle();
             if (wink != null)
             {
-                wink.Lock = x != "GTA: San Andreas"; 
+                wink.Lock = x != "GTA: San Andreas";
             }
         }
 
         WinEventDelegate dele = null;
+
+        static float nmtd, omtd, totmtd;
+        static float topspd, nspd, ospd, spd;
+        static int jmp = 0;
 
         public static void MainSAT()
         {
@@ -96,9 +100,11 @@ namespace UniaCore
                 if (fetch.Count() > 0)
                 {
                     nullstats();
-                    gpp = OpenProcess(PROCESS_WM_READ, false, (gp = fetch.First()).Id);
+                    module_pointer = OpenProcess(PROCESS_WM_READ, false, (gp = fetch.First()).Id);
                     mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(30, 30, 30);
                     totmtd = Properties.Settings.Default.MotoDistance;
+                    topspd = Properties.Settings.Default.MotoSpeedBest;
+                    mm.labelBestSpeed.Text = $"{mm.labelBestSpeed.Width = (int)topspd:0.0} c.u.";
                     waitprocess.Stop();
                     gameWindow = (Form)Form.FromHandle(gp.MainWindowHandle);
 
@@ -127,13 +133,41 @@ namespace UniaCore
         public static void UpdateSAT()
         {
 
+            //spd = nspd - ospd;
+            nmtd = memReadFloat(moto_travelled, module_pointer);
+            ospd = nspd;
+            nspd = spd = memReadFloat(veh_speed, module_pointer) * 80;
+
+
+            jmp = memReadInt(jumps_found, module_pointer);
+            //if(nmtd <= 0)
+            //{
+
+            //}
+
+            if (omtd > nmtd)
+            {
+                Properties.Settings.Default.MotoDistance = totmtd;
+                Properties.Settings.Default.Save();
+                totmtd += omtd;
+                nullstats();
+            }
+
+            if (spd > topspd)
+            {
+                topspd = Properties.Settings.Default.MotoSpeedBest = spd;
+                Properties.Settings.Default.Save();
+                mm.labelBestSpeed.Width = (int)spd;
+                mm.labelBestSpeed.Text = $"{spd:0.0} c.u.";
+            }
         }
 
-        static float
-            backPeakLerp1,
-            backPeakLerp2,
-            newPeakLerp;
 
+
+        static int
+            moto_travelled = 0x00B7BA14,
+            veh_speed = 0x00B717CC,
+            jumps_found = 0x0165C28C;
 
         public static void DrawSAT()
         {
@@ -157,11 +191,12 @@ namespace UniaCore
             mm.labelLMC.Text = string.Format(ci, "L/SMC: {0}\nL/SMCPS: {1:0.00}", lmc, lmc / (float)tc);
             mm.labelRMC.Text = string.Format(ci, "RMC: {0}\nRMCPS: {1:0.00}", rmc, rmc / (float)tc);
 
-            if (gpp != null)
+            if (module_pointer != null)
             {
                 mm.labelDist.Text = string.Format(ci, "{0:0.0}|{2:000.0}\n{1:0.0}", nmtd, totmtd, spd);
                 mm.labelJumps.Text = string.Format(ci, "JMP: {0}/70", jmp);
-                mm.labelSpeed.Width = (int)spd;
+                mm.labelSpeed.Width = (int)((ospd + nspd)/2);
+                mm.labelSpeed.Text = $"{spd:0.0} c.u.";
                 if (gp != null && gp.HasExited && !waitprocess.Enabled)
                 {
                     mm.labelJumps.BackColor = mm.labelDist.BackColor = Color.FromArgb(80, 30, 30);
@@ -223,12 +258,7 @@ namespace UniaCore
 
         #region Memread
 
-        static int moto_travelled = 0x00B7BA14;
-        static int jumps_found = 0x0165C28C;
 
-        static float nmtd, omtd, totmtd;
-        static float nspd, ospd, spd, oespd;
-        static int jmp = 0;
         public static float memReadFloat(int addr, IntPtr proc)
         {
             int bytesRead = 0;
