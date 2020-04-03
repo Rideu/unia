@@ -18,6 +18,7 @@ using System.Threading;
 using System.Net;
 using System.IO;
 using UniaCore.Peripherals;
+
 using NAudio;
 using NAudio.Wave;
 using NAudio.Dsp;
@@ -43,7 +44,7 @@ class SampleAggregator
         if (!IsPowerOfTwo(fftLength))
         {
             throw new ArgumentException("FFT Length must be a power of two");
-        }
+        } 
         this.m = (int)Math.Log(fftLength, 2.0);
         this.fftLength = fftLength;
         this.fftBuffer = new Complex[fftLength];

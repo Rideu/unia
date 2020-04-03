@@ -22,6 +22,7 @@ namespace UniaCore
         private void WinHeader_Load(object sender, EventArgs e)
         {
             owner = FindForm();
+            owner.FormBorderStyle = FormBorderStyle.None;
             labelFormName.Text = owner.Text;
         }
 

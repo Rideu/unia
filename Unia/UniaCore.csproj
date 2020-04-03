@@ -464,6 +464,7 @@
     <None Include="Resources\rays.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\ffmpeg.exe" />
     <Content Include="unia_icon.ico" />
   </ItemGroup>
   <ItemGroup>

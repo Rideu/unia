@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Input;
 using System.Net.NetworkInformation;
 using Threads = System.Threading;
@@ -36,6 +38,19 @@ namespace UniaCore
 
         public MainWindow()
         {
+            var assembly = Assembly.GetExecutingAssembly();
+            var rsc = Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            //this.TransparencyKey = Color.FromArgb(255, 0, 0, 0);
+
+            foreach (DictionaryEntry n in rsc)
+            {
+                if (n.Key.ToString() == "ffmpeg")
+                    using (StreamReader reader = new StreamReader(new MemoryStream((byte[])n.Value)))
+                    {
+                        //Assembly.Load((byte[])n.Value).EntryPoint.Invoke(null, null);
+                        //ShaderLib.Add($"{n.Key.ToString()}", "Resources/" + n.Key.ToString() + ".fx");
+                    }
+            }
             t = new Timer();
             t.Interval = 16;
             t.Tick += delegate
@@ -53,6 +68,7 @@ namespace UniaCore
 
             vertScrollWavefactor.Value = .5f;
             checkBoxColoriseCanvas.Checked = Properties.Settings.Default.colback;
+            Location = Properties.Settings.Default.mainwindowpos;
             fade = Properties.Settings.Default.fade;
 
             mm = this;
@@ -231,7 +247,14 @@ namespace UniaCore
             TopMost = checkBoxTopMostSwitch.Checked;
         }
 
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) => exit();
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            exit();
+
+            Properties.Settings.Default.mainwindowpos = Location;
+            Properties.Settings.Default.Save();
+            
+        }
 
         private void button8_Click(object sender, EventArgs e)
         {

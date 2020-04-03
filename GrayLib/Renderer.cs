@@ -264,7 +264,7 @@ namespace GrayLib
         /// </summary>
         protected override void OnCreateControl()
         {
-
+            BackColor = Color.FromArgb(30, 30, 30);
             // Don't initialize the graphics device if we are running in the designer.
             if (!DesignMode)
             {
@@ -309,9 +309,9 @@ namespace GrayLib
         protected override void OnPaint(PaintEventArgs e)
         {
 
-            if (DesignMode) return;
-            
-                string beginDrawError = BeginDraw();
+            //if (DesignMode) return;
+
+            string beginDrawError = BeginDraw();
             Update();
             if (string.IsNullOrEmpty(beginDrawError))
             {
@@ -448,7 +448,8 @@ namespace GrayLib
         /// </summary>
         protected virtual void PaintUsingSystemDrawing(Graphics graphics, string text)
         {
-            graphics.Clear(Color.CornflowerBlue);
+
+            graphics.Clear(BackColor);
 
             using (Brush brush = new SolidBrush(Color.Black))
             {

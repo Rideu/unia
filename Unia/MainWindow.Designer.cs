@@ -828,6 +828,7 @@
             // 
             // spectrumViewer1
             // 
+            //this.spectrumViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.spectrumViewer1.Location = new System.Drawing.Point(0, 20);
             this.spectrumViewer1.Name = "spectrumViewer1";
             this.spectrumViewer1.Size = new System.Drawing.Size(900, 433);
@@ -854,7 +855,7 @@
             this.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Unia 0.2";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);

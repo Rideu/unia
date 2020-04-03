@@ -43,6 +43,7 @@
             this.buttonMinimize.Name = "buttonMinimize";
             this.buttonMinimize.Size = new System.Drawing.Size(14, 15);
             this.buttonMinimize.TabIndex = 3;
+            this.buttonMinimize.TabStop = false;
             this.buttonMinimize.UseVisualStyleBackColor = false;
             this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
             // 
@@ -56,6 +57,7 @@
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(14, 15);
             this.buttonClose.TabIndex = 2;
+            this.buttonClose.TabStop = false;
             this.buttonClose.UseVisualStyleBackColor = false;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 

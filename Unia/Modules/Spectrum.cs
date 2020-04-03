@@ -40,14 +40,14 @@ namespace UniaCore
             pad = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Communications);
             _capture = new WasapiLoopbackCapture();
 
-            wip = new WaveInProvider(_capture);
-            to16p = new WaveFloatTo16Provider(wip);
+            //wip = new WaveInProvider(_capture);
+            //to16p = new WaveFloatTo16Provider(wip);
 
             sampleAggregator = new SampleAggregator(8192 / 4);
             sampleAggregator.FftCalculated += new EventHandler<FftEventArgs>(FftCalculated);
             sampleAggregator.PerformFFT = true;
 
-
+            r = new RawSourceWaveStream(new byte[19200], 0, 19200, wf);
             //waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
 
             _capture.DataAvailable += OnDataAvailable;
@@ -55,17 +55,18 @@ namespace UniaCore
             _capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
             {
                 byte[] b = new byte[e.BytesRecorded];
-                var l = to16p.Read(b, 0, e.BytesRecorded);
+                //var l = to16p.Read(b, 0, e.BytesRecorded);
 
-                r = new RawSourceWaveStream(b, 0, e.BytesRecorded, wf);
-                byte[] buffer = e.Buffer;
-                int bytesRecorded = e.BytesRecorded;
-                int bufferIncrement = _capture.WaveFormat.BlockAlign;
+                r = new RawSourceWaveStream(e.Buffer, 0, e.BytesRecorded, wf);
+                //r.Write(e.Buffer, 0, e.BytesRecorded);
+                //byte[] buffer = e.Buffer;
+                //int bytesRecorded = e.BytesRecorded;
+                //int bufferIncrement = _capture.WaveFormat.BlockAlign;
 
-                for (int index = 0; index < bytesRecorded; index += bufferIncrement)
-                {
-                    float sample32 = BitConverter.ToSingle(buffer, index);
-                } 
+                //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
+                //{
+                //    float sample32 = BitConverter.ToSingle(buffer, index);
+                //}
                 //to16p.Read(b, 0, e.BytesRecorded);
                 ams.Position = 0;
                 ams.Write(b, 0, e.BytesRecorded);
@@ -87,6 +88,7 @@ namespace UniaCore
         void FftCalculated(object sender, FftEventArgs e)
         {
             if (Spectrum.Mode == Spectrum.DrawingMode.Spectrum)
+                //spectrum.Evaluate(nawf, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
                 spectrum.Evaluate(e.Result, mm.vertScrollWavefactor.Value, mm.PointToClient(MousePosition));
             //else if(nawf != null)
 
@@ -109,8 +111,9 @@ namespace UniaCore
                 for (int index = 0; index < bytesRecorded; index += bufferIncrement)
                 {
                     float sample32 = BitConverter.ToSingle(byteBuffer, index);
+                    //sampleAggregator.Add((float)Math.Pow(sample32 / 4, 3));
                     sampleAggregator.Add(sample32);
-                }
+                } 
             }
         }
 
@@ -160,7 +163,7 @@ namespace UniaCore
             //if (false)
             {
                 oawf = nawf;
-                nawf = new Complex[awfl = (mm.spectrumViewer1.Width * 2)];
+                nawf = new Complex[awfl = (mm.spectrumViewer1.Width * 1)];
                 oawf = oawf == null || nawf.Length != oawf.Length ? nawf : oawf;
                 if (awaiter.ElapsedMilliseconds >= 9)
                 {
@@ -190,7 +193,7 @@ namespace UniaCore
                         r.Position = startPosition + mm.canvas1.ClientRectangle.Left * bytesPerSample * samplesPerPixel;
                         wb.BindTo(array);
 
-                        for (float num = 0; num < awfl; num += 1)
+                        for (float num = 0; num < awfl; num += 2)
                         {
                             //short num2 = 0;
                             //int num4 = r.Read(array, 0, samplesPerPixel * bytesPerSample);

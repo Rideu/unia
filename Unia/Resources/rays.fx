@@ -15,7 +15,7 @@ float		gDensity;
 float		gDecay;
 float		gWeight;
 float		gExposure;
-int         NUM_SAMPLES = 2;
+int         NUM_SAMPLES = 200;
 
 float4 PixelShaderFunction(PS_IN input) : SV_TARGET0
 {

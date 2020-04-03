@@ -43,32 +43,44 @@ namespace UniaCore
             rpx.SetData(tc);
         }
 
-        public static void DrawLine(this SpriteBatch sb, Vector2 start, Vector2 end, Color col) => DrawLine(start, end, col, sb);
+        public static void DrawLine(this SpriteBatch sb, Point start, Point end, Color col) => D_L(sb, new Line(start.ToVector2(), end.ToVector2()), col);
 
-
-        public static void DrawLine(Vector2 start, Vector2 end, Color col, SpriteBatch sb) => D_L(sb, new Line(start, end), col);
-
+        public static void DrawLine(this SpriteBatch sb, Point start, Point end, Texture2D tex, Color col) => D_L(sb, new Line(start.ToVector2(), end.ToVector2()), tex, col);
 
         public static void DrawLine(this SpriteBatch sb, Vector2 start, Vector2 end, Texture2D tex, Color col) => D_L(sb, new Line(start, end), tex, col);
 
+        public static void DrawLine(this SpriteBatch sb, Vector2 start, Vector2 end, Color col) => D_L(sb, new Line(start, end), col);
 
-        public static void DrawLine(this SpriteBatch sb, Line line, Color col) => DrawLine(line.Start, line.End, col, sb);
+        public static void DrawLine(this SpriteBatch sb, Vector2 start, Vector2 end, Color col, float size) => D_L(sb, new Line(start, end), col, size);
+
+        public static void DrawLine(this SpriteBatch sb, Line line, Color col, float size = 1f) => DrawLine(sb, line.Start, line.End, col, size);
+
+        internal static void D_L(this SpriteBatch batch, Line l, Color col, float size)
+            => batch.Draw(px, l.Start, null, col, l.Angle, new Vector2(0, .5f * px.Height), new Vector2(l.Length, size), SpriteEffects.None, 0);
+
+        internal static void D_L(this SpriteBatch batch, Line l, Color col)
+            => batch.Draw(px, l.Start, null, col, l.Angle, new Vector2(0, .5f * px.Height), new Vector2(l.Length, 1f), SpriteEffects.None, 0);
+
+        internal static void D_L(this SpriteBatch batch, Line l, Texture2D tex, Color col)
+            => batch.Draw(tex, l.Start, null, col, l.Angle, new Vector2(0, .5f * tex.Height), new Vector2(l.Length, 1), SpriteEffects.None, 0);
+
+
 
 
         public static void DrawPath(SpriteBatch sb, Vector2[] pos, Color col)
         {
             for (int i = 1; i < pos.Length; i++)
             {
-                DrawLine(pos[i], pos[i - 1], col, sb);
+                sb.DrawLine(pos[i], pos[i - 1], col);
             }
         }
 
         public static void DrawRect(this SpriteBatch sb, Vector2 pos, Vector2 size, Color col)
         {
-            DrawLine(pos, new Vector2(pos.X + size.X, pos.Y), col, sb);
-            DrawLine(new Vector2(pos.X + size.X, pos.Y), pos + size, col, sb);
-            DrawLine(pos + size, new Vector2(pos.X, pos.Y + size.Y), col, sb);
-            DrawLine(new Vector2(pos.X, pos.Y + size.Y), pos, col, sb);
+            sb.DrawLine(pos, new Vector2(pos.X + size.X, pos.Y), col);
+            sb.DrawLine(new Vector2(pos.X + size.X, pos.Y), pos + size, col);
+            sb.DrawLine(pos + size, new Vector2(pos.X, pos.Y + size.Y), col);
+            sb.DrawLine(new Vector2(pos.X, pos.Y + size.Y), pos, col);
         }
 
         public static void DrawRect(this SpriteBatch sb, Rectangle rect, Color col)
@@ -117,9 +129,9 @@ namespace UniaCore
             while (rador <= Math.PI * 2)
             {
                 rador += (float)Math.PI / vertexes;
-                DrawLine(
+                DrawLine(sb,
                     new Vector2((float)Math.Cos(rador) * radius + center.X, (float)Math.Sin(rador) * radius + center.Y), new Vector2((float)Math.Cos(rador + (float)Math.PI / vertexes) * radius + center.X, (float)Math.Sin(rador + (float)Math.PI / vertexes) * radius + center.Y),
-                    col, sb);
+                    col);
             }
         }
 
@@ -153,11 +165,6 @@ namespace UniaCore
             batch.DrawString(font, text, pos, col, a, Vector2.Zero, s, SpriteEffects.None, 0f);
         }
 
-
-        internal static void D_L(this SpriteBatch batch, Line l, Color col) => batch.Draw(px, l.Start, null, col, l.Angle, new Vector2(0f, 1.5f), new Vector2(l.Length, 1), SpriteEffects.None, 0);
-
-
-        internal static void D_L(this SpriteBatch batch, Line l, Texture2D tex, Color col) => batch.Draw(tex, l.Start, null, col, l.Angle, new Vector2(0), new Vector2(l.Length, 1), SpriteEffects.None, 0);
 
 
 

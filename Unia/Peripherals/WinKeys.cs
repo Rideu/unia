@@ -132,8 +132,8 @@ namespace UniaCore.Peripherals
 
         private void WinKeys_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ms_listener.Uninstall();
-            kb_listener.Uninstall();
+            //ms_listener.Uninstall();
+            //kb_listener.Uninstall();
             keyt.Stop();
         }
 

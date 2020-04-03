@@ -47,7 +47,7 @@ namespace GrayLib
 
         private void buttonMinimize_Click(object sender, EventArgs e)
         {
-            owner.Close();
+            owner.WindowState = FormWindowState.Minimized;
         }
 
     }

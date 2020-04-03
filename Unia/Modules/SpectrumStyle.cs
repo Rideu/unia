@@ -146,7 +146,7 @@ namespace UniaCore
         public void Evaluate(Complex[] frequencies, float exponent, Point mp = default)
         {
             var hostsize = (hostControl ?? monohostControl).Size;
-            cent = new XNA.Vector2(.5f, HorizontalOffset / (float)hostsize.Height);
+            cent = new XNA.Vector2((hostsize.Width / 2 /*+ mp.X*/) / (float)hostsize.Width, (HorizontalOffset /* hostsize.Height / 2 + mp.Y*/) / (float)hostsize.Height);
 
             mousepos = mp;
             sw.Restart();
@@ -172,53 +172,56 @@ namespace UniaCore
                     {
 
                         var res = frequencies[i];
-                        var value = ((float)Sqrt(res.X * res.X /*/ 0.05f*/ + res.Y * res.Y /*/ 0.05f*/) * (2000 + i * (i * 0.01f)));
-                        value = (float)Sqrt(value / (value + 10)) * 20;
+                        var value = ((float)Sqrt(res.X * res.X / .65f + res.Y * res.Y / .65f) * (2000 + i * (i * .05f))) / .2f;
+                        value = (float)Sqrt(value / (value + 111)) * 25;
                         var ac = 0.0f;
                         for (int sm = 1; sm < aliasing.Count; sm++)
                         {
                             ac += aliasing[sm][i];
                         }
-                        var v = ((ac + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (aliasteps + 0.0f)) * 1.2f;
+                        var v = ((ac / 1.4f + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (4 + 0.11f)) * 1.2f;
                         value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.8f : v;
                         value = value < 1 ? 1 : value;
 
-                        var exp = ((float)Pow(value / 3, 1.2f + exponent / .61f));
+                        var exp = ((float)Pow(value / 4, .01f + exponent * 2 / .61f) / (16 * exponent) * 16 * (1 / (value / 50)));
                         var s = i % 2 == 0 ? 1 : -1;
-                        var tx = (i) * Step;
-                        var ty = (exp)/* * s*/;
-                        //ty = (i > 1 ? (ty + freqPoints[i - 1].size.Y + freqPoints[i - 2].size.Y) / 3 : ty)*1.3f;
+                        var tx = (i) * Step + i;
+                        var ty = (exp) /** s*/;
+                        ty = (i > 2 ?
+                        (ty +
+                        freqPoints[i - 1].size.Y + freqPoints[i + 1].size.Y +
+                        freqPoints[i - 2].size.Y + freqPoints[i + 2].size.Y) / 5 : ty) * 1.1f;
 
                         var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
                         var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
                         var c = LerpCol(LerpCol(SpectrumLowColor, LerpCol(SpectrumMidColor, SpectrumHighColor, (value / (10 / exponent))), (value / (15 / exponent))), Color.Red, mx * my);
 
-                        freqPoints[i].point = new PointF(Step / 2 + tx, HorizontalOffset - ty);
-                        freqPoints[i].size = new PointF(tx, ty);
+                        freqPoints[i].point = new PointF(Step / 4 + tx, HorizontalOffset + 100 - ty);
+                        freqPoints[i].size = new PointF(tx, ty * 1);
                         freqPoints[i].col = c;
                     }
                 });
-            else
-            {
-                for (int i = 0; i < frequencies.Length; i++)
-                {
-                    var value = frequencies[i].Y;
-                    var exp = (value * value * value * value * value);
-                    var s = i % 2 == 0 ? 1 : -1;
-                    var tx = (i) * Step;
-                    var ty = (exp * exp * exp) * 10 * exponent/* * s*/;
-                    //ty = (i > 1 ? (ty + freqPoints[i - 1].size.Y + freqPoints[i - 2].size.Y) / 3 : ty)*1.3f;
+            //else
+            //{
+            //    for (int i = 0; i < frequencies.Length; i++)
+            //    {
+            //        var value = frequencies[i].Y;
+            //        var exp = (value * value * value * value * value);
+            //        var s = i % 2 == 0 ? 1 : -1;
+            //        var tx = (i) * Step;
+            //        var ty = (exp * exp * exp) * 10 * exponent/* * s*/;
+            //        //ty = (i > 1 ? (ty + freqPoints[i - 1].size.Y + freqPoints[i - 2].size.Y) / 3 : ty)*1.3f;
 
-                    var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
-                    var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
-                    var c = LerpCol(LerpCol(SpectrumLowColor, LerpCol(SpectrumMidColor, SpectrumHighColor, (value / (10 / exponent))), (value / (15 / exponent))), Color.Red, mx * my);
+            //        var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
+            //        var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
+            //        var c = LerpCol(LerpCol(SpectrumLowColor, LerpCol(SpectrumMidColor, SpectrumHighColor, (exp / (5 / exponent))), (exp / (10 / exponent))), Color.Red, mx * my);
 
-                    freqPoints[i].point = new PointF(Step / 2 + tx, HorizontalOffset - ty);
-                    freqPoints[i].size = new PointF(tx, ty);
-                    freqPoints[i].col = c;
+            //        freqPoints[i].point = new PointF(Step / 1 + tx, HorizontalOffset + ty * (ty * 0.02f));
+            //        freqPoints[i].size = new PointF(tx, HorizontalOffset + -ty * 0.5f);
+            //        freqPoints[i].col = c;
 
-                }
-            }
+            //    }
+            //}
 
             //wfb.Color = Color.FromArgb(((int)((1 - (float)Math.Abs(Spectrum.HorizontalOffset - mp.Y) * 4 / Spectrum.HorizontalOffset) * 255)).Clamp(0, 255), 205, 205, 205);
             ////wfb.Color = Color.FromArgb(100, 255, 255, 255);
@@ -269,7 +272,7 @@ namespace UniaCore
 
         XNA.Vector2 cent;
         public static float texFactor { get; set; } = 0.25f;
-        public static int numSamples { get; set; } = 200;
+        public static int numSamples { get; set; } = 450;
         public static float Exposure { get; set; } = 0.0110f;
         public static float Decay { get; set; } = 0.9925f;
         public static float Density { get; set; } = 1.036f;
@@ -279,23 +282,20 @@ namespace UniaCore
         {
             if (freqPoints != null)
             {
+                var pos = new XNA.Vector2(0, 50);
+
                 var vp = g.GraphicsDevice.Viewport;
                 g.GraphicsDevice.SetRenderTarget(main);
                 g.GraphicsDevice.Clear(XNAG.ClearOptions.Target, new XNA.Vector4(0f, 0f, 0f, 0f), 1, 0);
                 g.Begin(XNAG.SpriteSortMode.Immediate, XNAG.BlendState.AlphaBlend);
-                for (int i = 0; i < (hostControl ?? monohostControl).Width; i++)
+                for (int i = 1; i < (hostControl ?? monohostControl).Width/* * (Mode == DrawingMode.Freq ? 2 : 1)*/; i++)
                 {
 
                     //wfp.Color = freqPoints[i].col;
                     var col = freqPoints[i].col.ToXNA();
-                    //g.DrawLine(new XNA.Vector2(freqPoints[i].point.X, HorizontalOffset + freqPoints[i].point.Y), new XNA.Vector2(freqPoints[i - 1].point.X, HorizontalOffset + freqPoints[i - 1].point.Y), col);
-                    g.DrawLine(new XNA.Vector2(freqPoints[i].point.X, freqPoints[i].point.Y), new XNA.Vector2(freqPoints[i].point.X, HorizontalOffset + freqPoints[i].size.Y), col);
-                    //g.DrawFill(new XNA.Vector2(freqPoints[i].point.X, freqPoints[i].point.Y), new XNA.Vector2(Step, freqPoints[i].size.Y), freqPoints[i].col.ToXNA());
-                    //g.DrawLine(wfp, freqPoints[i].point.X + 1, HorizontalOffset, (freqPoints[i].point.X + 1) + ((i - 150f) * 0.6f), HorizontalOffset + freqPoints[i].size.Y * 0.3f);
-                    //g.DrawImage(img, freqPoints[i].point.X, freqPoints[i].point.Y, Step - 1, (int)freqPoints[i].size.Y);
-                    //g.DrawImage(img, freqPoints[i].point.X, freqPoints[i].point.Y, Step - 1, (int)freqPoints[i].size.Y);
-                    //wfb.Color = freqPoints[100].col;
-                    //g.FillClosedCurve(wfb, freqPoints.Select(p => p.point).ToArray());
+                    g.DrawLine(new XNA.Vector2(freqPoints[i].point.X, 0 + freqPoints[i].point.Y), new XNA.Vector2(freqPoints[i - 1].point.X, freqPoints[i - 1].point.Y), col);
+                    //g.DrawFill(pos + new XNA.Vector2(freqPoints[i].point.X, freqPoints[i].point.Y), new XNA.Vector2(Step, freqPoints[i].size.Y), freqPoints[i].col.ToXNA());
+
                 }
                 //g.DrawString();
                 g.End();
@@ -306,13 +306,12 @@ namespace UniaCore
                 var emit = new XNA.Rectangle(new XNA.Vector2(0, HorizontalOffset - 70 / 2).ToPoint(), new XNA.Vector2(MonoHost.Size.Width, 70).ToPoint());
                 var ec = MonoHost.EmitColor;
 
-
                 g.GraphicsDevice.SetRenderTarget(buf1);
                 {
                     g.GraphicsDevice.Clear(XNAG.ClearOptions.Target, new XNA.Vector4(0f, 0f, 0f, 0f), 1.0f, 0);
                     g.Begin(XNAG.SpriteSortMode.Immediate, XNAG.BlendState.AlphaBlend/*, effect: e*/);
 
-                    g.Draw(main, XNA.Vector2.Zero, XNA.Color.White);
+                    g.Draw(main, new XNA.Vector2(), XNA.Color.White);
                     //g.DrawFill(emit, ec);
 
                     //g.Draw(main, XNA.Vector2.Zero, XNA.Color.Black);
@@ -329,7 +328,7 @@ namespace UniaCore
                 emitter.Parameters["gDensity"].SetValue(Density + (monohostControl.Peak) * 0.1f);
                 emitter.Parameters["gDecay"].SetValue(Decay);
                 emitter.Parameters["gWeight"].SetValue(Weight);
-                emitter.Parameters["gExposure"].SetValue(Exposure * 8 * (monohostControl.Peak));
+                emitter.Parameters["gExposure"].SetValue(Exposure * 8 * (monohostControl.Peak / 2) * .5f);
                 emitter.Parameters["NUM_SAMPLES"].SetValue(numSamples);
 
                 g.Begin(XNAG.SpriteSortMode.Deferred, XNAG.BlendState.AlphaBlend, XNAG.SamplerState.AnisotropicClamp, null, null, emitter);
@@ -338,13 +337,15 @@ namespace UniaCore
 
                 g.GraphicsDevice.SetRenderTarget(null);
 
-                g.Begin(effect: e);
+                g.Begin(/*effect: e*/);
                 //g.DrawFill(emit, ec);
-                g.Draw(main, XNA.Vector2.Zero);
+                g.Draw(main, XNA.Vector2.Zero, XNA.Color.White);
+                //g.Draw(buf1, XNA.Vector2.Zero, XNA.Color.White * .5f);
                 g.End();
 
-                g.Begin(XNAG.SpriteSortMode.Immediate, XNAG.BlendState.Additive);
-                g.Draw(rays, XNA.Vector2.Zero);
+                g.Begin(XNAG.SpriteSortMode.Deferred, XNAG.BlendState.Additive);
+                g.Draw(rays, new XNA.Vector2());
+                //g.Draw(main,  new XNA.Vector2(0, HorizontalOffset / 2), null, XNA.Color.White * .5f, 0, XNA.Vector2.Zero, new XNA.Vector2(1, .5f), XNAG.SpriteEffects.FlipVertically, 1);
                 g.End();
 
             }

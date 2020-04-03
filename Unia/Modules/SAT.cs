@@ -26,9 +26,7 @@ namespace UniaCore
     {
         public void InitSAT()
         {
-
-            speedwatch.Start();
-            stopwatch.Start();
+             
         }
 
         static int
