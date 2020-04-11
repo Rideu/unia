@@ -188,7 +188,9 @@ namespace UniaCore.Components
         {
             if (DesignMode)
                 return;
+
             base.Draw(gameTime);
+            GraphicsDevice.Clear(BackColor.ToXNA());
             spectrum.DrawSpectrum(spriteBatch, rt, rays, buf1, e, ray);
         }
     }

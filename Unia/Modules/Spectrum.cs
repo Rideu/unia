@@ -245,7 +245,7 @@ namespace UniaCore
             }
             else if (mm.canvas1.BackColor != canvback)
             {
-                mm.spectrumViewer1.BackColor = (mm.canvas1.BackColor = canvback).ToXNA();
+                mm.spectrumViewer1.BackColor = (mm.canvas1.BackColor = canvback)/*.ToXNA()*/;
             }
 
         }

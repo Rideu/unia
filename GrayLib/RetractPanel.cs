@@ -24,26 +24,59 @@ namespace GrayLib
     {
         Point InitialPosition;
         EventHandler dl;
+
         public RetractPanel()
         {
             InitializeComponent();
             InitialPosition = Location;
+            finalY = InitialPosition.Y - Height + buttonRetract.Height;
 
             dl = (s, e) =>
             {
                 InitialPosition = Location;
+                
+                finalY = (dirTop) ? InitialPosition.Y - Height + buttonRetract.Height : InitialPosition.Y + Height + buttonRetract.Height*2;
                 LocationChanged -= dl;
             };
             LocationChanged += dl;
         }
 
         [Category("Appearance")]
-        public string ButtonText { get => buttonLoad.Text; set => buttonLoad.Text = value; }
+        public string ButtonText { get => buttonRetract.Text; set => buttonRetract.Text = value; }
+
+        bool bRetrAtTop = true;
+        [Category("Appearance")]
+        public bool ButtonAtTop
+        {
+            get => bRetrAtTop; set
+            {
+                if (bRetrAtTop = value)
+                {
+                    buttonRetract.Dock = DockStyle.Top;
+                }
+                else
+                {
+                    buttonRetract.Dock = DockStyle.Bottom;
+                }
+            }
+        }
+
+
+        bool dirTop = true;
+        [Category("Appearance")]
+        /// If true, the panel goes up (std) and down otherwise.
+        public bool DirectedAtTop
+        {
+            get => dirTop;
+            set => dirTop = value;
+        }
 
         bool isRetracted = true;
         bool isMoving;
         PointF fLocation;
         float lerp;
+
+        int finalY;
 
         void Extend(object sender, EventArgs e)
         {
@@ -53,12 +86,13 @@ namespace GrayLib
                 isMoving = (isRetracted = false);
                 t.Stop();
                 t.Tick -= Extend;
-                Location = new Point(InitialPosition.X, InitialPosition.Y - Height + buttonLoad.Height);
+                Location = new Point(InitialPosition.X, finalY);
                 lerp = 0;
             }
             else
             {
-                fLocation = new PointF(Location.X, PowXIn(InitialPosition.Y, InitialPosition.Y - Height + buttonLoad.Height, lerp, 4));
+                var l = lerp;
+                fLocation = new PointF(Location.X, PowXIn(InitialPosition.Y, finalY, l, 4));
                 Location = new Point((int)fLocation.X, (int)fLocation.Y);
             }
         }
@@ -75,13 +109,14 @@ namespace GrayLib
             }
             else
             {
-                fLocation = new PointF(Location.X, PowXIn(InitialPosition.Y - Height + buttonLoad.Height, InitialPosition.Y, lerp, 4));
+                var l = lerp;
+                fLocation = new PointF(Location.X, PowXIn(finalY, InitialPosition.Y, l, 4));
                 Location = new Point((int)fLocation.X, (int)fLocation.Y);
             }
         }
         Timer t = new Timer();
 
-        private void buttonLoad_Click(object sender, EventArgs e)
+        public void RollPanel()
         {
             if (isMoving) return;
 
@@ -92,7 +127,11 @@ namespace GrayLib
             t.Interval = 1;
             isMoving = true;
             t.Start();
+        }
 
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            RollPanel();
         }
     }
 }

@@ -34,18 +34,22 @@
             // labelHeader
             // 
             this.labelHeader.AutoSize = true;
+            this.labelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(164)))), ((int)(((byte)(164)))));
-            this.labelHeader.Location = new System.Drawing.Point(4, 3);
+            this.labelHeader.Location = new System.Drawing.Point(2, 2);
             this.labelHeader.Name = "labelHeader";
-            this.labelHeader.Size = new System.Drawing.Size(0, 13);
+            this.labelHeader.Size = new System.Drawing.Size(25, 13);
             this.labelHeader.TabIndex = 1;
+            this.labelHeader.Text = "123";
             // 
             // GrayPanel
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.labelHeader);
-            this.Padding = new System.Windows.Forms.Padding(2, 20, 2, 2);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(164)))), ((int)(((byte)(164)))));
+            this.Name = "GrayPanel";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.Size = new System.Drawing.Size(148, 148);
             this.ResumeLayout(false);
             this.PerformLayout();

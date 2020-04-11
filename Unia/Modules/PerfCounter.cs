@@ -36,11 +36,12 @@ namespace UniaCore
 
 
         static float lmcps, rmcps;
-        static float 
-            cc, 
-            newCpuValue, oldCpuValue, 
+        static float
+            cc,
+            newCpuValue, oldCpuValue,
             newRamValue, oldRamValue;
         static int nbin, cbin, obin, nbout, cbout, obout;
+        static int sc, tc;
 
         public async static void UpdatePerf()
         {

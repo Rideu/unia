@@ -35,7 +35,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panelSpectrumSets = new System.Windows.Forms.Panel();
-            this.grayButton1 = new GrayLib.GrayButton();
+            this.grayButtonSettings = new GrayLib.GrayButton();
             this.vertScrollWavefactor = new UniaCore.GrayScroll();
             this.checkBoxColoriseCanvas = new System.Windows.Forms.CheckBox();
             this.buttonSH = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.buttonSL = new System.Windows.Forms.Button();
             this.checkBoxTopMostSwitch = new System.Windows.Forms.CheckBox();
             this.checkBoxFadeSwitch = new System.Windows.Forms.CheckBox();
+            this.retractPanelSettings = new GrayLib.RetractPanel();
             this.retractPanel4 = new UniaCore.Components.RetractPanel();
             this.buttonTreegex = new System.Windows.Forms.Button();
             this.buttonSIE = new System.Windows.Forms.Button();
@@ -54,14 +55,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.retractPanel3 = new UniaCore.Components.RetractPanel();
-            this.labelSpeed = new System.Windows.Forms.Label();
-            this.labelBestSpeed = new System.Windows.Forms.Label();
-            this.labelLMC = new System.Windows.Forms.Label();
-            this.labelDist = new System.Windows.Forms.Label();
-            this.labelKeys = new System.Windows.Forms.Label();
-            this.labelRMC = new System.Windows.Forms.Label();
-            this.labelJumps = new System.Windows.Forms.Label();
             this.retractPanel2 = new UniaCore.Components.RetractPanel();
             this.panelCPUI = new System.Windows.Forms.Panel();
             this.labelCPUVl = new System.Windows.Forms.Label();
@@ -90,7 +83,6 @@
             this.panelHeader.SuspendLayout();
             this.panelSpectrumSets.SuspendLayout();
             this.retractPanel4.SuspendLayout();
-            this.retractPanel3.SuspendLayout();
             this.retractPanel2.SuspendLayout();
             this.panelCPUI.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -157,31 +149,32 @@
             // 
             this.panelSpectrumSets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.panelSpectrumSets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSpectrumSets.Controls.Add(this.grayButton1);
+            this.panelSpectrumSets.Controls.Add(this.grayButtonSettings);
             this.panelSpectrumSets.Controls.Add(this.vertScrollWavefactor);
             this.panelSpectrumSets.Controls.Add(this.checkBoxColoriseCanvas);
             this.panelSpectrumSets.Controls.Add(this.buttonSH);
             this.panelSpectrumSets.Controls.Add(this.buttonSM);
             this.panelSpectrumSets.Controls.Add(this.buttonBC);
             this.panelSpectrumSets.Controls.Add(this.buttonSL);
-            this.panelSpectrumSets.Location = new System.Drawing.Point(3, 23);
+            this.panelSpectrumSets.Location = new System.Drawing.Point(0, 23);
             this.panelSpectrumSets.Name = "panelSpectrumSets";
             this.panelSpectrumSets.Size = new System.Drawing.Size(177, 54);
             this.panelSpectrumSets.TabIndex = 24;
             this.panelSpectrumSets.Click += new System.EventHandler(this.panelSpectrumSets_Click);
             // 
-            // grayButton1
+            // grayButtonSettings
             // 
-            this.grayButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.grayButton1.BackgroundImage = global::UniaCore.Properties.Resources.sets;
-            this.grayButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.grayButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.grayButton1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.grayButton1.Location = new System.Drawing.Point(136, 3);
-            this.grayButton1.Name = "grayButton1";
-            this.grayButton1.Size = new System.Drawing.Size(22, 22);
-            this.grayButton1.TabIndex = 9;
-            this.grayButton1.UseVisualStyleBackColor = true;
+            this.grayButtonSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.grayButtonSettings.BackgroundImage = global::UniaCore.Properties.Resources.sets;
+            this.grayButtonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.grayButtonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.grayButtonSettings.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.grayButtonSettings.Location = new System.Drawing.Point(136, 3);
+            this.grayButtonSettings.Name = "grayButtonSettings";
+            this.grayButtonSettings.Size = new System.Drawing.Size(22, 22);
+            this.grayButtonSettings.TabIndex = 9;
+            this.grayButtonSettings.UseVisualStyleBackColor = true;
+            this.grayButtonSettings.Click += new System.EventHandler(this.grayButtonSettings_Click);
             // 
             // vertScrollWavefactor
             // 
@@ -282,6 +275,18 @@
             this.checkBoxFadeSwitch.UseVisualStyleBackColor = true;
             this.checkBoxFadeSwitch.CheckedChanged += new System.EventHandler(this.checkBoxFadeSwitch_CheckedChanged);
             // 
+            // retractPanelSettings
+            // 
+            this.retractPanelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.retractPanelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanelSettings.ButtonAtTop = false;
+            this.retractPanelSettings.ButtonText = "Done";
+            this.retractPanelSettings.DirectedAtTop = false;
+            this.retractPanelSettings.Location = new System.Drawing.Point(179, -218);
+            this.retractPanelSettings.Name = "retractPanelSettings";
+            this.retractPanelSettings.Size = new System.Drawing.Size(361, 241);
+            this.retractPanelSettings.TabIndex = 27;
+            // 
             // retractPanel4
             // 
             this.retractPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -297,7 +302,7 @@
             this.retractPanel4.Controls.Add(this.button4);
             this.retractPanel4.Controls.Add(this.button3);
             this.retractPanel4.Controls.Add(this.button2);
-            this.retractPanel4.Location = new System.Drawing.Point(755, 423);
+            this.retractPanel4.Location = new System.Drawing.Point(759, 423);
             this.retractPanel4.Name = "retractPanel4";
             this.retractPanel4.Size = new System.Drawing.Size(141, 207);
             this.retractPanel4.TabIndex = 23;
@@ -428,114 +433,6 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // retractPanel3
-            // 
-            this.retractPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.retractPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.retractPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.retractPanel3.ButtonText = "SA Tracker";
-            this.retractPanel3.Controls.Add(this.labelSpeed);
-            this.retractPanel3.Controls.Add(this.labelBestSpeed);
-            this.retractPanel3.Controls.Add(this.labelLMC);
-            this.retractPanel3.Controls.Add(this.labelDist);
-            this.retractPanel3.Controls.Add(this.labelKeys);
-            this.retractPanel3.Controls.Add(this.labelRMC);
-            this.retractPanel3.Controls.Add(this.labelJumps);
-            this.retractPanel3.Location = new System.Drawing.Point(215, 423);
-            this.retractPanel3.Name = "retractPanel3";
-            this.retractPanel3.Size = new System.Drawing.Size(274, 207);
-            this.retractPanel3.TabIndex = 22;
-            // 
-            // labelSpeed
-            // 
-            this.labelSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(30)))));
-            this.labelSpeed.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.labelSpeed.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelSpeed.Location = new System.Drawing.Point(3, 184);
-            this.labelSpeed.Name = "labelSpeed";
-            this.labelSpeed.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelSpeed.Size = new System.Drawing.Size(172, 18);
-            this.labelSpeed.TabIndex = 16;
-            this.labelSpeed.Text = "228 c.u.";
-            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelBestSpeed
-            // 
-            this.labelBestSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(30)))));
-            this.labelBestSpeed.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(204)));
-            this.labelBestSpeed.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelBestSpeed.Location = new System.Drawing.Point(3, 184);
-            this.labelBestSpeed.Name = "labelBestSpeed";
-            this.labelBestSpeed.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelBestSpeed.Size = new System.Drawing.Size(266, 18);
-            this.labelBestSpeed.TabIndex = 17;
-            this.labelBestSpeed.Text = "[Module not found]";
-            this.labelBestSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // labelLMC
-            // 
-            this.labelLMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelLMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLMC.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelLMC.Location = new System.Drawing.Point(3, 85);
-            this.labelLMC.Name = "labelLMC";
-            this.labelLMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelLMC.Size = new System.Drawing.Size(133, 51);
-            this.labelLMC.TabIndex = 12;
-            this.labelLMC.Text = "Mouse";
-            this.labelLMC.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // labelDist
-            // 
-            this.labelDist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelDist.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDist.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelDist.Location = new System.Drawing.Point(3, 139);
-            this.labelDist.Name = "labelDist";
-            this.labelDist.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelDist.Size = new System.Drawing.Size(133, 43);
-            this.labelDist.TabIndex = 14;
-            this.labelDist.Text = "Distance";
-            this.labelDist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelKeys
-            // 
-            this.labelKeys.BackColor = System.Drawing.SystemColors.WindowText;
-            this.labelKeys.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelKeys.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelKeys.Location = new System.Drawing.Point(3, 32);
-            this.labelKeys.Name = "labelKeys";
-            this.labelKeys.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelKeys.Size = new System.Drawing.Size(266, 53);
-            this.labelKeys.TabIndex = 3;
-            this.labelKeys.Text = "Keys";
-            // 
-            // labelRMC
-            // 
-            this.labelRMC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelRMC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRMC.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelRMC.Location = new System.Drawing.Point(142, 85);
-            this.labelRMC.Name = "labelRMC";
-            this.labelRMC.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelRMC.Size = new System.Drawing.Size(127, 51);
-            this.labelRMC.TabIndex = 13;
-            this.labelRMC.Text = "Mouse";
-            this.labelRMC.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
-            // labelJumps
-            // 
-            this.labelJumps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labelJumps.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelJumps.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelJumps.Location = new System.Drawing.Point(142, 139);
-            this.labelJumps.Name = "labelJumps";
-            this.labelJumps.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelJumps.Size = new System.Drawing.Size(127, 43);
-            this.labelJumps.TabIndex = 15;
-            this.labelJumps.Text = "Jumps";
-            this.labelJumps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // retractPanel2
             // 
             this.retractPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -548,7 +445,7 @@
             this.retractPanel2.Controls.Add(this.labelCPU);
             this.retractPanel2.Controls.Add(this.panelMIDI);
             this.retractPanel2.Controls.Add(this.label2);
-            this.retractPanel2.Location = new System.Drawing.Point(3, 423);
+            this.retractPanel2.Location = new System.Drawing.Point(0, 423);
             this.retractPanel2.Name = "retractPanel2";
             this.retractPanel2.Size = new System.Drawing.Size(124, 207);
             this.retractPanel2.TabIndex = 21;
@@ -716,7 +613,7 @@
             this.retractPanel1.Controls.Add(this.panel3);
             this.retractPanel1.Controls.Add(this.label7);
             this.retractPanel1.Controls.Add(this.label6);
-            this.retractPanel1.Location = new System.Drawing.Point(129, 423);
+            this.retractPanel1.Location = new System.Drawing.Point(125, 423);
             this.retractPanel1.Name = "retractPanel1";
             this.retractPanel1.Size = new System.Drawing.Size(84, 207);
             this.retractPanel1.TabIndex = 20;
@@ -828,7 +725,7 @@
             // 
             // spectrumViewer1
             // 
-            //this.spectrumViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.spectrumViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.spectrumViewer1.Location = new System.Drawing.Point(0, 20);
             this.spectrumViewer1.Name = "spectrumViewer1";
             this.spectrumViewer1.Size = new System.Drawing.Size(900, 433);
@@ -842,9 +739,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(900, 450);
             this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.retractPanelSettings);
             this.Controls.Add(this.checkBoxFadeSwitch);
             this.Controls.Add(this.retractPanel4);
-            this.Controls.Add(this.retractPanel3);
             this.Controls.Add(this.retractPanel2);
             this.Controls.Add(this.panelSpectrumSets);
             this.Controls.Add(this.canvas1);
@@ -865,7 +762,6 @@
             this.panelSpectrumSets.ResumeLayout(false);
             this.panelSpectrumSets.PerformLayout();
             this.retractPanel4.ResumeLayout(false);
-            this.retractPanel3.ResumeLayout(false);
             this.retractPanel2.ResumeLayout(false);
             this.panelCPUI.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -886,7 +782,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label labelKeys;
         private System.Windows.Forms.Label labelMem;
         private System.Windows.Forms.Label labelCPU;
         private System.Windows.Forms.Panel panelCPUI;
@@ -913,14 +808,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxTopMostSwitch;
         private Components.Canvas canvas1;
-        private System.Windows.Forms.Label labelLMC;
-        private System.Windows.Forms.Label labelRMC;
-        private System.Windows.Forms.Label labelDist;
-        private System.Windows.Forms.Label labelJumps;
-        private System.Windows.Forms.Label labelSpeed;
         private Components.RetractPanel retractPanel1;
         private Components.RetractPanel retractPanel2;
-        private Components.RetractPanel retractPanel3;
         private Components.RetractPanel retractPanel4;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panelSpectrumSets;
@@ -935,9 +824,9 @@
         private System.Windows.Forms.Button buttonSIE;
         public GrayScroll vertScrollWavefactor;
         private System.Windows.Forms.Button buttonTreegex;
-        private GrayLib.GrayButton grayButton1;
+        private GrayLib.GrayButton grayButtonSettings;
         public Components.SpectrumViewer spectrumViewer1;
         private System.Windows.Forms.CheckBox checkBoxFadeSwitch;
-        private System.Windows.Forms.Label labelBestSpeed;
+        private GrayLib.RetractPanel retractPanelSettings;
     }
 }

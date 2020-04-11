@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
@@ -172,6 +171,7 @@ namespace UniaCore
                     {
 
                         var res = frequencies[i];
+
                         var value = ((float)Sqrt(res.X * res.X / .65f + res.Y * res.Y / .65f) * (2000 + i * (i * .05f))) / .2f;
                         value = (float)Sqrt(value / (value + 111)) * 25;
                         var ac = 0.0f;
@@ -183,14 +183,13 @@ namespace UniaCore
                         value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.8f : v;
                         value = value < 1 ? 1 : value;
 
-                        var exp = ((float)Pow(value / 4, .01f + exponent * 2 / .61f) / (16 * exponent) * 16 * (1 / (value / 50)));
+                        var exp = ((float)Pow(value / 4, .1f + exponent / .3f) / 4 * (.5f / (value / 250)));
                         var s = i % 2 == 0 ? 1 : -1;
-                        var tx = (i) * Step + i;
+                        var tx = (i) * Step /*+ i*/;
                         var ty = (exp) /** s*/;
                         ty = (i > 2 ?
-                        (ty +
-                        freqPoints[i - 1].size.Y + freqPoints[i + 1].size.Y +
-                        freqPoints[i - 2].size.Y + freqPoints[i + 2].size.Y) / 5 : ty) * 1.1f;
+                        (ty + freqPoints[i - 1].size.Y + freqPoints[i + 1].size.Y + freqPoints[i - 2].size.Y + freqPoints[i + 2].size.Y) / 5 :
+                        (ty + freqPoints[i + 1].size.Y + freqPoints[i + 2].size.Y) / 3);
 
                         var mx = (1 - (float)Abs(tx - mp.X) * 4 / 60);
                         var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
@@ -280,6 +279,20 @@ namespace UniaCore
 
         public void DrawSpectrum(XNAG.SpriteBatch g, XNAG.RenderTarget2D main, XNAG.RenderTarget2D rays, XNAG.RenderTarget2D buf1, XNAG.Effect e, XNAG.Effect emitter)
         {
+            //SendMessageTimeout(progman,
+            //           0x052C,
+            //           new IntPtr(0),
+            //           IntPtr.Zero,
+            //           W32.SendMessageTimeoutFlags.SMTO_NORMAL,
+            //           1000,
+            //           out result);
+            //Point pt = Cursor.Position;
+            //using (var gr = Graphics.FromHdc(hdc))
+            //{
+            //    gr.CompositingMode = CompositingMode.SourceOver;
+            //    gr.DrawEllipse(Pens.Black, pt.X - 10, pt.Y - 10, 20, 20);
+            //}
+
             if (freqPoints != null)
             {
                 var pos = new XNA.Vector2(0, 50);
@@ -293,7 +306,7 @@ namespace UniaCore
 
                     //wfp.Color = freqPoints[i].col;
                     var col = freqPoints[i].col.ToXNA();
-                    g.DrawLine(new XNA.Vector2(freqPoints[i].point.X, 0 + freqPoints[i].point.Y), new XNA.Vector2(freqPoints[i - 1].point.X, freqPoints[i - 1].point.Y), col);
+                    g.DrawLine(new XNA.Vector2(freqPoints[i].point.X, freqPoints[i].point.Y), new XNA.Vector2(freqPoints[i - 1].point.X, freqPoints[i - 1].point.Y), col);
                     //g.DrawFill(pos + new XNA.Vector2(freqPoints[i].point.X, freqPoints[i].point.Y), new XNA.Vector2(Step, freqPoints[i].size.Y), freqPoints[i].col.ToXNA());
 
                 }

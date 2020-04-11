@@ -10,7 +10,6 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Diagnostics;

@@ -25,7 +25,7 @@ namespace GrayLib
         public SpriteBatch spriteBatch;
         public Viewport MonoViewport;
         public Texture2D Sample;
-        public new Color BackColor;
+        public Color Diffuse;
 
         protected override void Initialize()
         {

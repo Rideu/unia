@@ -75,8 +75,7 @@ namespace UniaCore
 
             DoubleBuffered = true;
 
-            InitSpectrum();
-            InitSAT();
+            InitSpectrum(); 
 
             formFade.OnFinish += (s, e) =>
             {
@@ -128,8 +127,7 @@ namespace UniaCore
         static Stopwatch sw = new Stopwatch();
         static void MainMenu()
         {
-            MainSpectrum();
-            MainSAT();
+            MainSpectrum(); 
         }
 
         static string keybuf = "";
@@ -139,8 +137,7 @@ namespace UniaCore
         static void refresh()
         {
 
-            UpdatePerf();
-            UpdateSAT();
+            UpdatePerf(); 
             UpdateSpectrum();
 
         }
@@ -157,8 +154,7 @@ namespace UniaCore
             //mm.canvas1.Refresh();
             refresh();
 
-            DrawPerf();
-            DrawSAT();
+            DrawPerf(); 
 
         }
 
@@ -320,6 +316,11 @@ namespace UniaCore
         }
         #endregion
 
+
+        private void grayButtonSettings_Click(object sender, EventArgs e)
+        {
+            retractPanelSettings.RollPanel();
+        }
 
         static Color canvback = Properties.Settings.Default.canvback;
 

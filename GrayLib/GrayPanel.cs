@@ -12,6 +12,10 @@ namespace GrayLib
 {
     public partial class GrayPanel : Panel
     {
+        //[Category("Appearance")]
+        //[Browsable(true)]
+        //public ContentAlignment HeaderAlignment { get => labelHeader.TextAlign; set => labelHeader.TextAlign = value; }
+
         [Category("Appearance")]
         [Browsable(true)]
         public string Header
@@ -20,14 +24,14 @@ namespace GrayLib
             set
             {
                 labelHeader.Text = value;
-                if (value.Length > 0)
-                {
-                    Padding = new Padding(0, 20, 0, 0);
-                }
-                else
-                {
-                    Padding = new Padding(0, 0, 0, 0);
-                }
+                //if (value.Length > 0)
+                //{
+                //    Padding = new Padding(0, 20, 0, 0);
+                //}
+                //else
+                //{
+                //    Padding = new Padding(0, 0, 0, 0);
+                //}
             }
         }
 
