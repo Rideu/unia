@@ -24,65 +24,68 @@ namespace UniaCore
         static WaveInProvider wip;
         static IWaveProvider to16p;
         static SampleAggregator sampleAggregator;
-        static MMDevice pad;
+        static volatile MMDevice pad;
 
 
         static WaveFormat wf = new WaveFormat(44100, 2);
         static MemoryStream ams = new MemoryStream();
-        static RawSourceWaveStream r;
+        static BufferSourceWaveStream r;
         static WaveOut wout;
         static WaveBuffer wb = new WaveBuffer(0);
 
 
 
-        public void InitSpectrum()
+        public async void InitSpectrum()
         {
             pad = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Communications);
-            _capture = new WasapiLoopbackCapture();
-
-            //wip = new WaveInProvider(_capture);
-            //to16p = new WaveFloatTo16Provider(wip);
-
-            sampleAggregator = new SampleAggregator(8192 / 4);
-            sampleAggregator.FftCalculated += new EventHandler<FftEventArgs>(FftCalculated);
-            sampleAggregator.PerformFFT = true;
-
-            r = new RawSourceWaveStream(new byte[19200], 0, 19200, wf);
-            //waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
-
-            _capture.DataAvailable += OnDataAvailable;
-
-            _capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
+            await Task.Run(() =>
             {
-                byte[] b = new byte[e.BytesRecorded];
-                //var l = to16p.Read(b, 0, e.BytesRecorded);
 
-                r = new RawSourceWaveStream(e.Buffer, 0, e.BytesRecorded, wf);
-                //r.Write(e.Buffer, 0, e.BytesRecorded);
-                //byte[] buffer = e.Buffer;
-                //int bytesRecorded = e.BytesRecorded;
-                //int bufferIncrement = _capture.WaveFormat.BlockAlign;
+                _capture = new WasapiLoopbackCapture { };
+                //wip = new WaveInProvider(_capture);
+                //to16p = new WaveFloatTo16Provider(wip);
 
-                //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
-                //{
-                //    float sample32 = BitConverter.ToSingle(buffer, index);
-                //}
-                //to16p.Read(b, 0, e.BytesRecorded);
-                ams.Position = 0;
-                ams.Write(b, 0, e.BytesRecorded);
-                byteBuffer = e.Buffer;
-            };
+                sampleAggregator = new SampleAggregator(8192 / 4);
+                sampleAggregator.FftCalculated += new EventHandler<FftEventArgs>(FftCalculated);
+                sampleAggregator.PerformFFT = true;
 
-            //r = new RawSourceWaveStream(ams, _capture.WaveFormat);
-            img = new Bitmap(1, 3);
-            //img.SetPixel(0, 0, Color.FromArgb(57, 18, 3));
-            //img.SetPixel(0, 1, Color.OrangeRed);
-            //img.SetPixel(0, 2, Color.Yellow);
-            img.SetPixel(0, 0, Color.FromArgb(96, 128, 255));
-            img.SetPixel(0, 1, Color.FromArgb(32, 64, 96));
-            img.SetPixel(0, 2, Color.FromArgb(40, 80, 160));
-            _capture.StartRecording();
-            //waveIn.StartRecording();
+                r = new BufferSourceWaveStream(new byte[64000], 0, 64000, wf);
+                //waveIn = new WaveIn() { WaveFormat = new WaveFormat(44100, 2), };
+
+                _capture.DataAvailable += OnDataAvailable;
+
+                _capture.DataAvailable += delegate (object sender, WaveInEventArgs e)
+                {
+                    byte[] b = new byte[e.BytesRecorded];
+                    //var l = to16p.Read(b, 0, e.BytesRecorded);
+
+                    //r = new BufferSourceWaveStream(e.Buffer, 0, e.BytesRecorded, wf);
+                    r.Write(e.Buffer, 0, e.BytesRecorded);
+                    //byte[] buffer = e.Buffer;
+                    //int bytesRecorded = e.BytesRecorded;
+                    //int bufferIncrement = _capture.WaveFormat.BlockAlign;
+
+                    //for (int index = 0; index < bytesRecorded; index += bufferIncrement)
+                    //{
+                    //    float sample32 = BitConverter.ToSingle(buffer, index);
+                    //}
+                    //to16p.Read(b, 0, e.BytesRecorded);
+                    ams.Position = 0;
+                    ams.Write(b, 0, e.BytesRecorded);
+                    byteBuffer = e.Buffer;
+                };
+
+                //r = new RawSourceWaveStream(ams, _capture.WaveFormat);
+                img = new Bitmap(1, 3);
+                //img.SetPixel(0, 0, Color.FromArgb(57, 18, 3));
+                //img.SetPixel(0, 1, Color.OrangeRed);
+                //img.SetPixel(0, 2, Color.Yellow);
+                img.SetPixel(0, 0, Color.FromArgb(96, 128, 255));
+                img.SetPixel(0, 1, Color.FromArgb(32, 64, 96));
+                img.SetPixel(0, 2, Color.FromArgb(40, 80, 160));
+                _capture.StartRecording();
+                //waveIn.StartRecording();
+            });
         }
 
         void FftCalculated(object sender, FftEventArgs e)
@@ -113,7 +116,7 @@ namespace UniaCore
                     float sample32 = BitConverter.ToSingle(byteBuffer, index);
                     //sampleAggregator.Add((float)Math.Pow(sample32 / 4, 3));
                     sampleAggregator.Add(sample32);
-                } 
+                }
             }
         }
 
@@ -181,9 +184,9 @@ namespace UniaCore
                         //}
 
                         //byteBuffer = null;
-                        var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
+                        //var s = new WdlResamplingSampleProvider(r.ToSampleProvider(), 44100);
 
-                        SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
+                        //SampleToWaveProvider16 pcma = new SampleToWaveProvider16(r.ToSampleProvider());
 
                         r.Position = 0L;
                         var samplesPerPixel = 2;

@@ -42,15 +42,15 @@ namespace UniaCore
             var rsc = Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
             //this.TransparencyKey = Color.FromArgb(255, 0, 0, 0);
 
-            foreach (DictionaryEntry n in rsc)
-            {
-                if (n.Key.ToString() == "ffmpeg")
-                    using (StreamReader reader = new StreamReader(new MemoryStream((byte[])n.Value)))
-                    {
-                        //Assembly.Load((byte[])n.Value).EntryPoint.Invoke(null, null);
-                        //ShaderLib.Add($"{n.Key.ToString()}", "Resources/" + n.Key.ToString() + ".fx");
-                    }
-            }
+            //foreach (DictionaryEntry n in rsc)
+            //{
+            //    if (n.Key.ToString() == "ffmpeg")
+            //        using (StreamReader reader = new StreamReader(new MemoryStream((byte[])n.Value)))
+            //        {
+            //            //Assembly.Load((byte[])n.Value).EntryPoint.Invoke(null, null);
+            //            //ShaderLib.Add($"{n.Key.ToString()}", "Resources/" + n.Key.ToString() + ".fx");
+            //        }
+            //}
             t = new Timer();
             t.Interval = 16;
             t.Tick += delegate
