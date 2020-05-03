@@ -38,7 +38,7 @@
             this.regCell7 = new UniaCore.Peripherals.Treegex.RegCell();
             this.regCell8 = new UniaCore.Peripherals.Treegex.RegCell();
             this.regCell9 = new UniaCore.Peripherals.Treegex.RegCell();
-            this.winHeader1 = new UniaCore.WinHeader();
+            this.winHeader1 = new GrayLib.WinHeader();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,6 +190,6 @@
         private RegCell regCell7;
         private RegCell regCell8;
         private RegCell regCell9;
-        private WinHeader winHeader1;
+        private GrayLib.WinHeader winHeader1;
     }
 }

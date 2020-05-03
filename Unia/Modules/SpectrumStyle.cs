@@ -135,7 +135,7 @@ namespace UniaCore
         }
 
         static int SampleWidth = 2048;
-        static int aliasteps = 4;
+        static int aliasteps = 3;
         volatile List<float[]> aliasing = new List<float[]>();
 
         static Stopwatch sw = new Stopwatch();
@@ -159,7 +159,7 @@ namespace UniaCore
             {
                 aliasing[i] = aliasing[i - 1];
             }
-            var threads = 2;
+            var threads = 1;
             var chunkLength = hostsize.Width / threads / Step;
 
             // TODO: move spectrum analyzer here
@@ -172,21 +172,24 @@ namespace UniaCore
 
                         var res = frequencies[i];
 
-                        var value = ((float)Sqrt(res.X * res.X / .65f + res.Y * res.Y / .65f) * (2000 + i * (i * .05f))) / .2f;
-                        value = (float)Sqrt(value / (value + 111)) * 25;
+                        var value = ((float)Sqrt(res.X * res.X / .65f + res.Y * res.Y / .65f) * (2000 + i * (50 - i * .05f))) / .2f;
+                        value = (float)(value / (value + 411)) * 25;
                         var ac = 0.0f;
                         for (int sm = 1; sm < aliasing.Count; sm++)
                         {
                             ac += aliasing[sm][i];
                         }
-                        var v = ((ac / 1.4f + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (4 + 0.11f)) * 1.2f;
-                        value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.8f : v;
+                        var v = ((ac / 1.1f + value /*(aliasing[0][i - 1] + value*3 + aliasing[0][i + 1]) / 4*/) / (4 + 0.11f)) * 1.2f;
+                        value = aliasing[0][i] = aliasing[0][i] > v ? aliasing[0][i] - 0.4f : v;
                         value = value < 1 ? 1 : value;
 
-                        var exp = ((float)Pow(value / 4, .1f + exponent / .3f) / 4 * (.5f / (value / 250)));
-                        var s = i % 2 == 0 ? 1 : -1;
-                        var tx = (i) * Step /*+ i*/;
-                        var ty = (exp) /** s*/;
+                        var vx = value / 5;
+
+                        var exp = (vx * vx) / (value / 512);
+                        //var s = i % 2 == 0 ? 1 : -1;
+                        var s = 1;
+                        var tx = (i) * Step + i;
+                        var ty = (exp) /** 50 * exponent*/;
                         ty = (i > 2 ?
                         (ty + freqPoints[i - 1].size.Y + freqPoints[i + 1].size.Y + freqPoints[i - 2].size.Y + freqPoints[i + 2].size.Y) / 5 :
                         (ty + freqPoints[i + 1].size.Y + freqPoints[i + 2].size.Y) / 3);
@@ -195,8 +198,8 @@ namespace UniaCore
                         var my = (1 - (float)Abs(HorizontalOffset - mp.Y) * 4 / 240).Clamp(0, 1);
                         var c = LerpCol(LerpCol(SpectrumLowColor, LerpCol(SpectrumMidColor, SpectrumHighColor, (value / (10 / exponent))), (value / (15 / exponent))), Color.Red, mx * my);
 
-                        freqPoints[i].point = new PointF(Step / 4 + tx, HorizontalOffset + 100 - ty);
-                        freqPoints[i].size = new PointF(tx, ty * 1);
+                        freqPoints[i].point = new PointF(Step / 4 + tx, HorizontalOffset + 100 - ty * s);
+                        freqPoints[i].size = new PointF(tx, ty * 1 * s);
                         freqPoints[i].col = c;
                     }
                 });

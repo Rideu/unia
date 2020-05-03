@@ -218,8 +218,8 @@ namespace UniaCore
                                     num3 = num5;
                                 }
                             }
-                            float num6 = ((float)num2 - -32768f) / 65535f;
-                            float num7 = ((float)num3 - -32768f) / 65535f;
+                            float num6 = (num2 - -32768f) / 65535f;
+                            float num7 = (num3 - -32768f) / 65535f;
                             nawf[(int)num].Y = (num6 + num7 + oawf[(int)num].Y) / 2f;
                         }
 

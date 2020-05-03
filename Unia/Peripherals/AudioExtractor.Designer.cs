@@ -31,13 +31,13 @@
             this.textBoxWID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.grayRichTexBox1 = new UniaCore.Components.GrayRichTextBox();
-            this.grayProgressBar1 = new UniaCore.Components.GrayProgressBar();
+            this.grayRichTexBox1 = new GrayLib.GrayRichTextBox();
+            this.grayProgressBar1 = new GrayLib.GrayProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxOut = new System.Windows.Forms.TextBox();
-            this.grayButton1 = new UniaCore.Components.GrayButton();
+            this.grayButton1 = new GrayLib.GrayButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.winHeader1 = new UniaCore.WinHeader();
+            this.winHeader1 = new GrayLib.WinHeader();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -183,14 +183,14 @@
         #endregion
         private System.Windows.Forms.TextBox textBoxWID;
         private System.Windows.Forms.Label label1;
-        private Components.GrayButton grayButton1;
+        private GrayLib.GrayButton grayButton1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBoxOut;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private Components.GrayProgressBar grayProgressBar1;
-        private WinHeader winHeader1;
-        private Components.GrayRichTextBox grayRichTexBox1;
+        private GrayLib.GrayProgressBar grayProgressBar1;
+        private GrayLib.WinHeader winHeader1;
+        private GrayLib.GrayRichTextBox grayRichTexBox1;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }

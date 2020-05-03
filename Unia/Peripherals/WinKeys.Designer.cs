@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.labelKeys = new System.Windows.Forms.Label();
-            this.winHeader1 = new UniaCore.WinHeader();
+            this.winHeader1 = new GrayLib.WinHeader();
             this.SuspendLayout();
             // 
             // labelKeys
@@ -76,7 +76,7 @@
 
         #endregion
 
-        private WinHeader winHeader1;
+        private GrayLib.WinHeader winHeader1;
         private System.Windows.Forms.Label labelKeys;
     }
 }

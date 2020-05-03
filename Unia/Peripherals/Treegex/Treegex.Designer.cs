@@ -1,4 +1,6 @@
-﻿namespace UniaCore
+﻿using GrayLib;
+
+namespace UniaCore
 {
     partial class Treegex
     {
@@ -31,13 +33,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Treegex));
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.Context = new UniaCore.Components.GrayRichTextBox();
-            this.ErrorList = new UniaCore.Components.GrayRichTextBox();
-            this.Input = new UniaCore.Components.GrayRichTextBox();
-            this.RegexIn = new UniaCore.Components.GrayRichTextBox();
-            this.winHeader1 = new UniaCore.WinHeader();
-            this.SaveRegex = new UniaCore.Components.GrayButton();
-            this.OpenRegex = new UniaCore.Components.GrayButton();
+            this.Context = new GrayLib.GrayRichTextBox();
+            this.ErrorList = new GrayLib.GrayRichTextBox();
+            this.Input = new GrayLib.GrayRichTextBox();
+            this.RegexIn = new GrayLib.GrayRichTextBox();
+            this.winHeader1 = new GrayLib.WinHeader();
+            this.SaveRegex = new GrayLib.GrayButton();
+            this.OpenRegex = new GrayLib.GrayButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,13 +187,13 @@
         #endregion
 
         private WinHeader winHeader1;
-        private Components.GrayRichTextBox Input;
-        private Components.GrayRichTextBox Context;
-        private Components.GrayRichTextBox ErrorList;
-        private Components.GrayRichTextBox RegexIn;
+        private GrayLib.GrayRichTextBox Input;
+        private GrayLib.GrayRichTextBox Context;
+        private GrayLib.GrayRichTextBox ErrorList;
+        private GrayLib.GrayRichTextBox RegexIn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private Components.GrayButton SaveRegex;
-        private Components.GrayButton OpenRegex;
+        private GrayLib.GrayButton SaveRegex;
+        private GrayLib.GrayButton OpenRegex;
     }
 }

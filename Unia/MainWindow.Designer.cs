@@ -36,7 +36,7 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panelSpectrumSets = new System.Windows.Forms.Panel();
             this.grayButtonSettings = new GrayLib.GrayButton();
-            this.vertScrollWavefactor = new UniaCore.GrayScroll();
+            this.vertScrollWavefactor = new GrayLib.GrayScroll();
             this.checkBoxColoriseCanvas = new System.Windows.Forms.CheckBox();
             this.buttonSH = new System.Windows.Forms.Button();
             this.buttonSM = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@
             this.checkBoxTopMostSwitch = new System.Windows.Forms.CheckBox();
             this.checkBoxFadeSwitch = new System.Windows.Forms.CheckBox();
             this.retractPanelSettings = new GrayLib.RetractPanel();
-            this.retractPanel4 = new UniaCore.Components.RetractPanel();
+            this.retractPanel4 = new GrayLib.RetractPanel();
             this.buttonTreegex = new System.Windows.Forms.Button();
             this.buttonSIE = new System.Windows.Forms.Button();
             this.buttonVidConv = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.retractPanel2 = new UniaCore.Components.RetractPanel();
+            this.retractPanel2 = new GrayLib.RetractPanel();
             this.panelCPUI = new System.Windows.Forms.Panel();
             this.labelCPUVl = new System.Windows.Forms.Label();
             this.labelCPUVh = new System.Windows.Forms.Label();
@@ -68,8 +68,8 @@
             this.labelMIDVh = new System.Windows.Forms.Label();
             this.labelMIDVl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.canvas1 = new UniaCore.Components.Canvas();
-            this.retractPanel1 = new UniaCore.Components.RetractPanel();
+            this.canvas1 = new GrayLib.Canvas();
+            this.retractPanel1 = new GrayLib.RetractPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.labelOUTVh = new System.Windows.Forms.Label();
             this.labelOUTVl = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             this.labelINVl = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.spectrumViewer1 = new UniaCore.Components.SpectrumViewer();
+            this.spectrumViewer1 = new UniaCore.SpectrumViewer();
             this.panelHeader.SuspendLayout();
             this.panelSpectrumSets.SuspendLayout();
             this.retractPanel4.SuspendLayout();
@@ -104,7 +104,7 @@
             this.panelHeader.Margin = new System.Windows.Forms.Padding(0);
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(900, 23);
-            this.panelHeader.TabIndex = 6;
+            this.panelHeader.TabIndex = 0;
             this.panelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             this.panelHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
             // 
@@ -184,7 +184,7 @@
             this.vertScrollWavefactor.MaximumSize = new System.Drawing.Size(9999, 14);
             this.vertScrollWavefactor.MinimumSize = new System.Drawing.Size(100, 14);
             this.vertScrollWavefactor.Name = "vertScrollWavefactor";
-            this.vertScrollWavefactor.Orient = UniaCore.GrayScroll.Orientype.Horizontal;
+            this.vertScrollWavefactor.Orient = GrayLib.GrayScroll.Orientype.Horizontal;
             this.vertScrollWavefactor.Size = new System.Drawing.Size(169, 14);
             this.vertScrollWavefactor.TabIndex = 5;
             this.vertScrollWavefactor.Value = -0.01481481F;
@@ -292,6 +292,7 @@
             this.retractPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.retractPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.retractPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel4.ButtonAtTop = true;
             this.retractPanel4.ButtonText = "Utilities";
             this.retractPanel4.Controls.Add(this.buttonTreegex);
             this.retractPanel4.Controls.Add(this.buttonSIE);
@@ -302,6 +303,7 @@
             this.retractPanel4.Controls.Add(this.button4);
             this.retractPanel4.Controls.Add(this.button3);
             this.retractPanel4.Controls.Add(this.button2);
+            this.retractPanel4.DirectedAtTop = true;
             this.retractPanel4.Location = new System.Drawing.Point(759, 423);
             this.retractPanel4.Name = "retractPanel4";
             this.retractPanel4.Size = new System.Drawing.Size(141, 207);
@@ -351,17 +353,10 @@
             // 
             // button8
             // 
-            this.button8.BackColor = System.Drawing.Color.BurlyWood;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button8.Location = new System.Drawing.Point(3, 141);
+            this.button8.Location = new System.Drawing.Point(0, 0);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(40, 30);
-            this.button8.TabIndex = 10;
-            this.button8.Text = "DBM";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 14;
             // 
             // buttonCommNET
             // 
@@ -438,6 +433,7 @@
             this.retractPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.retractPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.retractPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel2.ButtonAtTop = true;
             this.retractPanel2.ButtonText = "Hardware";
             this.retractPanel2.Controls.Add(this.panelCPUI);
             this.retractPanel2.Controls.Add(this.labelMem);
@@ -445,7 +441,8 @@
             this.retractPanel2.Controls.Add(this.labelCPU);
             this.retractPanel2.Controls.Add(this.panelMIDI);
             this.retractPanel2.Controls.Add(this.label2);
-            this.retractPanel2.Location = new System.Drawing.Point(0, 423);
+            this.retractPanel2.DirectedAtTop = true;
+            this.retractPanel2.Location = new System.Drawing.Point(0, 424);
             this.retractPanel2.Name = "retractPanel2";
             this.retractPanel2.Size = new System.Drawing.Size(124, 207);
             this.retractPanel2.TabIndex = 21;
@@ -607,13 +604,15 @@
             this.retractPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.retractPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.retractPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.retractPanel1.ButtonAtTop = true;
             this.retractPanel1.ButtonText = "Network";
             this.retractPanel1.Controls.Add(this.panel4);
             this.retractPanel1.Controls.Add(this.label5);
             this.retractPanel1.Controls.Add(this.panel3);
             this.retractPanel1.Controls.Add(this.label7);
             this.retractPanel1.Controls.Add(this.label6);
-            this.retractPanel1.Location = new System.Drawing.Point(125, 423);
+            this.retractPanel1.DirectedAtTop = true;
+            this.retractPanel1.Location = new System.Drawing.Point(125, 424);
             this.retractPanel1.Name = "retractPanel1";
             this.retractPanel1.Size = new System.Drawing.Size(84, 207);
             this.retractPanel1.TabIndex = 20;
@@ -729,7 +728,7 @@
             this.spectrumViewer1.Location = new System.Drawing.Point(0, 20);
             this.spectrumViewer1.Name = "spectrumViewer1";
             this.spectrumViewer1.Size = new System.Drawing.Size(900, 433);
-            this.spectrumViewer1.TabIndex = 25;
+            this.spectrumViewer1.TabIndex = 2;
             // 
             // MainWindow
             // 
@@ -807,10 +806,10 @@
         private System.Windows.Forms.Label labelOUTVl;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxTopMostSwitch;
-        private Components.Canvas canvas1;
-        private Components.RetractPanel retractPanel1;
-        private Components.RetractPanel retractPanel2;
-        private Components.RetractPanel retractPanel4;
+        private GrayLib.Canvas canvas1;
+        private GrayLib.RetractPanel retractPanel1;
+        private GrayLib.RetractPanel retractPanel2;
+        private GrayLib.RetractPanel retractPanel4;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panelSpectrumSets;
         private System.Windows.Forms.ColorDialog colorDialog1;
@@ -822,10 +821,10 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button buttonVidConv;
         private System.Windows.Forms.Button buttonSIE;
-        public GrayScroll vertScrollWavefactor;
+        public GrayLib.GrayScroll vertScrollWavefactor;
         private System.Windows.Forms.Button buttonTreegex;
         private GrayLib.GrayButton grayButtonSettings;
-        public Components.SpectrumViewer spectrumViewer1;
+        public SpectrumViewer spectrumViewer1;
         private System.Windows.Forms.CheckBox checkBoxFadeSwitch;
         private GrayLib.RetractPanel retractPanelSettings;
     }

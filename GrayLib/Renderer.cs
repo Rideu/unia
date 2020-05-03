@@ -88,7 +88,7 @@ namespace GrayLib
             parameters.BackBufferWidth = Math.Max(width, 1);
             parameters.BackBufferHeight = Math.Max(height, 1);
             parameters.BackBufferFormat = SurfaceFormat.Color;
-            parameters.DepthStencilFormat = DepthFormat.Depth24;
+            parameters.DepthStencilFormat = DepthFormat.None;
             parameters.DeviceWindowHandle = windowHandle;
             parameters.PresentationInterval = PresentInterval.Immediate;
             parameters.IsFullScreen = false;
@@ -148,16 +148,14 @@ namespace GrayLib
         /// </summary>
         public void ResetDevice(int width, int height)
         {
-            if (DeviceResetting != null)
-                DeviceResetting(this, EventArgs.Empty);
+            DeviceResetting?.Invoke(this, EventArgs.Empty);
 
             parameters.BackBufferWidth = Math.Max(parameters.BackBufferWidth, width);
             parameters.BackBufferHeight = Math.Max(parameters.BackBufferHeight, height);
 
             graphicsDevice.Reset(parameters);
 
-            if (DeviceReset != null)
-                DeviceReset(this, EventArgs.Empty);
+            DeviceReset?.Invoke(this, EventArgs.Empty);
         }
 
 
@@ -263,8 +261,7 @@ namespace GrayLib
         /// Initializes the control.
         /// </summary>
         protected override void OnCreateControl()
-        {
-            BackColor = Color.FromArgb(30, 30, 30);
+        { 
             // Don't initialize the graphics device if we are running in the designer.
             if (!DesignMode)
             {

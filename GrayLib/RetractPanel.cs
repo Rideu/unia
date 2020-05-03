@@ -20,7 +20,7 @@ using static GrayLib.Helper;
 
 namespace GrayLib
 {
-    public partial class RetractPanel : Panel
+    public partial class RetractPanel : UserControl
     {
         Point InitialPosition;
         EventHandler dl;
@@ -29,13 +29,13 @@ namespace GrayLib
         {
             InitializeComponent();
             InitialPosition = Location;
-            finalY = InitialPosition.Y - Height + buttonRetract.Height;
+            finalY = InitialPosition.Y - Height - buttonRetract.Height * 2;
 
             dl = (s, e) =>
             {
                 InitialPosition = Location;
-                
-                finalY = (dirTop) ? InitialPosition.Y - Height + buttonRetract.Height : InitialPosition.Y + Height + buttonRetract.Height*2;
+
+                finalY = (dirTop) ? InitialPosition.Y - Height - buttonRetract.Height * 2 : InitialPosition.Y + Height + buttonRetract.Height * 2;
                 LocationChanged -= dl;
             };
             LocationChanged += dl;
@@ -44,7 +44,7 @@ namespace GrayLib
         [Category("Appearance")]
         public string ButtonText { get => buttonRetract.Text; set => buttonRetract.Text = value; }
 
-        bool bRetrAtTop = true;
+        bool bRetrAtTop = false;
         [Category("Appearance")]
         public bool ButtonAtTop
         {

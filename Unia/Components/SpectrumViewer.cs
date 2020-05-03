@@ -43,7 +43,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization;
 using TwoMGFX;
 
-namespace UniaCore.Components
+namespace UniaCore
 {
     public class SpectrumViewer : Viewer
     {

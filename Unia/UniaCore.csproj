@@ -165,58 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BufferSourceWaveStream.cs" />
-    <Compile Include="Components\Canvas.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Components\Canvas.Designer.cs">
-      <DependentUpon>Canvas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Components\GrayButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Components\GrayButton.Designer.cs">
-      <DependentUpon>GrayButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Components\GrayPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Components\GrayPanel.Designer.cs">
-      <DependentUpon>GrayPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Components\GrayProgressBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Components\GrayProgressBar.Designer.cs">
-      <DependentUpon>GrayProgressBar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Components\GrayRichTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Components\GrayRichTextBox.Designer.cs">
-      <DependentUpon>GrayRichTextBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Components\LerpAnimation.cs" />
-    <Compile Include="Components\RetractPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Components\RetractPanel.Designer.cs">
-      <DependentUpon>RetractPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Components\GrayScroll.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Components\GrayScroll.designer.cs">
-      <DependentUpon>GrayScroll.cs</DependentUpon>
-    </Compile>
     <Compile Include="Components\Simplex.cs" />
     <Compile Include="Components\SpectrumViewer.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Components\WinHeader.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Components\WinHeader.Designer.cs">
-      <DependentUpon>WinHeader.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Eval.cs" />
     <Compile Include="Modules\Hooks.cs" />
@@ -229,12 +181,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\SpectrumStyle.cs" />
-    <Compile Include="Peripherals\CodeTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Peripherals\CodeTextBox.Designer.cs">
-      <DependentUpon>CodeTextBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,12 +194,6 @@
       <DependentUpon>Connections.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Helper.cs" />
-    <Compile Include="Peripherals\MySQLMGR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Peripherals\MySQLMGR.Designer.cs">
-      <DependentUpon>MySQLMGR.cs</DependentUpon>
-    </Compile>
     <Compile Include="Peripherals\SubImageExtraction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,27 +263,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sniffer.cs" />
-    <EmbeddedResource Include="Components\GrayButton.resx">
-      <DependentUpon>GrayButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\GrayPanel.resx">
-      <DependentUpon>GrayPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\GrayProgressBar.resx">
-      <DependentUpon>GrayProgressBar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\GrayRichTextBox.resx">
-      <DependentUpon>GrayRichTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\RetractPanel.resx">
-      <DependentUpon>RetractPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\GrayScroll.resx">
-      <DependentUpon>GrayScroll.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Components\WinHeader.resx">
-      <DependentUpon>WinHeader.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -352,9 +271,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\Measure.resx">
       <DependentUpon>Measure.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Peripherals\MySQLMGR.resx">
-      <DependentUpon>MySQLMGR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Peripherals\SubImageExtraction.resx">
       <DependentUpon>SubImageExtraction.cs</DependentUpon>

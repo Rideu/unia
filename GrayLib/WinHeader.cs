@@ -23,6 +23,7 @@ namespace GrayLib
         {
             owner = FindForm();
             labelFormName.Text = owner.Text;
+            owner.TextChanged += (s, ev) => { labelFormName.Text = owner.Text; };
         }
 
         Point lastLocation;

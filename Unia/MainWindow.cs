@@ -251,11 +251,7 @@ namespace UniaCore
             Properties.Settings.Default.Save();
             
         }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            ShowDialog<MySQLMGR>();
-        }
+         
 
         private void button6_Click(object sender, EventArgs e)
         {
